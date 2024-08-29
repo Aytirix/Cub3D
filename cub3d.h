@@ -6,7 +6,7 @@
 /*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:56:08 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/08/28 18:10:24 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:36:57 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,15 @@
 
 # include<stdlib.h>
 # include<unistd.h>
-# include<mlx.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <stdio.h>
+
+# include"gnl/get_next_line.h"
+# include"mlx/mlx.h"
 # include"ft_printf/libftprintf.h"
+
 
 // ------------------ STRUCTURE -------------------------
 
@@ -49,6 +56,17 @@ typedef struct	s_ray // structure et definition de toutes les vars du rayon
 }					t_ray;
 
 // ------------------ FONTIONS -------------------------
+
+
+// ------------------ MAP -------------------------
+
+char	**get_map(char *map_name);
+int	format_checker(char **map);
+int	map_lenth(char **map);
+int	map_height(char **map);
+
+
+void	ft_error(char* message);
 
 
 // ------------------  -------------------------

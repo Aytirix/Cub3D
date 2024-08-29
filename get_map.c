@@ -6,14 +6,14 @@
 /*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 09:13:49 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/08/28 15:32:46 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:14:21 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "so_long.h"
-
 // Vient de so_long
 // Pareil va etre utile pour recuperer la map du .cub
+
+#include"cub3d.h"
 
 
 char	**get_map(char *map_name)
@@ -26,7 +26,7 @@ char	**get_map(char *map_name)
 	map = malloc((sizeof(char *) * (13 + 1)));
 	fd = open(map_name, O_RDONLY);
 	if (fd == -1)
-		ft_error(1);
+		ft_error("Map impossible to read \n");
 	while (1)
 	{
 		map[i] = get_next_line(fd);
@@ -55,7 +55,7 @@ int	format_checker(char **map)
 			x++;
 		if (x != columns)
 		{
-			ft_error(1);
+			ft_error("Wrong format \n");
 			return (0);
 		}
 		x = 0;

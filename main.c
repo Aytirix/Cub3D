@@ -6,14 +6,17 @@
 /*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 16:51:03 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/08/28 18:32:55 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:20:38 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include"cub3d.h"
 
-int main()
+int main(int argc, char** argv)
 {
+	ft_printf("argc = %d\n", argc);
 
+	get_map(argv[1]);
 
 	return 0;
 }
@@ -59,3 +62,19 @@ int main()
 // 3/ Horizontal crossing
 // 4/ Vertical crossing
 // 5/ Affichage mlx
+
+
+// STEPS =
+//		- get FOV and pos
+//		- Cut in rays
+//		- For each rays, calculate the dist to wall (with horiz and vertical inter)
+//		- Render walls, w/ thales and mlx
+
+// 1 FOV = x rays
+// 1 rays = 1 Wall distance
+// 1 wall distance = 1 wall height
+// 1 wall height = render wall + floor + ceilling
+
+//	----------------OTHER -------------------
+
+// Movement handeling + rendering = get_keys and adjust pos + cam_plan + rotation

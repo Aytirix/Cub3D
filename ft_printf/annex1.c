@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   annex1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hle-roux <hle-roux@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 18:54:42 by hle-roux          #+#    #+#             */
-/*   Updated: 2023/07/14 19:18:58 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:16:38 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	ft_putunbr(unsigned int nb)
 	unsigned int	buff;
 
 	buff = nb;
-	if (nb >= 0 && nb <= 9)
+	if (/*nb >= 0 &&*/ nb <= 9)
 	{
 		nb = nb + 48;
 		write (1, &nb, 1);
