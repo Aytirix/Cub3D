@@ -6,7 +6,7 @@
 #    By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 20:29:29 by hle-roux          #+#    #+#              #
-#    Updated: 2024/08/29 16:56:57 by hle-roux         ###   ########.fr        #
+#    Updated: 2024/08/30 15:01:16 by hle-roux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ HEADER = .
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	gcc -fPIE -Wall -Werror -Wextra -o $@ $<
+	gcc -Wall -Werror -Wextra -o $@ $<
 
 clean :
 	/bin/rm -f ${OBJ}

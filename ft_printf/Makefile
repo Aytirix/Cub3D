@@ -6,7 +6,7 @@
 #    By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 17:02:02 by hle-roux          #+#    #+#              #
-#    Updated: 2024/08/29 18:23:53 by hle-roux         ###   ########.fr        #
+#    Updated: 2024/08/30 15:01:08 by hle-roux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NAME = libftprintf.a
 HEADER = .
 
 .c.o:
-	gcc -fPIE -Wall -Werror -Wextra -I ${HEADER} -c $< -o ${<:.c=.o}
+	gcc -Wall -Werror -Wextra -I ${HEADER} -c $< -o ${<:.c=.o}
 
 all: $(NAME)
 

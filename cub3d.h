@@ -6,7 +6,7 @@
 /*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:56:08 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/08/29 16:36:57 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:34:27 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ char	**get_map(char *map_name);
 int	format_checker(char **map);
 int	map_lenth(char **map);
 int	map_height(char **map);
+
+void	create_window();
 
 
 void	ft_error(char* message);

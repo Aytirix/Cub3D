@@ -6,7 +6,7 @@
 /*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 09:13:49 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/08/29 15:14:21 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:23:02 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ char	**get_map(char *map_name)
 		i++;
 	}
 	map[i] = NULL;
+
+	i = 0;
+	while(map[i])
+		ft_printf("%s",map[i++]);
 	return (map);
 }
 
