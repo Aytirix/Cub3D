@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 16:51:03 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/08/29 18:20:38 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/08/31 17:12:54 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int main(int argc, char** argv)
 
 	get_map(argv[1]);
 
+	create_window();
+
 	return 0;
 }
 
@@ -28,9 +30,11 @@ int main(int argc, char** argv)
 // 			---	 RESSOURCES	---
 //
 //	https://medium.com/@afatir.ahmedfatir/cub3d-tutorial-af5dd31d2fcf#:~:text=some%20walls%20now.-,Part%203%3A%20Rendering%3A,-so%20now%20we
+//	https://github.com/AhmedFatir/cub3D
+
 //	https://reactive.so/post/42-a-comprehensive-guide-to-cub3d/
 //	https://medium.com/@rtailidounia/raycasting-in-cub3d-42-network-project-a-practical-tutorial-using-vectors-68eeb16b3de2
-//	https://www.youtube.com/watch?v=js7HW65MmNw&list=PL0H9-oZl_QOHM34HvD3DiGmwmj5X7GvTW
+
 //	https://github.com/iciamyplant/Cub3d-Linux
 
 
@@ -39,6 +43,8 @@ int main(int argc, char** argv)
 //		- Raycasting 		= Maths, calculation
 //		- Rendering 		= Image + scaling
 //		- Player Mov		= mlx
+
+//	Principe = Diviser en rayon vertical puis placer le wall puis le floor / ceilling 
 
 //	----------------COMPILATION -------------------
 
@@ -74,6 +80,15 @@ int main(int argc, char** argv)
 // 1 rays = 1 Wall distance
 // 1 wall distance = 1 wall height
 // 1 wall height = render wall + floor + ceilling
+
+
+//	----------------RENDERING -------------------
+
+//	Boucler pour chaque rayon (tranches)
+//	Fix fisheye + get Wall Height
+//	Calculate bottom and top pixel
+//	Draw colors
+
 
 //	----------------OTHER -------------------
 

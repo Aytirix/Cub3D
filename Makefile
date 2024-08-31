@@ -3,17 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+         #
+#    By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/29 14:50:05 by hle-roux          #+#    #+#              #
-#    Updated: 2024/08/30 18:27:23 by hle-roux         ###   ########.fr        #
+#    Updated: 2024/08/31 15:57:43 by hugo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -I/usr/include -Imlx_Linux
+CFLAGS = -Wall -Wextra -I/usr/include -Imlx
 LFLAGS = -L ft_printf/ -lftprintf -lreadline -Lmlx -lmlx_Linux
+X11_FLAGS = -L/usr/X11/lib -lXext -lX11
+
 
 NAME = cub3d
 
@@ -30,10 +32,10 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	make -C ft_printf/
-	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
+	$(CC) -o $@ $^ -Lmlx -lmlx -Lft_printf -lftprintf -Ift_printf $(X11_FLAGS) -lm
 
 %.o : %.c
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) -Wall -Wextra -o $@ -c $<
 
 clean:
 	@$(MAKE) -C ft_printf/ clean

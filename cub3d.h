@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:56:08 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/08/30 15:34:27 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/08/31 16:08:04 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct	s_ray // structure et definition de toutes les vars du rayon
 	double		diry; //vecteur de direction (commence à -1 pour W, 1 pour E, 0 sinon)
 	double		planx; //vecteur du plan (commence à 0.66 pour E, -0.66 pour W, 0 sinon)
 	double		plany; //vecteur du plan (commence à 0.66 pour N, -0.66 pour S, 0 sinon)
+
 	double		raydirx; //calcul de direction x du rayon
 	double		raydiry; //calcul de direction y du rayon
 	double		camerax; //point x sur la plan camera : Gauche ecran = -1, milieu = 0, droite = 1
@@ -55,6 +56,11 @@ typedef struct	s_ray // structure et definition de toutes les vars du rayon
 	int		x; //permet de parcourir tous les rayons
 }					t_ray;
 
+typedef struct s_mlx
+{
+	
+
+}	t_mlx;
 // ------------------ FONTIONS -------------------------
 
 
