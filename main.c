@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 16:51:03 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/08/31 17:12:54 by hugo             ###   ########.fr       */
+/*   Updated: 2024/09/02 19:05:00 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,39 @@
 
 int main(int argc, char** argv)
 {
-	ft_printf("argc = %d\n", argc);
+	t_data *data;
 
-	get_map(argv[1]);
+	data = calloc(1, sizeof(t_data));
 
-	create_window();
+	init_data(data, argv[1]);
+
+	game_launch(data);
 
 	return 0;
 }
 
+void	game_launch(t_data *data)
+{
+
+
+	create_window(data);
+
+}
+
+
+t_data*	init_data(t_data *data, char *map_name)
+{
+		printf("ayooo \n");
+
+	t_map *map = calloc(1, sizeof(t_map));
+	data->map->map = get_map(map_name);
+		printf("ayooo \n");
+
+	return (data);
+}
 
 
 // --------------	Cub3d	--------------------------
-
-// 			---	 RESSOURCES	---
-//
-//	https://medium.com/@afatir.ahmedfatir/cub3d-tutorial-af5dd31d2fcf#:~:text=some%20walls%20now.-,Part%203%3A%20Rendering%3A,-so%20now%20we
-//	https://github.com/AhmedFatir/cub3D
-
-//	https://reactive.so/post/42-a-comprehensive-guide-to-cub3d/
-//	https://medium.com/@rtailidounia/raycasting-in-cub3d-42-network-project-a-practical-tutorial-using-vectors-68eeb16b3de2
-
-//	https://github.com/iciamyplant/Cub3d-Linux
-
 
 // -> 4 parties
 //		- Map + Window 		= mlx + parsing
@@ -44,22 +54,16 @@ int main(int argc, char** argv)
 //		- Rendering 		= Image + scaling
 //		- Player Mov		= mlx
 
-//	Principe = Diviser en rayon vertical puis placer le wall puis le floor / ceilling 
+//	Principe = Diviser en rayon vertical puis placer le wall puis le floor / ceilling
 
-//	----------------COMPILATION -------------------
 
-// When compiling the code, you must include the necessary frameworks
-// 	and link the glfw library, as well as the libmlx.a.
-// The flag (-O3 -ffast-math) is used for optimization.
-// The flag (-framework) is used to specify the required frameworks.
-// the flag (-lglfw) is for linking the glfw library
-// the flag (-L) is for the path to the glfw library
-// the flag (-o) is for the name of the executable file
+//	---------------- PROCESS -------------------
 
-//	----------------COMPILATION -------------------
-
-// Creer des structures pour player, rayon, data, mlx.. etc
-
+// 	- Init Struct
+//	- Init Data
+//	- Create game loop
+//	- Init window
+//	- Start raycasting
 
 //	----------------RAYCASTING -------------------
 
@@ -93,3 +97,15 @@ int main(int argc, char** argv)
 //	----------------OTHER -------------------
 
 // Movement handeling + rendering = get_keys and adjust pos + cam_plan + rotation
+
+
+
+// 			---	 RESSOURCES	---
+//
+//	https://medium.com/@afatir.ahmedfatir/cub3d-tutorial-af5dd31d2fcf#:~:text=some%20walls%20now.-,Part%203%3A%20Rendering%3A,-so%20now%20we
+//	https://github.com/AhmedFatir/cub3D
+
+//	https://reactive.so/post/42-a-comprehensive-guide-to-cub3d/
+//	https://medium.com/@rtailidounia/raycasting-in-cub3d-42-network-project-a-practical-tutorial-using-vectors-68eeb16b3de2
+
+//	https://github.com/iciamyplant/Cub3d-Linux

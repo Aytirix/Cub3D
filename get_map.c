@@ -6,7 +6,7 @@
 /*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 09:13:49 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/08/30 15:23:02 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:06:12 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**get_map(char *map_name)
 	char	**map;
 
 	i = 0;
-	map = malloc((sizeof(char *) * (13 + 1)));
+	map = malloc((sizeof(char *) * (13 + 1))); // malloc ici mais pas dans la struct
 	fd = open(map_name, O_RDONLY);
 	if (fd == -1)
 		ft_error("Map impossible to read \n");
