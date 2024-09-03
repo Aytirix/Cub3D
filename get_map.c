@@ -6,7 +6,7 @@
 /*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 09:13:49 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/02 19:06:12 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:05:53 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,71 +19,72 @@
 char	**get_map(char *map_name)
 {
 	int		i;
+	int		k;
 	int		fd;
 	char	**map;
 
 	i = 0;
-	map = malloc((sizeof(char *) * (13 + 1))); // malloc ici mais pas dans la struct
+	k = 0;
+	map = malloc((sizeof(char *) * (13 + 1)));
 	fd = open(map_name, O_RDONLY);
 	if (fd == -1)
 		ft_error("Map impossible to read \n");
+	while (k++ <= 11)
+		get_next_line(fd);
 	while (1)
 	{
 		map[i] = get_next_line(fd);
+		ft_printf("%s",map[i]);
 		if (map[i] == NULL)
 			break ;
 		i++;
 	}
 	map[i] = NULL;
-
-	i = 0;
-	while(map[i])
-		ft_printf("%s",map[i++]);
 	return (map);
 }
 
-int	format_checker(char **map)
-{
-	int		y;
-	int		x;
-	int		columns;
+// int	format_checker(char **map)
+// {
+// 	int		y;
+// 	int		x;
+// 	int		columns;
 
-	x = 0;
-	y = 0;
-	columns = 0;
-	while (map[0][columns] != 0)
-		columns++;
-	while (map[y] != NULL)
-	{
-		while (map[y][x])
-			x++;
-		if (x != columns)
-		{
-			ft_error("Wrong format \n");
-			return (0);
-		}
-		x = 0;
-		y++;
-	}
-	return (1);
-}
+// 	x = 0;
+// 	y = 0;
+// 	columns = 0;
+// 	while (map[0][columns] != 0)
+// 		columns++;
+// 	while (map[y] != NULL)
+// 	{
+// 		while (map[y][x])
+// 			x++;
+// 		if (x != columns)
+// 		{
+// 			ft_error("Wrong format \n");
+// 			return (0);
+// 		}
+// 		x = 0;
+// 		y++;
+// 	}
+// 	return (1);
+// }
 
-int	map_lenth(char **map)
-{
-	int	i;
+// int	map_lenth(char **map)
+// {
+// 	int	i;
 
-	i = 0;
-	while (map[0][i])
-		i++;
-	return (i - 1);
-}
+// 	i = 0;
+// 	while (map[0][i])
+// 		i++;
+// 	return (i - 1);
+// }
 
-int	map_height(char **map)
-{
-	int	i;
+// int	map_height(char **map)
+// {
+// 	int	i;
 
-	i = 0;
-	while (map[i])
-		i++;
-	return (i);
-}
+// 	i = 0;
+// 	while (map[i])
+// 		i++;
+// 	return (i);
+// }

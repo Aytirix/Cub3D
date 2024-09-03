@@ -6,7 +6,7 @@
 /*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 16:51:03 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/02 19:05:00 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/09/03 18:53:07 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 int main(int argc, char** argv)
 {
 	t_data *data;
+
+	if (argc != 2)
+		return 0;
 
 	data = calloc(1, sizeof(t_data));
 
@@ -25,25 +28,23 @@ int main(int argc, char** argv)
 	return 0;
 }
 
-void	game_launch(t_data *data)
-{
-
-
-	create_window(data);
-
-}
-
-
 t_data*	init_data(t_data *data, char *map_name)
 {
-		printf("ayooo \n");
-
-	t_map *map = calloc(1, sizeof(t_map));
+	data->ray = calloc(1, sizeof(t_ray));
+	data->map = calloc(1, sizeof(t_map));
+	data->player = calloc(1, sizeof(t_player));
 	data->map->map = get_map(map_name);
-		printf("ayooo \n");
+	get_ply_pos(data);
 
 	return (data);
 }
+
+void	game_launch(t_data *data)
+{
+	create_window(data);
+}
+
+
 
 
 // --------------	Cub3d	--------------------------
@@ -59,8 +60,8 @@ t_data*	init_data(t_data *data, char *map_name)
 
 //	---------------- PROCESS -------------------
 
-// 	- Init Struct
-//	- Init Data
+// 	- Init Struct		--> Some may ne missing but will see
+//	- Init Data 		--> almost done
 //	- Create game loop
 //	- Init window
 //	- Start raycasting
