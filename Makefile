@@ -6,7 +6,7 @@
 #    By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/29 14:50:05 by hle-roux          #+#    #+#              #
-#    Updated: 2024/09/03 18:52:28 by hle-roux         ###   ########.fr        #
+#    Updated: 2024/09/04 15:51:39 by hle-roux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ SRC = 	main.c \
 		gnl/get_next_line.c \
 		gnl/get_next_line_utils.c \
 		init.c \
+		movement.c \
+		game_loop.c \
 
 OBJ = $(SRC:.c=.o)
 

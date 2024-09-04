@@ -6,7 +6,7 @@
 /*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:12:22 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/03 18:34:37 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:44:01 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	get_ply_pos(t_data *data)
 				data->player->p_y = j;
 				get_start_angle(data, data->map->map[i][j]);
 				printf("Pole %f \n", data->player->angle);
-				//break;
 			}
 			j++;
 		}

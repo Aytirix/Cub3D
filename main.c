@@ -6,7 +6,7 @@
 /*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 16:51:03 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/03 18:53:07 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:34:20 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,11 @@ void	game_launch(t_data *data)
 
 // 	- Init Struct		--> Some may ne missing but will see
 //	- Init Data 		--> almost done
-//	- Create game loop
-//	- Init window
+//	- Create game loop	--> ok for now
+//	- Init window		--> OK ?
 //	- Start raycasting
+//	- Render Wall
+//	- Handle mvt
 
 //	----------------RAYCASTING -------------------
 
@@ -72,7 +74,8 @@ void	game_launch(t_data *data)
 // 2/ Loop and increment
 // 3/ Horizontal crossing
 // 4/ Vertical crossing
-// 5/ Affichage mlx
+// 5/ Get Wall Dist
+// 6/ Rendering mlx
 
 
 // STEPS =

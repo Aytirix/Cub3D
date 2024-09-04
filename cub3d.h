@@ -6,7 +6,7 @@
 /*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:56:08 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/03 18:39:00 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:04:03 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,18 @@
 
 
 # define FOV 60
+# define TILE_SIZE 30 // taille des tiles, arbitraire ?
 
 // ------------------ STRUCTURE -------------------------
 
 typedef struct	s_ray
 {
-	double	wall_dist;
+	double	wall_dist;  // what we r looking for
 	int		wall_flag;
 
 	int		side; // 0 si c'est un cote x qui est touche (vertical), 1 si un cote y (horizontal)
 
 	int		lineheight; //hauteur de la ligne a dessiner
-
 	int		drawstart; //position de debut ou il faut dessiner
 	int		drawend; //position de fin ou il faut dessiner
 
@@ -70,7 +70,7 @@ typedef struct s_map
 	int		player_y;
 
 	int		map_h; // init
-	int		map_w; // init 
+	int		map_w; // init
 
 }	t_map;
 
@@ -95,6 +95,16 @@ void	get_start_angle(t_data *data, char c);
 
 // ------------------ FONTIONS -------------------------
 
+int		game_loop();
+void	ray_casting(t_data *temp);
+float	vertical(temp, pi_angle(temp->player->angle));
+float	horizontal(temp, pi_angle(temp->player->angle));
+
+
+
+// ------------------ MOVEMENT -------------------------
+
+int	key_hook();
 
 // ------------------ MAP -------------------------
 
