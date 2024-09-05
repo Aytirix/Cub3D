@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:56:08 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/04 18:04:03 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/09/05 18:12:24 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ typedef struct s_map
 	int		mapx; // coordonée x du carré dans lequel est pos
 	int		mapy; // coordonnée y du carré dans lequel est pos ????
 
-	int		player_x;
-	int		player_y;
+	int		p_x_location;
+	int		p_y_location;
 
 	int		map_h; // init
 	int		map_w; // init
@@ -97,9 +97,9 @@ void	get_start_angle(t_data *data, char c);
 
 int		game_loop();
 void	ray_casting(t_data *temp);
-float	vertical(temp, pi_angle(temp->player->angle));
-float	horizontal(temp, pi_angle(temp->player->angle));
-
+float	vertical(t_data *temp, float angle);
+float	horizontal(t_data *temp, float angle);
+float	pi_angle(float x);
 
 
 // ------------------ MOVEMENT -------------------------

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:43:41 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/04 19:12:48 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/09/05 18:35:48 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ int	game_loop(void *data) // delete img - check pos - cast ray - update image
 
 	int i;
 	int j;
-	int x;
 
-	i = rand() % 1000;
-	j = rand() % 500;
+	i = rand() % 1900;
+	j = rand() % 1000;
 
 
-	mlx_pixel_put(temp->mlx, temp->mlx_win, i, j, x);
 
-	//ray_casting(temp);
+	mlx_pixel_put(temp->mlx, temp->mlx_win, i, j, 0xFF0000);
+
+	ray_casting(temp);
 
 
 	return 0;
@@ -59,24 +59,36 @@ void	ray_casting(t_data *temp)
 
 }
 
-float	vertical(temp, pi_angle(temp->player->angle))
+float	vertical(t_data *temp, float angle)
 {
 
 }
 
 
-float	horizontal(temp, pi_angle(temp->player->angle)) //! A COMPRENDRE ET FINIR
+float	horizontal(t_data *temp, float angle) //! A COMPRENDRE ET FINIR
 {
-	//$ get h_inter et x_inter ???
-	//*		h_inter = (p_y / tile_size) * tile						-->
-	//*		x_inter = p_x + (h_inter - p_y) / tan(ray_angle)		--> trigo ok
-	//
+	//float x_inter;	//$ Position X de l intersection horizontale, sera tjrs sur une inter horiz
+	float y_inter;	//$ Position Y de l intersection horizontale, sera tjrs sur une inter horiz
+	float incr_x;	//? Valeur x du vecteur a incrementer pour aller a l intersection suivante
+	float incr_y;	//? Valeur y du vecteur a incrementer pour aller a l intersection suivante
+	//int  pixel_wall;		// Pixel a additionner +1 ou -1 pour check le wall
+
+	angle -= 0.60;
+
 	//$ get x_step et y_step
-	//*		y_step = tile_size								--> ez
-	//*		x_step = tile_size / tan(ray_angle) 			--> trigo ok
+	incr_y = TILE_SIZE;
+	incr_x = incr_y / tan(angle);
+
+	//$ get h_inter et x_inter ???
+	y_inter = floor(temp->player->p_y / TILE_SIZE) * TILE_SIZE;
+
+	//pixel_wall = check_crossing();
+
+	printf("\np_x : %d\n p_y : %d\ny_inter : %f\nx_incr : %f\ny_incr : %f\n------------------------",temp->player->p_x, temp->player->p_y, y_inter, incr_x, incr_y);
 
 
-	return
+
+	return 0;
 }
 
 // il faut faire correspondre les 2 mesures, le FOV et le S_W de l ecran

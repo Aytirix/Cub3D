@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:12:22 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/04 16:44:01 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/09/05 18:13:31 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ void	get_ply_pos(t_data *data)
 		{
 			if(data->map->map[i][j] != '0' && data->map->map[i][j] != '1' && data->map->map[i][j] != '\n')
 			{
-				data->player->p_x = i;
-				data->player->p_y = j;
+				data->map->p_x_location = i;
+				data->map->p_y_location = j;
+				data->player->p_x = i * TILE_SIZE + TILE_SIZE / 2;
+				data->player->p_y = j * TILE_SIZE + TILE_SIZE / 2;
 				get_start_angle(data, data->map->map[i][j]);
 				printf("Pole %f \n", data->player->angle);
 			}
