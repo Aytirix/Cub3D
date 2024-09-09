@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:28:52 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/04 16:25:51 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:15:52 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	create_window(t_data *data)
 	printf("map_h %d \n", data->map->map_h);
 
 	mlx_loop_hook(data->mlx, &game_loop, data);
-	mlx_key_hook(data->mlx, &key_hook, data);
-	printf("test 1 \n");
+	mlx_key_hook(data->mlx_win, &key_hook, data);
 	mlx_loop(data->mlx);
+	printf("test 1 \n");
 	printf("test 2 \n");
 
 

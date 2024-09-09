@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:56:08 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/05 18:12:24 by hugo             ###   ########.fr       */
+/*   Updated: 2024/09/09 17:21:15 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,17 @@ int		game_loop();
 void	ray_casting(t_data *temp);
 float	vertical(t_data *temp, float angle);
 float	horizontal(t_data *temp, float angle);
-float	pi_angle(float x);
+float	modulo_pi(float x);
+
+// ------------------ UTILS -------------------------
+
+int	ft_close(t_data *data);
+void	clear_img(t_data *data);
 
 
 // ------------------ MOVEMENT -------------------------
 
-int	key_hook();
+int	key_hook(int key, t_data *data);
 
 // ------------------ MAP -------------------------
 

@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 15:04:20 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/09 16:39:41 by hugo             ###   ########.fr       */
+/*   Created: 2024/09/09 17:49:44 by hugo              #+#    #+#             */
+/*   Updated: 2024/09/09 17:53:27 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"cub3d.h"
 
-void	ft_error(char* message)
+void	rendering()
 {
-	ft_printf("ERROR : %s \n", message);
-}
+
+// render walls, floor and ceiling
+
+// use this to get faster rendering ?
+//		mlx_new_image
+//		mlx_get_data_addr
+//		mlx_put_image_to_window
 
 
-float	modulo_pi(float x)
-{
-	if (x < 0)
-		x =+ (2 * M_PI);
-
-	if (x > 2 * M_PI)
-		x =- 2 * M_PI;
-
-	return x;
 }

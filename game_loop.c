@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:43:41 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/05 18:35:48 by hugo             ###   ########.fr       */
+/*   Updated: 2024/09/09 17:39:42 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,30 @@ int	game_loop(void *data) // delete img - check pos - cast ray - update image
 	t_data *temp;
 	temp = data;
 
-	int i;
-	int j;
+// 	int i = 0;
+// 	int j = 0;
+// 	int x;
 
-	i = rand() % 1900;
-	j = rand() % 1000;
+// 	x = rand() & 0xff;
+// x |= (rand() & 0xff) << 8;
+// x |= (rand() & 0xff) << 16;
+// x |= (rand() & 0xff) << 24;
 
+// 	// i = rand() % 1900;
+// 	// j = rand() % 1000;
 
+// 	while (i < 1900)
+// 	{
+// 		j = 0;
+// 		while (j < 1000)
+// 			{
+// 				mlx_pixel_put(temp->mlx, temp->mlx_win, i, j, x);
+// 				j++;
+// 			}
+// 		i++;
 
-	mlx_pixel_put(temp->mlx, temp->mlx_win, i, j, 0xFF0000);
+// 	}
+
 
 	ray_casting(temp);
 
@@ -48,13 +63,13 @@ void	ray_casting(t_data *temp)
 	{
 		temp->ray->wall_dist = 0;
 
-		vertical(temp, pi_angle(temp->player->angle));
-		horizontal(temp, pi_angle(temp->player->angle));
+		vertical(temp, modulo_pi(temp->player->angle));
+		horizontal(temp, modulo_pi(temp->player->angle));
 
 		//calculate dist wall
 
 		// rendering the ray_line
-
+		i++;
 	}
 
 }
@@ -67,24 +82,25 @@ float	vertical(t_data *temp, float angle)
 
 float	horizontal(t_data *temp, float angle) //! A COMPRENDRE ET FINIR
 {
-	//float x_inter;	//$ Position X de l intersection horizontale, sera tjrs sur une inter horiz
-	float y_inter;	//$ Position Y de l intersection horizontale, sera tjrs sur une inter horiz
+	float x_inter_coord;	//$ Position X de l intersection horizontale, sera tjrs sur une inter horiz
+	float y_inter_coord;	//$ Position Y de l intersection horizontale, sera tjrs sur une inter horiz
 	float incr_x;	//? Valeur x du vecteur a incrementer pour aller a l intersection suivante
 	float incr_y;	//? Valeur y du vecteur a incrementer pour aller a l intersection suivante
 	//int  pixel_wall;		// Pixel a additionner +1 ou -1 pour check le wall
 
-	angle -= 0.60;
+	angle -= 0.4;
 
-	//$ get x_step et y_step
+	//$ get x_step et y_step !! LONGUEUR !!
 	incr_y = TILE_SIZE;
 	incr_x = incr_y / tan(angle);
 
-	//$ get h_inter et x_inter ???
-	y_inter = floor(temp->player->p_y / TILE_SIZE) * TILE_SIZE;
+	//$ get y_inter et x_inter !! COORDONEES !!
+	y_inter_coord = floor(temp->player->p_y / TILE_SIZE) * TILE_SIZE;
+	x_inter_coord = temp->player->p_x +  (temp->player->p_y - y_inter_coord) / tan(angle);
 
 	//pixel_wall = check_crossing();
 
-	printf("\np_x : %d\n p_y : %d\ny_inter : %f\nx_incr : %f\ny_incr : %f\n------------------------",temp->player->p_x, temp->player->p_y, y_inter, incr_x, incr_y);
+	//printf("\np_x : %d\n p_y : %d\nx_inter : %f\ny_inter : %f\nx_incr : %f\ny_incr : %f\n------------------------",temp->player->p_x, temp->player->p_y, x_inter_coord, y_inter_coord, incr_x, incr_y);
 
 
 

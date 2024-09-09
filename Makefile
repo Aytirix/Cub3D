@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+         #
+#    By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/29 14:50:05 by hle-roux          #+#    #+#              #
-#    Updated: 2024/09/04 15:51:39 by hle-roux         ###   ########.fr        #
+#    Updated: 2024/09/09 17:50:36 by hugo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC = 	main.c \
 		init.c \
 		movement.c \
 		game_loop.c \
+		rendering.c \
 
 OBJ = $(SRC:.c=.o)
 
