@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:41:10 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/09 17:41:22 by hugo             ###   ########.fr       */
+/*   Updated: 2024/09/10 16:20:52 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,19 @@
 
 int	key_hook(int key, t_data *data)
 {
-	printf("In key hook - %d ---------------\n", key);
+	//$ A  FAIRE APRES
+
+	if (key == 122)
+		printf("FORWARD\n");
+	else if (key == 113)
+		printf("LEFT\n");
+	else if (key == 100)
+		printf("RIGHT\n");
+	else if (key == 115)
+		printf("BACK\n");
+
 	if (key == 65307)
 		ft_close(data);
-	else if (key == 115)
-		clear_img(data);
 
 	return 0;
 }
