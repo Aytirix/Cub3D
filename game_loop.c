@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:43:41 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/10 18:24:08 by hugo             ###   ########.fr       */
+/*   Updated: 2024/09/13 18:44:17 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,21 @@ float	horizontal(t_data *temp, float angle) //! A COMPRENDRE ET FINIR
 	float incr_y;	//? Coordonee y du vecteur a incrementer pour aller a l intersection suivante
 	int  pixel_wall;		// Pixel a additionner +1 ou -1 pour check le wall
 
-	angle += 0.4;
+	angle += M_PI;
 
 
 	//$ get x_step et y_step !! LONGUEUR !!
 	incr_y = TILE_SIZE;
 	incr_x = incr_y / tan(angle);
-	printf("\nANGLE : %f\nINCRX : %f\n", angle, incr_x);
 
 	//$ get y_inter et x_inter !! COORDONEES !!
 	y_inter_coord = floor(temp->player->p_y / TILE_SIZE) * TILE_SIZE;
 	x_inter_coord = temp->player->p_x +  (temp->player->p_y - y_inter_coord) / tan(angle);
 
-	incr_x *= check_direction(angle, 0); // ? no need here (cf med)
-	incr_y *= check_direction(angle, 1); // ! need protection contre valeur neg (trigo peut donner des valeurs neg)
+	pixel_wall = inter_wall_check(angle, &incr_y, &incr_y, 1); // ! step + inter set up + pixel return
+	incr_x *= check_direction(incr_x, angle, 0); // ? protected here (cf med)
+	printf("\nPIXEL : %d\nINCRX : %f\n", pixel_wall, incr_x);
+
 	// while (1)
 	// {
 	// 	x_inter_coord += incr_x;
@@ -93,14 +94,34 @@ float	horizontal(t_data *temp, float angle) //! A COMPRENDRE ET FINIR
 	return 0;
 }
 
-int	check_direction(float angle, int i)
+int	inter_wall_check(float angle, float *inter,float *incr, int i)
+{
+	if (i == 1)
+	{
+		if (angle > 0 && angle < M_PI)
+		{
+			*inter += TILE_SIZE;
+			return (-1);
+		}
+		*incr *= -1;
+	}
+	else if (i == 1)
+	{
+
+	}
+	return (1);
+}
+
+int	check_direction(float incr, float angle, int i)
 {
 	if (i == 0)
 	{
-		if(angle > (M_PI / 2) && angle < (3 * M_PI) / 2)
-			{printf("angle : %f\n", angle);
-			return (-1);}
-		return (1);
+		if((angle > (M_PI / 2) && angle < (3 * M_PI) / 2) && incr > 0)
+			return (-1);
+		else if(!(angle > (M_PI / 2) && angle < (3 * M_PI) / 2) && incr < 0)
+			return(-1);
+		else
+			return (1);
 	}
 	else if (i == 1)
 	{
@@ -108,6 +129,7 @@ int	check_direction(float angle, int i)
 			return (-1);
 		return (1);
 	}
+	return 1;
 }
 
 

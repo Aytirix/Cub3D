@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:12:22 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/09 16:31:34 by hugo             ###   ########.fr       */
+/*   Updated: 2024/09/13 18:21:08 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ void	get_ply_pos(t_data *data)
 void	get_start_angle(t_data *data, char c)
 {
 	if (c == 'N')
-		data->player->angle = M_PI / 2;
+		data->player->angle = 3 * M_PI / 2;
 	else if (c == 'W')
 		data->player->angle = M_PI;
 	else if (c == 'S')
-		data->player->angle = (3 * M_PI) / 2;
+		data->player->angle = (M_PI) / 2;
 	else if (c == 'E')
-		data->player->angle = 2 * M_PI;
+		data->player->angle = 0;
 
 	data->player->fov_rad = (FOV * M_PI) / 180;
 	printf("FOV en rad : %f \n", data->player->fov_rad); // rad = cercle trigo

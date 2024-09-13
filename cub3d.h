@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:56:08 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/10 17:01:23 by hugo             ###   ########.fr       */
+/*   Updated: 2024/09/13 18:40:33 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,14 @@ void	ray_casting(t_data *temp);
 float	vertical(t_data *temp, float angle);
 float	horizontal(t_data *temp, float angle);
 float	modulo_pi(float x);
+int	inter_wall_check(float angle, float *inter,float *incr, int i);
+
 
 // ------------------ UTILS -------------------------
 
 int	ft_close(t_data *data);
 void	clear_img(t_data *data);
-int	check_direction(float angle, int i);
+int	check_direction(float incr_x, float angle, int i);
 
 
 
