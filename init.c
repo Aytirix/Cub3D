@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:12:22 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/13 18:21:08 by hugo             ###   ########.fr       */
+/*   Updated: 2024/09/21 11:23:55 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	get_ply_pos(t_data *data)
 			{
 				data->map->p_x_location = j + 1;
 				data->map->p_y_location = i + 1;
-				printf("x:y location = %d:%d\n", data->map->p_x_location, data->map->p_y_location)	;
-				data->player->p_x = (j + 1) * TILE_SIZE + TILE_SIZE / 2;
-				data->player->p_y = (i + 1) * TILE_SIZE + TILE_SIZE / 2;
+				printf("\n\nx:y location = %d:%d\n", data->map->p_x_location, data->map->p_y_location)	;
+				data->player->p_x = (j) * TILE_SIZE + TILE_SIZE / 2;
+				data->player->p_y = (i) * TILE_SIZE + TILE_SIZE / 2;
 				printf("p_x:p_y pixel = %d:%d\n", data->player->p_x, data->player->p_y)	;
 				get_start_angle(data, data->map->map[i][j]);
 				printf("Pole %f \n", data->player->angle);
