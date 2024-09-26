@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:56:08 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/23 16:40:08 by hugo             ###   ########.fr       */
+/*   Updated: 2024/09/26 18:14:30 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 typedef struct	s_ray
 {
 	double	wall_dist;  // what we r looking for
-	int		wall_flag;
+	int		color_flag;
 
 	int		side; // 0 si c'est un cote x qui est touche (vertical), 1 si un cote y (horizontal)
 
@@ -45,6 +45,7 @@ typedef struct	s_ray
 	int		drawend; //position de fin ou il faut dessiner
 
 	int		x_ray;
+	float	ray_angle;
 }	t_ray;
 
 
@@ -120,8 +121,7 @@ int	key_hook(int key, t_data *data);
 
 // ------------------ RENDERING -------------------------
 
-void	rendering();
-
+void	render(t_data *data, int cast);
 
 // ------------------ MAP -------------------------
 

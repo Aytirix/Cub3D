@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:28:52 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/23 15:18:17 by hugo             ###   ########.fr       */
+/*   Updated: 2024/09/26 18:14:51 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,6 @@ void	create_window(t_data *data)
 	data->mlx = mlx_init(1900, 1000, "Cub3d", 0);
 
 	data->mlx_win = mlx_new_window(data->mlx, 1920, 1080, "Hello world!");
-
-	int i = 0;
-
-	while (i < 1000)
-	{
-		mlx_pixel_put(data->mlx, data->mlx_win, i, 500, 0xFF0000);
-		i++;
-	}
 
 	printf("map_h %d \n", data->map->map_h);
 

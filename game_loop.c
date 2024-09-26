@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:43:41 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/23 18:28:35 by hugo             ###   ########.fr       */
+/*   Updated: 2024/09/26 18:28:24 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	game_loop(void *data) // delete img - check pos - cast ray - update image
 
 	ray_casting(temp);
 
-	mlx_destroy_window(temp->mlx, temp->mlx_win);
+	//mlx_destroy_window(temp->mlx, temp->mlx_win);
 
 
 	return 0;
@@ -34,29 +34,49 @@ int	game_loop(void *data) // delete img - check pos - cast ray - update image
 
 void	ray_casting(t_data *temp)
 {
-	int	i;
+	int	cast;
+	float horizontal_wall;
+	float vertical_wall;
 
-	i = 0;
+	printf("\nFOV RAD = %f\n\n", temp->player->fov_rad);
+	printf("\nMAP WIDTH = %d\n\n", temp->map->map_w);
 
-	//while (i < 1900) // boucle pour chaque rayon - i = 0 --> Rayon.0
-	//{
-		temp->ray->wall_dist = 0;
-		//! Set l angle du rayon != angle player
 
-		vertical(temp, modulo_pi(temp->player->angle));
-		horizontal(temp, modulo_pi(temp->player->angle)); //! pas de le premier rayon !!
+	cast = 0;
+	temp->ray->ray_angle = temp->player->angle - (temp->player->fov_rad / 2);
+	while (cast < 1900)
+	{
+		temp->ray->color_flag = 0;
+			printf("RAY ANGLE = %f\n", temp->ray->ray_angle);
 
-		//calculate dist wall
+		vertical_wall = vertical(temp, modulo_pi(temp->ray->ray_angle));
+		horizontal_wall = horizontal(temp, modulo_pi(temp->ray->ray_angle)); //! pas de le premier rayon !!
 
-		// rendering the ray_line
-		i++; //! + incrementer l angle du rayon
-	//}
+		if (vertical_wall < horizontal_wall)
+		{
+			temp->ray->wall_dist = vertical_wall;
+			printf("DISTANCE = %f\n\n", vertical_wall);
+			mlx_pixel_put(temp->mlx, temp->mlx_win, cast, vertical_wall * 10, 0xFF0000);
+		}
+		else
+		{
+			temp->ray->wall_dist = horizontal_wall;
+			printf("DISTANCE = %f\n\n", horizontal_wall);
+			mlx_pixel_put(temp->mlx, temp->mlx_win, cast, horizontal_wall * 10, 0xFF0000);
+		}
+		render(temp, cast); //$ rendering the ray_line
+		cast++;
+		temp->ray->ray_angle += (temp->player->fov_rad / 1900);
+
+
+	printf("=================================================================\n\n");
+
+	}
 
 }
 
 float	horizontal(t_data *temp, float angle)
 {
-	//! M_PI = infini car jamais d intersection avec lignes horizontales quand PI = 0
 	float x_inter_coord;
 	float y_inter_coord;
 	float incr_x;
@@ -70,10 +90,6 @@ float	horizontal(t_data *temp, float angle)
 
 	y_inter_coord = floor(temp->player->p_y / TILE_SIZE) * TILE_SIZE;
 	x_inter_coord = temp->player->p_x +  (temp->player->p_y - y_inter_coord) / tan(angle);
-
-	//printf("\ny_inter : %f\n\n", y_inter_coord);
-
-
 	pixel_wall = inter_wall_check(angle, &y_inter_coord, &incr_y, 1);
 	incr_x *= check_direction(incr_x, angle, 0); // ? protected here (cf med)
 
@@ -83,7 +99,7 @@ float	horizontal(t_data *temp, float angle)
 		y_inter_coord += incr_y;
 	}
 
-	//printf("x_wall = %f\ny_wall = %f------------------\n", x_inter_coord, y_inter_coord);
+//printf("x_wall = %f\ny_wall = %f------------------\n", x_inter_coord, y_inter_coord);
 //	printf("\nincr_x : %f\nincr_y : %f\npixel_wall : %d\n angle : %f\n\n",incr_x, incr_y, pixel_wall, angle);
 //	printf("dist = %f\n", sqrt(pow(x_inter_coord - temp->player->p_x, 2) + pow(y_inter_coord - temp->player->p_y, 2)));
 //	printf("=================================================================\n\n");
@@ -98,39 +114,38 @@ float	vertical(t_data *temp, float angle) //! LEs valeurs sont ok mais CHECk les
 	float incr_y;
 	int  pixel_wall;
 
-	printf("\n	-- VERTICAL --\n");
+//	printf("\n	-- VERTICAL --\n");
 
 	angle = modulo_pi(angle);
-	angle -= M_PI / 4;
+	//angle -= M_PI / 4;
 
-	printf("\n\nANGLE : %f\n\n", angle);
-	printf("x_pos : %d\ny_pos : %d\n\n", temp->player->p_x, temp->player->p_y);
+	// printf("\n\nANGLE : %f\n\n", angle);
+	// printf("x_pos : %d\ny_pos : %d\n\n", temp->player->p_x, temp->player->p_y);
 
 	incr_x = TILE_SIZE;
 	incr_y = incr_x * tan(angle);
-	printf("\nINCR_X : %f", incr_x);
-	printf("\nINCR_Y : %f\n\n", incr_y);
-
-
 
 	x_inter_coord = floor(temp->player->p_x / TILE_SIZE) * TILE_SIZE;
 	y_inter_coord = temp->player->p_y +  (temp->player->p_x - x_inter_coord) * tan(angle);
-	printf("x_inter : %f\n", x_inter_coord);
-	printf("y_inter : %f\n\n", y_inter_coord);
+	// printf("x_inter : %f\n", x_inter_coord);
+	// printf("y_inter : %f\n\n", y_inter_coord);
 
-	pixel_wall = inter_wall_check(angle, &y_inter_coord, &incr_y, 1);
-	incr_x *= check_direction(incr_x, angle, 0); // ? protected here (cf med)
+	pixel_wall = inter_wall_check(angle, &x_inter_coord, &incr_x, 0);
+	incr_y *= check_direction(incr_y, angle, 1); // ? protected here (cf med)
 
-	while (walled(x_inter_coord, y_inter_coord - pixel_wall, temp))
+	// printf("\nINCR_X : %f", incr_x);
+	// printf("\nINCR_Y : %f\n\n", incr_y);
+
+	while (walled(x_inter_coord - pixel_wall, y_inter_coord, temp))
 	{
 		x_inter_coord += incr_x;
 		y_inter_coord += incr_y;
 	}
 
-	printf("x_wall = %f\ny_wall = %f------------------\n", x_inter_coord, y_inter_coord);
-	printf("\nincr_x : %f\nincr_y : %f\npixel_wall : %d\n angle : %f\n\n",incr_x, incr_y, pixel_wall, angle);
-	printf("dist = %f\n", sqrt(pow(x_inter_coord - temp->player->p_x, 2) + pow(y_inter_coord - temp->player->p_y, 2)));
-	printf("=================================================================\n\n");
+	// printf("x_wall = %f\ny_wall = %f------------------\n", x_inter_coord, y_inter_coord);
+	// printf("\nincr_x : %f\nincr_y : %f\npixel_wall : %d\n angle : %f\n\n",incr_x, incr_y, pixel_wall, angle);
+	// printf("dist = %f\n", sqrt(pow(x_inter_coord - temp->player->p_x, 2) + pow(y_inter_coord - temp->player->p_y, 2)));
+	// printf("=================================================================\n\n");
 	return (sqrt(pow(x_inter_coord - temp->player->p_x, 2) + pow(y_inter_coord - temp->player->p_y, 2)));
 }
 
@@ -151,10 +166,10 @@ int	walled(float x, float y, t_data *data)
 		if (data->map->map[y_pos][x_pos] == '1')
 			return 0;
 
-	return 1;
+	return 1; //$ OK
 }
 
-int	inter_wall_check(float angle, float *inter,float *incr, int i)//! Finir la partie vertical
+int	inter_wall_check(float angle, float *inter,float *incr, int i)//$ ajuste le signe de l incr + TILE_SIZE + Pixel
 {
 	if (i == 1)
 	{
@@ -167,9 +182,14 @@ int	inter_wall_check(float angle, float *inter,float *incr, int i)//! Finir la p
 	}
 	else if (i == 0)
 	{
-
+		if (!(angle >= M_PI / 2 && angle < 3 * M_PI / 2))
+		{
+			*inter += TILE_SIZE;
+			return (-1);
+		}
+		*incr *= -1;
 	}
-	return (1);
+	return (1); //$ OK
 }
 
 int	check_direction(float incr, float angle, int i) // $ ajuste la direction de l increment
@@ -185,14 +205,14 @@ int	check_direction(float incr, float angle, int i) // $ ajuste la direction de 
 	}
 	else if (i == 1)
 	{
-		if(angle > 0 && angle < M_PI && incr > 0)
+		if(angle > 0 && angle < M_PI && incr < 0)
 			return (-1);
-		else if(!(angle > 0 && angle < M_PI) && incr < 0)
+		else if(!(angle > 0 && angle < M_PI) && incr > 0)
 			return (-1);
 		else
 			return (1);
 	}
-	return 1;
+	return 1; //$ OK
 }
 
 
