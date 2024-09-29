@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:56:08 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/26 18:14:30 by hugo             ###   ########.fr       */
+/*   Updated: 2024/09/29 18:29:40 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,16 @@ int	check_direction(float incr_x, float angle, int i);
 // ------------------ MOVEMENT -------------------------
 
 int	key_hook(int key, t_data *data);
+void forward(t_data *data);
+
 
 // ------------------ RENDERING -------------------------
 
 void	render(t_data *data, int cast);
+void	put_ceiling(t_data *data, int x, int y, int color);
+void	put_floor(t_data *data, int x, int y, int color);
+void	put_pixel(t_data *data, int x, int y, int color);
+
 
 // ------------------ MAP -------------------------
 

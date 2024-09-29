@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:43:41 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/26 18:28:24 by hugo             ###   ########.fr       */
+/*   Updated: 2024/09/29 18:37:41 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ int	game_loop(void *data) // delete img - check pos - cast ray - update image
 
 
 	ray_casting(temp);
+	//mlx_clear_window(temp->mlx, temp->mlx_win);
 
-	//mlx_destroy_window(temp->mlx, temp->mlx_win);
+	//temp->player->p_x++;
+
+	//mlx_delete_image(temp->mlx, temp->mlx_win);
 
 
 	return 0;
@@ -56,13 +59,13 @@ void	ray_casting(t_data *temp)
 		{
 			temp->ray->wall_dist = vertical_wall;
 			printf("DISTANCE = %f\n\n", vertical_wall);
-			mlx_pixel_put(temp->mlx, temp->mlx_win, cast, vertical_wall * 10, 0xFF0000);
+			//(temp->mlx, temp->mlx_win, cast, vertical_wall * 10, 0xFF0000);
 		}
 		else
 		{
 			temp->ray->wall_dist = horizontal_wall;
 			printf("DISTANCE = %f\n\n", horizontal_wall);
-			mlx_pixel_put(temp->mlx, temp->mlx_win, cast, horizontal_wall * 10, 0xFF0000);
+			//mlx_pixel_put(temp->mlx, temp->mlx_win, cast, horizontal_wall * 10, 0xFF0000);
 		}
 		render(temp, cast); //$ rendering the ray_line
 		cast++;
