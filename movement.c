@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:41:10 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/29 18:51:39 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/03 18:56:07 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,7 @@ int	ft_close(t_data *data)
 
 void forward(t_data *data)
 {
+	mlx_clear_window(data->mlx, data->mlx_win);
+
 	data->player->p_y += 10;
 }

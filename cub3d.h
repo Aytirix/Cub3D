@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:56:08 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/29 18:29:40 by hugo             ###   ########.fr       */
+/*   Updated: 2024/09/30 21:40:08 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include"ft_printf/libftprintf.h"
 
 
-# define FOV 60
+# define FOV 90
 # define TILE_SIZE 30 // taille des tiles, arbitraire ?
 # define EPSILON 0.000001
 
