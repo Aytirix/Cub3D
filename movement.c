@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:41:10 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/03 18:56:07 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/04 19:21:16 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	key_hook(int key, t_data *data)
 	else if (key == 100)
 		printf("RIGHT\n");
 	else if (key == 115)
-		printf("BACK\n");
+		backward(data);
 
 	if (key == 65307)
 		ft_close(data);
@@ -75,5 +75,12 @@ void forward(t_data *data)
 {
 	mlx_clear_window(data->mlx, data->mlx_win);
 
-	data->player->p_y += 10;
+	data->player->p_y += 5;
+}
+
+void backward(t_data *data)
+{
+	mlx_clear_window(data->mlx, data->mlx_win);
+
+	data->player->p_y -= 10;
 }

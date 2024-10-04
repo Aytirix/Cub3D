@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:56:08 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/30 21:40:08 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/04 19:38:09 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include"ft_printf/libftprintf.h"
 
 
-# define FOV 90
+# define FOV 60
 # define TILE_SIZE 30 // taille des tiles, arbitraire ?
 # define EPSILON 0.000001
 
@@ -104,7 +104,7 @@ float	vertical(t_data *temp, float angle);
 float	horizontal(t_data *temp, float angle);
 float	modulo_pi(float x);
 int		inter_wall_check(float angle, float *inter,float *incr, int i);
-int		walled(float x, float y, t_data *data);
+int		walled(float x, float y, t_data *data, char c);
 
 
 // ------------------ UTILS -------------------------
@@ -119,6 +119,8 @@ int	check_direction(float incr_x, float angle, int i);
 
 int	key_hook(int key, t_data *data);
 void forward(t_data *data);
+void backward(t_data *data);
+
 
 
 // ------------------ RENDERING -------------------------
