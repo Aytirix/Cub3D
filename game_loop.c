@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:43:41 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/04 19:38:27 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/06 19:37:10 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,11 @@ void	ray_casting(t_data *temp)
 	while (cast < 1900)
 	{
 		temp->ray->color_flag = 0;
-		 	printf("CAST  = %d\n", cast);
-			printf("ANGLE en PI : %f.PI\n\n", temp->ray->ray_angle / 3.1415);
+
 
 		vertical_wall = vertical(temp, modulo_pi(temp->ray->ray_angle));
 		horizontal_wall = horizontal(temp, modulo_pi(temp->ray->ray_angle));
 
-		// 	printf("DISTANCE V = %f\n", vertical_wall);
-		// 	printf("DISTANCE H = %f\n\n", horizontal_wall);
 
 		if (vertical_wall < horizontal_wall)
 			temp->ray->wall_dist = vertical_wall;
@@ -57,19 +54,36 @@ void	ray_casting(t_data *temp)
 		wall_size_h = (TILE_SIZE / horizontal_wall) * ((1900 / 2) / tan(temp->player->fov_rad / 2));
 		wall_size_v = (TILE_SIZE / vertical_wall) * ((1900 / 2) / tan(temp->player->fov_rad / 2));
 
+		if (cast == 1401 || cast == 1390 || cast == 1410)
+		{
+//		 	printf("CAST  = %d\n", cast);
+
+		 	printf("CAST  = %d\n", cast);
+			printf("V DIST = %f\n", vertical_wall);
+			printf("H DIST = %f\n\n", horizontal_wall);
+			printf("ANGLE en PI : %f.PI\n\n", temp->ray->ray_angle / 3.1415);
+			printf("=================================================================\n\n");
+		}
+
 		mlx_pixel_put(temp->mlx, temp->mlx_win, cast, wall_size_h, 0x0000FF);
 		mlx_pixel_put(temp->mlx, temp->mlx_win, cast, wall_size_v, 0x00FF00);
+
+		int i = 0;
+		while (i < 1080)
+		{
+			mlx_pixel_put(temp->mlx, temp->mlx_win, 1200, i, 0xFFFFFF);
+			i++;
+		}
 
 		render(temp, cast);
 		cast++;
 		temp->ray->ray_angle += (temp->player->fov_rad / 1900);
 
-		printf("=================================================================\n\n");
 	}
 
 }
 
-float	horizontal(t_data *temp, float angle)
+float	horizontal(t_data *temp, float angle) //! PROBLEME DE DISTANCE 
 {
 	float x_inter_coord;
 	float y_inter_coord;
@@ -132,8 +146,6 @@ int	walled(float x, float y, t_data *data, char c)
 {
 	int x_pos;
 	int y_pos;
-	  if (c == 'V')
-	  	printf("--- %c ---\nx = %f\ny = %f\n", c, x, y);
 
 	y -= 1;
 	x_pos = floor(x / TILE_SIZE);

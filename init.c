@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:12:22 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/04 19:14:36 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/06 18:55:56 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	get_ply_pos(t_data *data)
 				printf("\n\nx:y location = %d:%d\n", data->map->p_x_location, data->map->p_y_location)	;
 				data->player->p_x = (j) * TILE_SIZE + TILE_SIZE / 2;
 				data->player->p_y = (i) * TILE_SIZE + TILE_SIZE / 2;
+				//data->player->p_y += 20;
 				printf("p_x:p_y pixel = %d:%d\n", data->player->p_x, data->player->p_y)	;
 				get_start_angle(data, data->map->map[i][j]);
 				printf("Pole %f \n", data->player->angle);
@@ -58,6 +59,7 @@ void	get_start_angle(t_data *data, char c)
 		data->player->angle = 0;
 
 	data->player->angle =  M_PI / 2;
+
 
 	data->player->fov_rad = (FOV * M_PI) / 180;
 	printf("FOV en rad : %f \n", data->player->fov_rad); // rad = cercle trigo

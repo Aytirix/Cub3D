@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:41:10 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/04 19:21:16 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/06 19:38:16 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 int	key_hook(int key, t_data *data)
 {
-	//$ A  FAIRE APRES
-
 	if (key == 122)
 		forward(data);
 	else if (key == 113)
-		printf("LEFT\n");
+		right(data);
 	else if (key == 100)
-		printf("RIGHT\n");
+		left(data);
 	else if (key == 115)
 		backward(data);
 
@@ -62,7 +60,6 @@ int	key_hook(int key, t_data *data)
 
 int	ft_close(t_data *data)
 {
-	printf("dwdwdwdwdwdwdwdwdwdwdwdw \n");
 	mlx_destroy_window(data->mlx, data->mlx_win);
 
 
@@ -75,12 +72,27 @@ void forward(t_data *data)
 {
 	mlx_clear_window(data->mlx, data->mlx_win);
 
-	data->player->p_y += 5;
+	data->player->p_y += 1;
 }
 
 void backward(t_data *data)
 {
+
 	mlx_clear_window(data->mlx, data->mlx_win);
 
-	data->player->p_y -= 10;
+	data->player->p_y -= 1;
+}
+
+void right(t_data *data)
+{
+	mlx_clear_window(data->mlx, data->mlx_win);
+
+	data->player->p_x += 5;
+}
+
+void left(t_data *data)
+{
+	mlx_clear_window(data->mlx, data->mlx_win);
+
+	data->player->p_x -= 5;
 }
