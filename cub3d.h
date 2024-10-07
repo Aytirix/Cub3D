@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:56:08 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/06 18:58:05 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/07 16:00:53 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include<stdlib.h>
-# include<unistd.h>
+# include <stdlib.h>
+# include <unistd.h>
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -29,6 +29,10 @@
 # define FOV 60
 # define TILE_SIZE 30 // taille des tiles, arbitraire ?
 # define EPSILON 0.000001
+
+#ifndef M_PI
+	#define M_PI 3.14159265358979323846
+#endif
 
 
 // ------------------ STRUCTURE -------------------------
