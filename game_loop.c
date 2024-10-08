@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:43:41 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/07 19:28:41 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:37:10 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,23 @@ void	ray_casting(t_data *temp)
 		vertical_wall = vertical(temp, modulo_pi(temp->ray->ray_angle));
 		horizontal_wall = horizontal(temp, modulo_pi(temp->ray->ray_angle));
 
+		if (temp->ray->cast == 1350)
+		{
+			printf("CAST  = %d\n", temp->ray->cast);
+			printf("ANGLE  = %f\n", temp->ray->ray_angle);
+			printf("P_X : %d, P_Y : %d\n", temp->player->p_x, temp->player->p_y);
+		}
 
 		if (vertical_wall < horizontal_wall)
 		{
-			if (temp->ray->cast == 1200 || temp->ray->cast == 1220)
-				printf("----->> V\n\n");
+			if ( temp->ray->cast == 1350)
+				printf("----->> V <<-------\n\n");
 			temp->ray->wall_dist = vertical_wall;
 		}
 		else
 		{
-			if (temp->ray->cast == 1200 || temp->ray->cast == 1220)
-				printf("----->> H\n\n");
+			if (temp->ray->cast == 1350)
+				printf("----->> H <<-------\n\n");
 			temp->ray->wall_dist = horizontal_wall;
 		}
 		float wall_size_v;
@@ -63,15 +69,15 @@ void	ray_casting(t_data *temp)
 		wall_size_h = (TILE_SIZE / horizontal_wall) * ((1900 / 2) / tan(temp->player->fov_rad / 2));
 		wall_size_v = (TILE_SIZE / vertical_wall) * ((1900 / 2) / tan(temp->player->fov_rad / 2));
 
-// 		if (cast == 1200 || cast == 1220)
-// 		{
-// 		 	printf("CAST  = %dl\n", cast);
-//
-// 			printf("V DIST = %f\n", vertical_wall);
-// 			printf("H DIST = %f\n\n", horizontal_wall);
-// 			printf("ANGLE en PI : %f.PI\n\n", temp->ray->ray_angle / 3.1415);
-// 			printf("=================================================================\n\n");
-// 		}
+		if (cast == 1350)
+		{
+//		 	printf("CAST  = %dl\n", cast);
+
+			printf("V DIST = %f\n", vertical_wall);
+			printf("H DIST = %f\n\n", horizontal_wall);
+//			printf("ANGLE en PI : %f.PI\n\n", temp->ray->ray_angle / 3.1415);
+//			printf("=================================================================\n\n");
+		}
 
 		mlx_pixel_put(temp->mlx, temp->mlx_win, cast, wall_size_h, 0x0000FF);
 		mlx_pixel_put(temp->mlx, temp->mlx_win, cast, wall_size_v, 0x00FF00);
@@ -79,8 +85,10 @@ void	ray_casting(t_data *temp)
 		int i = 0;
 		while (i < 1080)
 		{
-			mlx_pixel_put(temp->mlx, temp->mlx_win, 1200, i, 0xFFFFFF);
-			mlx_pixel_put(temp->mlx, temp->mlx_win, 1220, i, 0xFFFFFF);
+			mlx_pixel_put(temp->mlx, temp->mlx_win, 1300, i, 0xFFFFFF);
+			mlx_pixel_put(temp->mlx, temp->mlx_win, 1350, i, 0xFFFFFF);
+			mlx_pixel_put(temp->mlx, temp->mlx_win, 950, i, 0xFFFFFF);
+			mlx_pixel_put(temp->mlx, temp->mlx_win, 1210, i, 0xFFFFFF);
 			i++;
 		}
 
@@ -92,7 +100,7 @@ void	ray_casting(t_data *temp)
 
 }
 
-float	horizontal(t_data *temp, float angle) //! PROBLEME DE DISTANCE
+float	horizontal(t_data *temp, float angle) //! PROBLEME ICI <<---------------
 {
 	float x_inter_coord;
 	float y_inter_coord;
@@ -107,39 +115,27 @@ float	horizontal(t_data *temp, float angle) //! PROBLEME DE DISTANCE
 
 	y_inter_coord = floor(temp->player->p_y / TILE_SIZE) * TILE_SIZE;
 	pixel_wall = inter_wall_check(angle, &y_inter_coord, &incr_y, 0); //! PB ici, dans cet ordre V, ici marche pas
-	x_inter_coord = temp->player->p_x +  (temp->player->p_y - y_inter_coord) / tan(angle);
-	incr_x *= check_direction(incr_x, angle, 0);
-
-	// if (temp->ray->cast == 1200 || temp->ray->cast == 1220)
-	// {
-	// 	printf("CAST  = %d\n", temp->ray->cast);
-	// 	printf("ANGLE  = %f\n", angle);
-	// 	printf("x_inter = %f\ny_inter = %f\n", x_inter_coord, y_inter_coord);
-	// 	printf("PIXEL  = %d\n", pixel_wall);
-	// }
-	if (temp->ray->cast == 1200 || temp->ray->cast == 1220)
+	x_inter_coord = temp->player->p_x +  (y_inter_coord - temp->player->p_y) / tan(angle);
+	if (temp->ray->cast == 1350)
 	{
-			printf(" --- incr_Y  = %f\n\n", incr_y);
+		printf(" --- P_X  = %d\n", temp->player->p_x);
+		printf(" --- incr_X  = %f\n", incr_x);
+		printf(" --- X_inter  = %f\n", x_inter_coord);
+		printf(" --- Y_inter  = %f\n", y_inter_coord);
 	}
+		incr_x *= check_direction(incr_x, angle, 0);
+
 	while (walled(x_inter_coord, y_inter_coord - pixel_wall, temp, 'H')) //! PB AVANT ICI
 	{
 		x_inter_coord += incr_x;
 		y_inter_coord += incr_y;
-		if (temp->ray->cast == 1200 || temp->ray->cast == 1220)
+		if (temp->ray->cast == 1350)
 		{
 			printf("CAST  = %d - %c\n", temp->ray->cast, 'H');
+			printf(" --- incr_X  = %f\n", incr_x);
 			printf("x_inter = %f\ny_inter = %f\n\n", x_inter_coord, y_inter_coord);
-
 		}
 	}
-	// if (temp->ray->cast == 1200 || temp->ray->cast == 1220)
-	// {
-	// 	printf("x_wall = %f\ny_wall = %f\n", x_inter_coord, y_inter_coord);
-	// 	printf("P_X : %d\nP_Y : %d\n\n",temp->player->p_x, temp->player->p_y);
-	// 	printf("dist = %f\n", sqrt(pow(x_inter_coord - temp->player->p_x, 2) + pow(y_inter_coord - temp->player->p_y, 2)));
-
-	// }
-
 	return (sqrt(pow(x_inter_coord - temp->player->p_x, 2) + pow(y_inter_coord - temp->player->p_y, 2)));
 }
 
@@ -163,12 +159,19 @@ float	vertical(t_data *temp, float angle)
 
 	while (walled(x_inter_coord - pixel_wall, y_inter_coord, temp, 'V'))
 	{
+		if (temp->ray->cast == 1350)
+		{
+			printf(" ---->>>CAST  = %d - %c\n", temp->ray->cast, 'V'); //! ICI 1350 NEGATIF
+			printf(" --- incr_Y  = %f\n", incr_y);
+			printf("x_inter = %f\ny_inter = %f\n\n", x_inter_coord, y_inter_coord);
+
+		}
 		x_inter_coord += incr_x;
 		y_inter_coord += incr_y;
-		if (temp->ray->cast == 1200 || temp->ray->cast == 1220)
+		if (temp->ray->cast == 1350)
 		{
-			printf("CAST  = %d - %c\n", temp->ray->cast, 'V'); //! ICI 1220 NEGATIF
-			printf("incr_Y  = %f\n", incr_y);
+			printf("CAST  = %d - %c\n", temp->ray->cast, 'V'); //! ICI 1350 NEGATIF
+			printf(" --- incr_Y  = %f\n", incr_y);
 			printf("x_inter = %f\ny_inter = %f\n\n", x_inter_coord, y_inter_coord);
 
 		}
@@ -196,9 +199,9 @@ int	walled(float x, float y, t_data *data, char c)
 	{
 		if (data->map->map[y_pos][x_pos] == '1')
 		{
-			if((data->ray->cast == 1200 || data->ray->cast == 1220))
+			if((data->ray->cast == 1350))
 			{
-				printf("----->> %c <<-----\n\n", c);
+				printf(" ---- WALLED ---- %c --\n", c);
 				printf("=================================================================\n\n");
 			}
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:41:10 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/07 16:02:53 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:39:48 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void forward(t_data *data)
 {
 	mlx_clear_window(data->mlx, data->mlx_win);
 
-	data->player->p_y += 5;
+	data->player->p_y += 10;
 }
 
 void backward(t_data *data)
@@ -80,19 +80,19 @@ void backward(t_data *data)
 
 	mlx_clear_window(data->mlx, data->mlx_win);
 
-	data->player->p_y -= 5;
+	data->player->p_y -= 10;
 }
 
 void right(t_data *data)
 {
 	mlx_clear_window(data->mlx, data->mlx_win);
 
-	data->player->p_x += 5;
+	data->player->p_x += 10;
 }
 
 void left(t_data *data)
 {
 	mlx_clear_window(data->mlx, data->mlx_win);
 
-	data->player->p_x -= 5;
+	data->player->p_x -= 10;
 }
