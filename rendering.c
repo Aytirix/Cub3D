@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:49:44 by hugo              #+#    #+#             */
-/*   Updated: 2024/10/07 17:34:07 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/10/09 18:40:17 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	render(t_data *data, int cast)
 	float	wall_size;
 	float	wall_top;
 	float	wall_bottom;
-	//int		i;
+	int		i;
 
-	//i = 0;
+	i = 0;
 	data->ray->cast = cast;
 
 	data->ray->wall_dist *= cos(modulo_pi(data->ray->ray_angle - data->player->angle)); // fix the fisheye
@@ -39,18 +39,18 @@ void	render(t_data *data, int cast)
 	if (wall_top < 0)
 			wall_top = 0;
 
-	mlx_pixel_put(data->mlx, data->mlx_win, cast, wall_top, 0xFF0000);
-	mlx_pixel_put(data->mlx, data->mlx_win, cast, wall_bottom, 0xFF0000);
+	mlx_pixel_put(data->mlx, data->mlx_win, cast, wall_top, 0xAA0000);
+	mlx_pixel_put(data->mlx, data->mlx_win, cast, wall_bottom, 0x10000);
 
 
-	// while (i < wall_size / 2)
-	// {
-	// 	put_pixel(data, cast, 1080 / 2 - i, 0xAA0000);
-	// 	put_pixel(data, cast, 1080 / 2 + i, 0xAA0000);
-	// 	i++;
-	// }
-	//put_ceiling(data, cast, 1080 / 2 - wall_size / 2, 0xAAAA00); // Yellow
-	//put_floor(data, cast, 1080 / 2 + wall_size / 2, 0xAAAAAA); // blanc
+	while (i < wall_size / 2)
+	{
+		put_pixel(data, cast, 1080 / 2 - i, 0xB24512);
+		put_pixel(data, cast, 1080 / 2 + i, 0xB24512);
+		i++;
+	}
+	put_ceiling(data, cast, 1080 / 2 - wall_size / 2, 0xB0D3F3); // Yellow
+	put_floor(data, cast, 1080 / 2 + wall_size / 2, 0xDEA063); // blanc
 
 }
 
@@ -88,6 +88,7 @@ void	put_pixel(t_data *data, int x, int y, int color)
 // render walls, floor and ceiling
 
 // use this to get faster rendering ?
-//		mlx_new_image
+//		mlx_new_image | void	*mlx_new_image(void *mlx_ptr,int width,int height);
 //		mlx_get_data_addr
-//		mlx_put_image_to_window
+//		mlx_put_image_to_window | int mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr, int x, int y);
+

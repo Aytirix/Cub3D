@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:28:52 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/08 18:37:54 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/09 18:50:55 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	create_window(t_data *data)
 {
-	data->mlx = mlx_init(1900, 1000, "Cub3d", 0);
+	data->mlx = mlx_init();
 
 	data->mlx_win = mlx_new_window(data->mlx, 1900, 1080, "Hello world!");
 
@@ -23,10 +23,6 @@ void	create_window(t_data *data)
 	mlx_loop_hook(data->mlx, &game_loop, data);
 	mlx_key_hook(data->mlx_win, &key_hook, data);
 	mlx_loop(data->mlx);
-	//game_loop(data);
-	printf("test 1 \n");
-	printf("test 2 \n");
-
-
+	printf("-- END -- \n");
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:56:08 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/07 16:00:53 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/10/09 19:00:25 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,24 @@ typedef struct s_map
 
 }	t_map;
 
+// typedef	struct image
+// {
+
+// }	t_image;
+
 
 typedef struct s_data
 {
 	void		*mlx;		//init
 	void		*mlx_win;	//init
+	void	*img_ptr;
+	int		*addr;
+
+	int		size_l;
+	int		bpp;
+	int		endian;
+
+	//t_image		*img;
 	t_map		*map;
 	t_ray		*ray;
 	t_player	*player;
@@ -109,7 +122,7 @@ float	vertical(t_data *temp, float angle);
 float	horizontal(t_data *temp, float angle);
 float	modulo_pi(float x);
 int		inter_wall_check(float angle, float *inter,float *incr, int i);
-int		walled(float x, float y, t_data *data, char c);
+int		walled(float x, float y, t_data *data);
 
 
 // ------------------ UTILS -------------------------
