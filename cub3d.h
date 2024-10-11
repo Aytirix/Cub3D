@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:56:08 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/09 19:00:25 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/11 20:12:09 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,13 @@ typedef struct	s_ray
 	int		cast;
 }	t_ray;
 
-
 typedef struct s_player
 {
-	int		p_x; // init (in pixel)
-	int		p_y; // init
+	int		p_x;
+	int		p_y;
 
-	double	angle; // ini
-	float	fov_rad; // init
+	double	angle;
+	float	fov_rad;
 
 	int		rota_flag;
 
@@ -82,24 +81,17 @@ typedef struct s_map
 
 }	t_map;
 
-// typedef	struct image
-// {
-
-// }	t_image;
-
-
 typedef struct s_data
 {
 	void		*mlx;		//init
 	void		*mlx_win;	//init
-	void	*img_ptr;
-	int		*addr;
+	void		*img_ptr;
+	int			*buffer;
 
-	int		size_l;
-	int		bpp;
-	int		endian;
+	int			size_l;
+	int			bpp;
+	int			endian;
 
-	//t_image		*img;
 	t_map		*map;
 	t_ray		*ray;
 	t_player	*player;
@@ -130,6 +122,8 @@ int		walled(float x, float y, t_data *data);
 int	ft_close(t_data *data);
 void	clear_img(t_data *data);
 int	check_direction(float incr_x, float angle, int i);
+void free_all_stop(t_data *data, int code);
+
 
 
 

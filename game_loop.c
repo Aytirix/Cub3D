@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:43:41 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/09 19:00:49 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/11 20:22:42 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,25 @@
 
 #include <time.h>
 
+//$ DEVNOTES
+
+//* RAYCASTING		OK (1 bug)
+//* OPTIMISATION 	OK
+//* TEXTURES		TODO <<--
+//* MOUVEMENTS		DOING
 
 int	game_loop(void *temp) // delete img - check pos - cast ray - update image
 {
 	t_data *data;
 	data = temp;
 
-	printf("heyyy\n");
-	mlx_destroy_image(data->mlx, data->img_ptr);
-	// if ((data->mlx_win) == NULL)
-	// {
-	// 	printf("pointer = NULL \n");
-	// }
-	printf("byeee\n");
-	data->img_ptr =  mlx_new_image(data->mlx, 500, 500);
-//	data->img->addr = (int *)mlx_get_data_addr(data->img->img_ptr, &data->img->bpp, &data->img->size_l, &data->img->endian);
-//	mlx_destroy_image(data->mlx, data->img->img_ptr);
+	if(data->img_ptr)
+		mlx_destroy_image(data->mlx, data->img_ptr);
+
+	data->img_ptr =  mlx_new_image(data->mlx, 1900, 1080);
+	data->buffer = (int *)mlx_get_data_addr(data->img_ptr, &data->bpp, &data->size_l, &data->endian);
 	ray_casting(data);
-//	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->img_ptr, 0,0);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_ptr, 0,0);
 
 	return 0;
 }

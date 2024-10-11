@@ -6,17 +6,11 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:49:44 by hugo              #+#    #+#             */
-/*   Updated: 2024/10/09 18:40:17 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/11 20:13:38 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"cub3d.h"
-
-//$ 	--- DEVNOTE NEXT ---
-
-//* -	BUG MOITIE RENDERING PARALISIE--> OK
-//* - OPTIMISATION
-//* - DECALAGE des cubes
 
 void	render(t_data *data, int cast)
 {
@@ -28,6 +22,7 @@ void	render(t_data *data, int cast)
 	i = 0;
 	data->ray->cast = cast;
 
+
 	data->ray->wall_dist *= cos(modulo_pi(data->ray->ray_angle - data->player->angle)); // fix the fisheye
 	wall_size = (TILE_SIZE / data->ray->wall_dist) * ((1900 / 2) / tan(data->player->fov_rad / 2));
 
@@ -38,9 +33,6 @@ void	render(t_data *data, int cast)
 			wall_bottom = 1080;
 	if (wall_top < 0)
 			wall_top = 0;
-
-	mlx_pixel_put(data->mlx, data->mlx_win, cast, wall_top, 0xAA0000);
-	mlx_pixel_put(data->mlx, data->mlx_win, cast, wall_bottom, 0x10000);
 
 
 	while (i < wall_size / 2)
@@ -82,7 +74,8 @@ void	put_pixel(t_data *data, int x, int y, int color)
 		return;
 	if (y > 1080)
 		return;
-	mlx_pixel_put(data->mlx, data->mlx_win, x, y, color);
+
+	data->buffer[y * 1900 + x] = color;
 }
 
 // render walls, floor and ceiling

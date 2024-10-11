@@ -6,7 +6,7 @@
 /*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:04:20 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/21 09:28:42 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/11 18:58:28 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,19 @@ float	modulo_pi(float x)
 			x = x - 2 * M_PI;
 	}
 	return x;
+}
+
+void free_all_stop(t_data *data, int code)
+{
+	int	i;
+
+	// free(data->map->img_NO);
+	// free(data->map->img_SO);
+	// free(data->map->img_WE);
+	// free(data->map->img_EA);
+	i = -1;
+	while (data->map->map[++i])
+		free(data->map->map[i]);
+	free(data->map->map);
+	exit(code);
 }
