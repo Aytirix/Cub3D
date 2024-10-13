@@ -16,7 +16,7 @@ void	create_window(t_data *data)
 {
 	data->mlx = mlx_init();
 
-	data->mlx_win = mlx_new_window(data->mlx, 1900, 1080, "Hello world!");
+	data->mlx_win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "Hello world!");
 
 	if (data->mlx == 0 || data->mlx_win == 0)
 	{
@@ -27,7 +27,9 @@ void	create_window(t_data *data)
 	printf("map_h %d \n\n\n", data->map->map_h);
 
 	mlx_loop_hook(data->mlx, &game_loop, data);
-	mlx_key_hook(data->mlx_win, &key_hook, data);
+	mlx_hook(data->mlx_win, 2, 1L<<0, &key_press, data);
+	mlx_hook(data->mlx_win, 3, 1L<<1, &key_release, data);
+	mlx_mouse_hide(data->mlx, data->mlx_win);
 	mlx_loop(data->mlx);
 	printf("-- END -- \n");
 }

@@ -12,12 +12,6 @@
 
 #include"cub3d.h"
 
-void	ft_error(char* message)
-{
-	ft_printf("ERROR : %s \n", message);
-}
-
-
 float	modulo_pi(float x)
 {
 	while (x < 0 || x > 2 * M_PI)
@@ -34,10 +28,10 @@ void free_all_stop(t_data *data, int code)
 {
 	int	i;
 
-	// free(data->map->img_NO);
-	// free(data->map->img_SO);
-	// free(data->map->img_WE);
-	// free(data->map->img_EA);
+	free(data->map->img_NO);
+	free(data->map->img_SO);
+	free(data->map->img_WE);
+	free(data->map->img_EA);
 	i = -1;
 	while (data->map->map[++i])
 		free(data->map->map[i]);

@@ -1,53 +1,62 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/08/29 14:50:05 by hle-roux          #+#    #+#              #
-#    Updated: 2024/09/09 17:50:36 by hugo             ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-CC = gcc
-
-CFLAGS = -Wall -Wextra -I/usr/include -Imlx
-LFLAGS = -L ft_printf/ -lftprintf -lreadline -Lmlx -lmlx_Linux
-X11_FLAGS = -L/usr/X11/lib -lXext -lX11
-
-
-NAME = cub3d
-
+NAME = cub3D
+OBJDIR = objets
+MLX = .mlx
 SRC = 	main.c \
-		get_map.c \
 		utils.c \
 		window.c \
-		gnl/get_next_line.c \
-		gnl/get_next_line_utils.c \
 		init.c \
 		movement.c \
 		game_loop.c \
 		rendering.c \
+		parsing/parsing.c \
+		parsing/parsing_map.c \
+		parsing/parsing_rgb.c \
 
-OBJ = $(SRC:.c=.o)
+OBJ = $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
+LIBFT = Libft
+LIBFT_A = $(LIBFT)/libft.a
+FLAGS = -g3 -fsanitize=address #-Wall -Wextra -Werror
+LIBS = -L$(MLX) -lmlx -L$(LIBFT) -lft -lXext -lX11 -lm
 
-all : $(NAME)
+# Colors
+RED = \033[0;31m
+GREEN = \033[0;32m
+YELLOW = \033[0;33m
+BLUE = \033[0;34m
+MAGENTA = \033[0;35m
+CYAN = \033[0;36m
+RESET = \033[0m
 
-$(NAME) : $(OBJ)
-	make -C ft_printf/
-	$(CC) -o $@ $^ -Lmlx -lmlx -Lft_printf -lftprintf -Ift_printf $(X11_FLAGS) -lm
+all: $(LIBFT_A) $(NAME)
 
-%.o : %.c
-	$(CC) -Wall -Wextra -o $@ -c $<
+$(LIBFT_A):
+	@$(MAKE) -C $(LIBFT) --no-print-directory
 
-clean:
-	@$(MAKE) -C ft_printf/ clean
-	rm -rf *.o
-	rm -rf gnl/*.o
+$(NAME): $(OBJ)
+	@echo "$(GREEN)Linking $(NAME) with libft...$(RESET)"
+	@$(CC) $(FLAGS) -I$(MLX) -I$(LIBFT) $(OBJ) -o $@ $(LIBS)
+	@echo "$(BLUE)$(NAME) linked successfully!$(RESET)"
+
+recompile_objs: clean_objs $(OBJ)
+
+$(OBJDIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	@echo "$(CYAN)Compiling $< into $@...$(RESET)"
+	@$(CC) $(FLAGS) -I$(MLX) -I$(LIBFT) -c $< -o $@
+
+clean_objs:
+	@echo "$(MAGENTA)Cleaning object files...$(RESET)"
+	@rm -rf $(OBJDIR)
+
+clean: clean_objs
+	@$(MAKE) -C $(LIBFT) clean --no-print-directory
 
 fclean: clean
-	@$(MAKE) -C ft_printf/ fclean
-	rm -f $(NAME)
+	@echo "$(RED)Cleaning all files...$(RESET)"
+	@rm -f $(NAME)
+	@rm -rf $(OBJDIR)
+	@$(MAKE) -C $(LIBFT) fclean --no-print-directory
 
 re: fclean all
+
+.PHONY: all clean clean_objs fclean re recompile_objs

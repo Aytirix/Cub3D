@@ -24,25 +24,25 @@ void	render(t_data *data, int cast)
 
 
 	data->ray->wall_dist *= cos(modulo_pi(data->ray->ray_angle - data->player->angle)); // fix the fisheye
-	wall_size = (TILE_SIZE / data->ray->wall_dist) * ((1900 / 2) / tan(data->player->fov_rad / 2));
+	wall_size = (TILE_SIZE / data->ray->wall_dist) * ((WIDTH / 2) / tan(data->player->fov_rad / 2));
 
-	wall_bottom = (1080 / 2) + (wall_size / 2);
-	wall_top = (1080 / 2) - (wall_size / 2);
+	wall_bottom = (HEIGHT / 2) + (wall_size / 2);
+	wall_top = (HEIGHT / 2) - (wall_size / 2);
 
-	if (wall_bottom > 1080)
-			wall_bottom = 1080;
+	if (wall_bottom > HEIGHT)
+			wall_bottom = HEIGHT;
 	if (wall_top < 0)
 			wall_top = 0;
 
 
 	while (i < wall_size / 2)
 	{
-		put_pixel(data, cast, 1080 / 2 - i, 0xB24512);
-		put_pixel(data, cast, 1080 / 2 + i, 0xB24512);
+		put_pixel(data, cast, HEIGHT / 2 - i, 0xB24512);
+		put_pixel(data, cast, HEIGHT / 2 + i, 0xB24512);
 		i++;
 	}
-	put_ceiling(data, cast, 1080 / 2 - wall_size / 2, 0xB0D3F3); // Yellow
-	put_floor(data, cast, 1080 / 2 + wall_size / 2, 0xDEA063); // blanc
+	put_ceiling(data, cast, HEIGHT / 2 - wall_size / 2, 0xB0D3F3); // Yellow
+	put_floor(data, cast, HEIGHT / 2 + wall_size / 2, 0xDEA063); // blanc
 
 }
 
@@ -57,7 +57,7 @@ void	put_ceiling(t_data *data, int x, int y, int color)
 
 void	put_floor(t_data *data, int x, int y, int color)
 {
-	while (y < 1080)
+	while (y < HEIGHT)
 	{
 		put_pixel(data, x, y, color);
 		y++;
@@ -70,12 +70,12 @@ void	put_pixel(t_data *data, int x, int y, int color)
 		return;
 	if (y < 0)
 		return;
-	if (x > 1900)
+	if (x > WIDTH)
 		return;
-	if (y > 1080)
+	if (y > HEIGHT)
 		return;
 
-	data->buffer[y * 1900 + x] = color;
+	data->buffer[y * WIDTH + x] = color;
 }
 
 // render walls, floor and ceiling

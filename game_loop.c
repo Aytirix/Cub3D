@@ -29,14 +29,14 @@ int	game_loop(void *temp) // delete img - check pos - cast ray - update image
 	if(data->img_ptr)
 		mlx_destroy_image(data->mlx, data->img_ptr);
 
-	data->img_ptr =  mlx_new_image(data->mlx, 1900, 1080);
+	data->img_ptr =  mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	data->buffer = (int *)mlx_get_data_addr(data->img_ptr, &data->bpp, &data->size_l, &data->endian);
 	ray_casting(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_ptr, 0,0);
-
-	return 0;
+	key_hook(data);
+	mouse_move_hook(data);
+	return (0);
 }
-
 
 void	ray_casting(t_data *temp)
 {
@@ -46,7 +46,7 @@ void	ray_casting(t_data *temp)
 
 	cast = 0;
 	temp->ray->ray_angle = temp->player->angle - (temp->player->fov_rad / 2);
-	while (cast < 1900)
+	while (cast < WIDTH)
 	{
 		temp->ray->color_flag = 0;
 
@@ -61,7 +61,7 @@ void	ray_casting(t_data *temp)
 
 		render(temp, cast);
 		cast++;
-		temp->ray->ray_angle += (temp->player->fov_rad / 1900);
+		temp->ray->ray_angle += (temp->player->fov_rad / WIDTH);
 
 	}
 
