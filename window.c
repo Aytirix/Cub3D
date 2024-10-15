@@ -26,6 +26,7 @@ void	create_window(t_data *data)
 
 	printf("map_h %d \n\n\n", data->map->map_h);
 
+	mlx_mouse_move(data->mlx, data->mlx_win, WIDTH / 2, HEIGHT / 2);
 	mlx_loop_hook(data->mlx, &game_loop, data);
 	mlx_hook(data->mlx_win, 2, 1L<<0, &key_press, data);
 	mlx_hook(data->mlx_win, 3, 1L<<1, &key_release, data);

@@ -23,15 +23,12 @@
 # include <sys/types.h>
 # include <unistd.h>
 
-# define FOV 70
+# define FOV 60
 # define TILE_SIZE 30 // taille des tiles, arbitraire ?
 # define EPSILON 0.000001
 # define WIDTH 1900
 # define HEIGHT 1080
-
-# ifndef M_PI
-#  define M_PI 3.14159265358979323846
-# endif
+# define COL_WALL 10
 
 # define BOLD_RED "\033[1;31m"
 # define RESET "\033[0m"
@@ -41,6 +38,9 @@
 typedef struct s_ray
 {
 	double		wall_dist;
+	double		wall_dist_b;
+	double		wall_dist_l;
+	double		wall_dist_r;
 	int			color_flag;
 
 	int side; // 0 si c'est un cote x qui est touche (vertical), 1 si un cote y (horizontal)
@@ -112,7 +112,6 @@ typedef struct s_data
 
 void			game_launch(t_data *data);
 t_data			*init_data(t_data *data, char *map_name);
-void			get_ply_pos(t_data *data);
 void			get_start_angle(t_data *data, char c);
 
 // ------------------ FONTIONS -------------------------

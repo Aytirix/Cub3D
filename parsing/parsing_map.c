@@ -40,7 +40,7 @@ static void	get_player_position(t_data *data, char c, int i, int j)
 	}
 }
 
-static void	check_flood_fill(t_data *data, int y, int x)
+static void	check_flood_fill(t_data *data, int y, int x, char replace)
 {
 	if (y < 0 || x < 0 || y >= data->map->map_h || x >= data->map->map_w)
 	{
@@ -48,16 +48,16 @@ static void	check_flood_fill(t_data *data, int y, int x)
 			RESET);
 		free_all_stop(data, 1);
 	}
-	if (data->map->map[y][x] == '1' || data->map->map[y][x] == '2')
+	if (data->map->map[y][x] == '1' || data->map->map[y][x] == replace)
 		return ;
-	if (ft_strchr("NSEW0", data->map->map[y][x]))
+	if (ft_strchr("NSEW0", data->map->map[y][x]) || replace == '0')
 	{
 		if (!ft_strchr("NSEW", data->map->map[y][x]))
-			data->map->map[y][x] = '2';
-		check_flood_fill(data, y + 1, x);
-		check_flood_fill(data, y - 1, x);
-		check_flood_fill(data, y, x + 1);
-		check_flood_fill(data, y, x - 1);
+			data->map->map[y][x] = replace;
+		check_flood_fill(data, y + 1, x, replace);
+		check_flood_fill(data, y - 1, x, replace);
+		check_flood_fill(data, y, x + 1, replace);
+		check_flood_fill(data, y, x - 1, replace);
 	}
 	else
 	{
@@ -89,7 +89,9 @@ static int	check_map(t_data *data)
 	}
 	get_player_position(data, 0, -1, -1);
 	check_flood_fill(data, data->map->p_y_location - 1, data->map->p_x_location
-		- 1);
+		- 1, '2');
+	check_flood_fill(data, data->map->p_y_location - 1, data->map->p_x_location
+		- 1, '0');
 	return (0);
 }
 
