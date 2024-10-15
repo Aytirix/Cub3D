@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:49:44 by hugo              #+#    #+#             */
-/*   Updated: 2024/10/11 20:13:38 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/15 16:27:28 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,16 @@ void	render(t_data *data, int cast)
 		put_pixel(data, cast, 1080 / 2 + i, 0xB24512);
 		i++;
 	}
+
 	put_ceiling(data, cast, 1080 / 2 - wall_size / 2, 0xB0D3F3); // Yellow
 	put_floor(data, cast, 1080 / 2 + wall_size / 2, 0xDEA063); // blanc
 
+	i = 0;
+	while (i++ < 1080)
+	{
+		put_pixel(data, 1485, i, 0xFFFFFF);
+		put_pixel(data, 1490, i, 0xFFFFFF);
+	}
 }
 
 void	put_ceiling(t_data *data, int x, int y, int color)

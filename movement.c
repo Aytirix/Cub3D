@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:41:10 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/11 20:13:08 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/15 16:22:47 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	key_hook(int key, t_data *data)
 {
-	if (key == 122)
+	if (key == 115)
 		forward(data);
-	else if (key == 113)
-		right(data);
 	else if (key == 100)
+		right(data);
+	else if (key == 97)
 		left(data);
-	else if (key == 115)
+	else if (key == 119)
 		backward(data);
 
 	if (key == 65307)
