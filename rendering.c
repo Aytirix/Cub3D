@@ -22,7 +22,7 @@ void	render(t_data *data, int cast)
 	i = 0;
 	data->ray->cast = cast;
 	data->ray->wall_dist *= cos(modulo_pi(data->ray->ray_angle
-				- data->player->angle)); // fix the fisheye
+				- data->player->angle)); 
 	wall_size = (TILE_SIZE / data->ray->wall_dist) * ((WIDTH / 2)
 			/ tan(data->player->fov_rad / 2));
 	// wall_bottom = (HEIGHT / 2) + (wall_size / 2);

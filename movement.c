@@ -61,6 +61,7 @@ void	forward(t_data *data)
 	data->player->p_y += sin(data->player->angle) * 5;
 }
 
+
 void	backward(t_data *data)
 {
 	data->player->p_x -= cos(data->player->angle) * 5;
@@ -85,7 +86,6 @@ int	mouse_move_hook(t_data *data)
     int y;
 
     mlx_mouse_get_pos(data->mlx, data->mlx_win, &x, &y);
-	
 	data->player->angle += (x - WIDTH / 2) * 0.0025;
 	if (data->player->angle < 0)
 		data->player->angle += 2 * M_PI;

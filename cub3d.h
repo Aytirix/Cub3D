@@ -24,7 +24,7 @@
 # include <unistd.h>
 
 # define FOV 60
-# define TILE_SIZE 30 // taille des tiles, arbitraire ?
+# define TILE_SIZE 30
 # define EPSILON 0.000001
 # define WIDTH 1900
 # define HEIGHT 1080
@@ -56,8 +56,8 @@ typedef struct s_ray
 
 typedef struct s_player
 {
-	int			p_x;
-	int			p_y;
+	double			p_x;
+	double			p_y;
 
 	double		angle;
 	float		fov_rad;
@@ -116,7 +116,7 @@ void			get_start_angle(t_data *data, char c);
 
 // ------------------ FONTIONS -------------------------
 
-int				game_loop(void *temp);
+int				game_loop(t_data *data);
 void			ray_casting(t_data *temp);
 float			vertical(t_data *temp, float angle);
 float			horizontal(t_data *temp, float angle);

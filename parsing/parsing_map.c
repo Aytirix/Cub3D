@@ -128,10 +128,10 @@ int	parsing_map(t_data *data, int fd, int i)
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (line[j] && (line[j] == '1' || line[j] == '0' || line[j] == ' '))
+		if (line[j] && ft_strchr("01 	", line[j]))
 		{
 			s = ft_strlen(line);
-			while (line[s - 1] && line[s - 1] != '1' && line[s - 1] != '0')
+			while (line[s] && line[s - 1] && line[s - 1] != '1' && line[s - 1] != '0')
 				s--;
 			if (s > data->map->map_w)
 				data->map->map_w = s;

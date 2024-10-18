@@ -20,11 +20,8 @@
 //* TEXTURES		TODO <<--
 //* MOUVEMENTS		DOING
 
-int	game_loop(void *temp) // delete img - check pos - cast ray - update image
+int	game_loop(t_data *data)
 {
-	t_data *data;
-	data = temp;
-
 	if (data->img_ptr)
 		mlx_destroy_image(data->mlx, data->img_ptr);
 
@@ -35,7 +32,6 @@ int	game_loop(void *temp) // delete img - check pos - cast ray - update image
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_ptr, 0, 0);
 	key_hook(data);
 	mouse_move_hook(data);
-	printf("data->player->angle = %f\n", data->player->angle);
 	return (0);
 }
 

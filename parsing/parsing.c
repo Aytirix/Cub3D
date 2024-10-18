@@ -31,8 +31,7 @@ static int	size_map(char *file, int j, int *error)
 		free(line);
 		line = get_next_line(fd);
 		j = 0;
-		if (line && line[j] && (line[j] == '1' || line[j] == '0'
-				|| line[j] == ' '))
+		if (line && line[j] && (ft_strchr("01 	", line[j])))
 			i++;
 	}
 	return (i);
