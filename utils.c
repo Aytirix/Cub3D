@@ -28,13 +28,22 @@ void	free_all_stop(t_data *data, int code)
 {
 	int	i;
 
+	i = -1;
+	while (data->map->map && data->map->map[++i])
+		free(data->map->map[i]);
+	free(data->ray);
 	free(data->map->img_no);
 	free(data->map->img_so);
 	free(data->map->img_we);
 	free(data->map->img_ea);
-	i = -1;
-	while (data->map->map && data->map->map[++i])
-		free(data->map->map[i]);
 	free(data->map->map);
+	free(data->map);
+	free(data->player);
+	if (data->img_ptr)
+		mlx_destroy_image(data->mlx, data->img_ptr);
+	if (data->mlx_win)
+		mlx_destroy_window(data->mlx, data->mlx_win);
+	if (data->mlx)
+		free(data->mlx);
 	exit(code);
 }

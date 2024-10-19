@@ -42,9 +42,9 @@ void	get_start_angle(t_data *data, char c)
 
 t_data	*init_data(t_data *data, char *file_name)
 {
-	data->ray = calloc(1, sizeof(t_ray));
-	data->map = calloc(1, sizeof(t_map));
-	data->player = calloc(1, sizeof(t_player));
+	data->ray = ft_calloc(1, sizeof(t_ray));
+	data->map = ft_calloc(1, sizeof(t_map));
+	data->player = ft_calloc(1, sizeof(t_player));
 	data->img_ptr = NULL;
 	data->map->img_no = NULL;
 	data->map->img_so = NULL;
