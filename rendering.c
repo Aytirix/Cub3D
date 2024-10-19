@@ -15,22 +15,14 @@
 void	render(t_data *data, int cast)
 {
 	float	wall_size;
-	float	wall_top;
-	float	wall_bottom;
 	int		i;
 
 	i = 0;
 	data->ray->cast = cast;
 	data->ray->wall_dist *= cos(modulo_pi(data->ray->ray_angle
-				- data->player->angle)); 
+				- data->player->angle));
 	wall_size = (TILE_SIZE / data->ray->wall_dist) * ((WIDTH / 2)
 			/ tan(data->player->fov_rad / 2));
-	// wall_bottom = (HEIGHT / 2) + (wall_size / 2);
-	// wall_top = (HEIGHT / 2) - (wall_size / 2);
-	if (wall_bottom > HEIGHT)
-		wall_bottom = HEIGHT;
-	if (wall_top < 0)
-		wall_top = 0;
 	while (i < wall_size / 2)
 	{
 		put_pixel(data, cast, HEIGHT / 2 - i, 0xB24512);
@@ -72,10 +64,3 @@ void	put_pixel(t_data *data, int x, int y, int color)
 		return ;
 	data->buffer[y * WIDTH + x] = color;
 }
-
-// render walls, floor and ceiling
-
-// use this to get faster rendering ?
-//		mlx_new_image | void	*mlx_new_image(void *mlx_ptr,int width,int height);
-//		mlx_get_data_addr
-//		mlx_put_image_to_window | int mlx_put_image_to_window(void *mlx_ptr,

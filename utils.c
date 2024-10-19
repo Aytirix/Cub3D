@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"cub3d.h"
+#include "cub3d.h"
 
 float	modulo_pi(float x)
 {
@@ -21,19 +21,19 @@ float	modulo_pi(float x)
 		else if (x > 2 * M_PI)
 			x = x - 2 * M_PI;
 	}
-	return x;
+	return (x);
 }
 
-void free_all_stop(t_data *data, int code)
+void	free_all_stop(t_data *data, int code)
 {
 	int	i;
 
-	free(data->map->img_NO);
-	free(data->map->img_SO);
-	free(data->map->img_WE);
-	free(data->map->img_EA);
+	free(data->map->img_no);
+	free(data->map->img_so);
+	free(data->map->img_we);
+	free(data->map->img_ea);
 	i = -1;
-	while (data->map->map[++i])
+	while (data->map->map && data->map->map[++i])
 		free(data->map->map[i]);
 	free(data->map->map);
 	exit(code);

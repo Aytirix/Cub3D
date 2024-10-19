@@ -48,9 +48,11 @@ static void	check_flood_fill(t_data *data, int y, int x, char replace)
 			RESET);
 		free_all_stop(data, 1);
 	}
-	if (data->map->map[y][x] == '1' || data->map->map[y][x] == replace)
+	if (data->map->map[y] && data->map->map[y][x]
+		&& (data->map->map[y][x] == '1' || data->map->map[y][x] == replace))
 		return ;
-	if (ft_strchr("NSEW0", data->map->map[y][x]) || replace == '0')
+	if (data->map->map[y] && data->map->map[y][x] && ft_strchr("NSEW0",
+			data->map->map[y][x]) || replace == '0')
 	{
 		if (!ft_strchr("NSEW", data->map->map[y][x]))
 			data->map->map[y][x] = replace;
@@ -113,7 +115,7 @@ static void	check_return_in_map(t_data *data, char *line)
 	}
 	if (start_map && in_map && line_void > 0)
 	{
-		ft_fprintf(2, "Error : %sreturn to line in map%s\n", BOLD_RED, RESET);
+		ft_fprintf(2, "Error : %sreturn (to line in map)%s\n", BOLD_RED, RESET);
 		free_all_stop(data, 1);
 	}
 }
@@ -128,10 +130,11 @@ int	parsing_map(t_data *data, int fd, int i)
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (line[j] && ft_strchr("01 	", line[j]))
+		if (line[j] && (i || !ft_strchr("	", line[j])))
 		{
 			s = ft_strlen(line);
-			while (line[s] && line[s - 1] && line[s - 1] != '1' && line[s - 1] != '0')
+			while (line[s] && line[s - 1] && line[s - 1] != '1' && line[s
+					- 1] != '0')
 				s--;
 			if (s > data->map->map_w)
 				data->map->map_w = s;

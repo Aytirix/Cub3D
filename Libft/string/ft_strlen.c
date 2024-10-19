@@ -27,7 +27,7 @@ size_t	ft_whitespace(const char *c)
 	size_t	i;
 
 	i = 0;
-	while (c[i] == ' ' || c[i] == '\t' || c[i] == '\n' || c[i] == '\v'
+	while (c[i] == '\t' || c[i] == '\n' || c[i] == '\v'
 		|| c[i] == '\f' || c[i] == '\r')
 		i++;
 	return (i);

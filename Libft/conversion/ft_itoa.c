@@ -48,7 +48,6 @@ char	*ft_itoa(int n)
 	return (str);
 }
 
-
 char	*ft_itoa_base(int n, char *base)
 {
 	char	*str;

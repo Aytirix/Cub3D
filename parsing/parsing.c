@@ -31,7 +31,7 @@ static int	size_map(char *file, int j, int *error)
 		free(line);
 		line = get_next_line(fd);
 		j = 0;
-		if (line && line[j] && (ft_strchr("01 	", line[j])))
+		if (line && line[j])
 			i++;
 	}
 	return (i);
@@ -91,13 +91,13 @@ void	parsing(t_data *data, char *file)
 	fd = open(file, O_RDONLY);
 	if (fd == -1 && i == 0)
 		i = ft_fprintf(2, "Error : Map impossible to read\n");
-	if (i == 0 && search_image(data, &data->map->img_NO, fd, "NO"))
+	if (i == 0 && search_image(data, &data->map->img_no, fd, "NO"))
 		i = ft_fprintf(2, "Error : Image NO texture not found\n");
-	if (i == 0 && search_image(data, &data->map->img_SO, fd, "SO"))
+	if (i == 0 && search_image(data, &data->map->img_so, fd, "SO"))
 		i = ft_fprintf(2, "Error : Image SO texture not found\n");
-	if (i == 0 && search_image(data, &data->map->img_WE, fd, "WE"))
+	if (i == 0 && search_image(data, &data->map->img_we, fd, "WE"))
 		i = ft_fprintf(2, "Error : Image WE texture not found\n");
-	if (i == 0 && search_image(data, &data->map->img_EA, fd, "EA"))
+	if (i == 0 && search_image(data, &data->map->img_ea, fd, "EA"))
 		i = ft_fprintf(2, "Error : Image EA texture not found\n");
 	if (i == 0 && search_rgb(&data->map->floor_color, fd, "F", &i))
 		i = ft_fprintf(2, "Error : RGB Floor color not found\n");
@@ -108,19 +108,4 @@ void	parsing(t_data *data, char *file)
 	if (i)
 		free_all_stop(data, 1);
 	close(fd);
-	// printf("Map w: %d\n", data->map->map_w);
-	// printf("Map h: %d\n\n", data->map->map_h);
-	// printf("NO : '%s'\n", data->map->img_NO);
-	// printf("SO : '%s'\n", data->map->img_SO);
-	// printf("WE : '%s'\n", data->map->img_WE);
-	// printf("EA : '%s'\n", data->map->img_EA);
-	// printf("F : (%d) %d %d %d\n", data->map->floor_color,
-	// 	data->map->floor_color >> 16, (data->map->floor_color >> 8) & 0xFF,
-	// 	data->map->floor_color & 0xFF);
-	// printf("C : (%d) %d %d %d\n", data->map->ceilling_color,
-	// 	data->map->ceilling_color >> 16,
-	// 	(data->map->ceilling_color >> 8) & 0xFF,
-	// 	data->map->ceilling_color & 0xFF);
-	// for (int j = 0; i < data->map->map_h; i++)
-	// 	printf("'%s'\n", data->map->map[i]);
 }

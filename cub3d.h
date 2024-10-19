@@ -42,13 +42,10 @@ typedef struct s_ray
 	double		wall_dist_l;
 	double		wall_dist_r;
 	int			color_flag;
-
-	int side; // 0 si c'est un cote x qui est touche (vertical), 1 si un cote y (horizontal)
-
-	int lineheight; // hauteur de la ligne a dessiner
-	int drawstart;  // position de debut ou il faut dessiner
-	int drawend;    // position de fin ou il faut dessiner
-
+	int			side;
+	int			lineheight;
+	int			drawstart;
+	int			drawend;
 	int			x_ray;
 	float		ray_angle;
 	int			cast;
@@ -56,48 +53,38 @@ typedef struct s_ray
 
 typedef struct s_player
 {
-	double			p_x;
-	double			p_y;
-
+	double		p_x;
+	double		p_y;
 	double		angle;
 	float		fov_rad;
-
 	int			rota_flag;
 
 }				t_player;
 
 typedef struct s_map
 {
-	char **map; // init
-
-	int mapx; // coordonée x du carré dans lequel est pos
-	int mapy; // coordonnée y du carré dans lequel est pos ????
-
-	// Images
-	char		*img_NO;
-	char		*img_SO;
-	char		*img_WE;
-	char		*img_EA;
-
-	// Couleurs du sol et du plafond
+	char		**map;
+	int			mapx;
+	int			mapy;
+	char		*img_no;
+	char		*img_so;
+	char		*img_we;
+	char		*img_ea;
 	int			floor_color;
 	int			ceilling_color;
-
 	int			p_x_location;
 	int			p_y_location;
-
-	int map_h; // init
-	int map_w; // init
+	int			map_h;
+	int			map_w;
 
 }				t_map;
 
 typedef struct s_data
 {
-	void *mlx;     // init
-	void *mlx_win; // init
+	void		*mlx;
+	void		*mlx_win;
 	void		*img_ptr;
 	int			*buffer;
-
 	int			size_l;
 	int			bpp;
 	int			endian;
@@ -105,7 +92,6 @@ typedef struct s_data
 	t_map		*map;
 	t_ray		*ray;
 	t_player	*player;
-
 }				t_data;
 
 // ------------------ INITIALISATION -------------------------
@@ -113,6 +99,7 @@ typedef struct s_data
 void			game_launch(t_data *data);
 t_data			*init_data(t_data *data, char *map_name);
 void			get_start_angle(t_data *data, char c);
+void			create_window(t_data *data);
 
 // ------------------ FONTIONS -------------------------
 
@@ -123,6 +110,8 @@ float			horizontal(t_data *temp, float angle);
 float			modulo_pi(float x);
 int				inter_wall_check(float angle, float *inter, float *incr, int i);
 int				walled(float x, float y, t_data *data);
+void			calcul_rayon_hv(t_data *data, float modulo, double *var);
+void			check_collision(t_data *data);
 
 // ------------------ UTILS -------------------------
 
@@ -146,8 +135,6 @@ void			render(t_data *data, int cast);
 void			put_ceiling(t_data *data, int x, int y, int color);
 void			put_floor(t_data *data, int x, int y, int color);
 void			put_pixel(t_data *data, int x, int y, int color);
-
-void			create_window(t_data *data);
 
 // ------------------ PARSING -------------------------
 void			parsing(t_data *data, char *file);

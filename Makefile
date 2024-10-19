@@ -3,10 +3,10 @@ OBJDIR = objets
 MLX = .mlx
 SRC = 	main.c \
 		utils.c \
-		window.c \
-		init.c \
 		movement.c \
+		movement2.c \
 		game_loop.c \
+		game_loop2.c \
 		rendering.c \
 		parsing/parsing.c \
 		parsing/parsing_map.c \
