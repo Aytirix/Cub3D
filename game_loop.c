@@ -20,6 +20,34 @@
 //* TEXTURES		TODO <<--
 //* MOUVEMENTS		DOING
 
+static void	mini_map(t_data *data)
+{
+	int	x;
+	int	y;
+
+	x = -1;
+	while (data->map->map[++x])
+	{
+		y = -1;
+		while (data->map->map[x][++y])
+		{
+			if (data->map->map[x][y] == '1' || data->map->map[x][y] == ' ')
+				draw_square(data, y, x, 0x000000);
+			else if (data->map->map[x][y] == '0')
+				draw_square(data, y, x, data->map->floor_color);
+			else if (ft_strchr("NSEW", data->map->map[x][y]))
+				draw_square(data, y, x, 0x00ff00);
+		}
+		while (y < data->map->map_w)
+		{
+			draw_square(data, y, x, 0x000000);
+			y++;
+		}
+	}
+	draw_square(data, data->player->p_x / TILE_SIZE, data->player->p_y
+		/ TILE_SIZE, 0xff0000);
+}
+
 int	game_loop(t_data *data)
 {
 	if (data->img_ptr)
@@ -28,6 +56,7 @@ int	game_loop(t_data *data)
 	data->buffer = (int *)mlx_get_data_addr(data->img_ptr, &data->bpp,
 			&data->size_l, &data->endian);
 	ray_casting(data);
+	mini_map(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_ptr, 0, 0);
 	key_hook(data);
 	mouse_move_hook(data);
@@ -44,13 +73,6 @@ void	ray_casting(t_data *data)
 	{
 		data->ray->color_flag = 0;
 		calcul_rayon_hv(data, data->ray->ray_angle, &data->ray->wall_dist);
-		calcul_rayon_hv(data, data->ray->ray_angle + M_PI,
-			&data->ray->wall_dist_b);
-		calcul_rayon_hv(data, data->ray->ray_angle - M_PI / 2,
-			&data->ray->wall_dist_l);
-		calcul_rayon_hv(data, data->ray->ray_angle + M_PI / 2,
-			&data->ray->wall_dist_r);
-		check_collision(data);
 		render(data, cast);
 		data->ray->ray_angle += (data->player->fov_rad / WIDTH);
 		cast++;

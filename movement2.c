@@ -27,13 +27,13 @@ int	key_hook(t_data *data)
 
 int	key_press(int key, t_data *data)
 {
-	if ((key == 119 || key == 65362) && data->ray->wall_dist > COL_WALL)
+	if (key == 119 || key == 65362)
 		data->keys[0] = 1;
-	else if ((key == 115 || key == 65364) && data->ray->wall_dist_b > COL_WALL)
+	else if (key == 115 || key == 65364)
 		data->keys[1] = 1;
-	else if ((key == 97 || key == 65361) && data->ray->wall_dist_l > COL_WALL)
+	else if (key == 97 || key == 65361)
 		data->keys[2] = 1;
-	else if ((key == 100 || key == 65363) && data->ray->wall_dist_r > COL_WALL)
+	else if (key == 100 || key == 65363)
 		data->keys[3] = 1;
 	if (key == 65307 || key == 65307)
 		free_all_stop(data, 0);

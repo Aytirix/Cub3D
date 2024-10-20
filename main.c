@@ -18,7 +18,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_fprintf(2, "Error\nWrong number of arguments (only 1 required))\n");
+		ft_fprintf(2, "Error\nWrong number of arguments (only 1 required)\n");
 		return (1);
 	}
 	init_data(&data, argv[1]);

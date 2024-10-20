@@ -13,16 +13,23 @@
 #include "cub3d.h"
 #include <time.h>
 
-void	check_collision(t_data *data)
+void	draw_square(t_data *data, double x, int y, int color)
 {
-	if (data->ray->wall_dist < COL_WALL)
-		data->keys[0] = 0;
-	else if (data->ray->wall_dist_b < COL_WALL)
-		data->keys[1] = 0;
-	else if (data->ray->wall_dist_l < COL_WALL)
-		data->keys[2] = 0;
-	else if (data->ray->wall_dist_r < COL_WALL)
-		data->keys[3] = 0;
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < 5)
+	{
+		j = 0;
+		while (j < 5)
+		{
+			data->buffer[((int)y * 5 + i + 10) * WIDTH + (int)x * 5 + j
+				+ 10] = color;
+			j++;
+		}
+		i++;
+	}
 }
 
 void	calcul_rayon_hv(t_data *data, float modulo, double *var)

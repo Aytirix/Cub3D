@@ -22,7 +22,7 @@ static int	convert_rgb(char *rgb, int i, int *color)
 	{
 		tmp = ft_atoi(rgb + i);
 		if (tmp < 0 || tmp > 255 || virgule > 2)
-			return (ft_fprintf(2, "Error : RGB color not valid\n"));
+			return (ft_fprintf(2, "Error\nRGB color not valid\n"));
 		*color = (*color << 8) + tmp;
 		while (ft_isdigit(rgb[i]))
 			i++;
@@ -31,7 +31,7 @@ static int	convert_rgb(char *rgb, int i, int *color)
 		if (rgb[i] == ',')
 			i++;
 		if (rgb[i] && (!ft_strchr("0123456789 \t", rgb[i])))
-			return (ft_fprintf(2, "Error : RGB caractere '%s%c%s' not valid\n",
+			return (ft_fprintf(2, "Error\nRGB caractere '%s%c%s' not valid\n",
 					BOLD_RED, rgb[i], RESET));
 		++virgule;
 	}

@@ -12,7 +12,7 @@
 
 #include "../cub3d.h"
 
-static int	size_map(char *file, int j, int *error)
+static int	size_map(char *file, int *error)
 {
 	int		i;
 	int		fd;
@@ -22,17 +22,14 @@ static int	size_map(char *file, int j, int *error)
 	i = 0;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		*error = ft_fprintf(2, "Error : Map impossible to read\n");
+		*error = ft_fprintf(2, "Error\nMap impossible to read\n");
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (line[j] && ft_strchr("	", line[j]) && ++j)
-			continue ;
+		if (line && line[0] && ft_strchr(" 01", line[0]))
+			i++;
 		free(line);
 		line = get_next_line(fd);
-		j = 0;
-		if (line && line[j])
-			i++;
 	}
 	return (i);
 }
@@ -47,7 +44,7 @@ static void	test_access_file(t_data *data, char **file)
 	fd = open(*file, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_fprintf(2, "Error : Image '%s%s%s' not found or not accessible\n",
+		ft_fprintf(2, "Error\nImage '%s%s%s' not found or not accessible\n",
 			BOLD_RED, *file, RESET);
 		free_all_stop(data, 1);
 	}
@@ -86,23 +83,23 @@ void	parsing(t_data *data, char *file)
 	int	i;
 	int	fd;
 
-	data->map->map_h = size_map(file, 0, &i);
+	data->map->map_h = size_map(file, &i);
 	data->map->map = ft_calloc(sizeof(char *), data->map->map_h + 1);
 	fd = open(file, O_RDONLY);
 	if (fd == -1 && i == 0)
-		i = ft_fprintf(2, "Error : Map impossible to read\n");
+		i = ft_fprintf(2, "Error\nMap impossible to read\n");
 	if (i == 0 && search_image(data, &data->map->img_no, fd, "NO"))
-		i = ft_fprintf(2, "Error : Image NO texture not found\n");
+		i = ft_fprintf(2, "Error\nImage NO texture not found\n");
 	if (i == 0 && search_image(data, &data->map->img_so, fd, "SO"))
-		i = ft_fprintf(2, "Error : Image SO texture not found\n");
+		i = ft_fprintf(2, "Error\nImage SO texture not found\n");
 	if (i == 0 && search_image(data, &data->map->img_we, fd, "WE"))
-		i = ft_fprintf(2, "Error : Image WE texture not found\n");
+		i = ft_fprintf(2, "Error\nImage WE texture not found\n");
 	if (i == 0 && search_image(data, &data->map->img_ea, fd, "EA"))
-		i = ft_fprintf(2, "Error : Image EA texture not found\n");
+		i = ft_fprintf(2, "Error\nImage EA texture not found\n");
 	if (i == 0 && search_rgb(&data->map->floor_color, fd, "F", &i))
-		i = ft_fprintf(2, "Error : RGB Floor color not found\n");
+		i = ft_fprintf(2, "Error\nRGB Floor color not found\n");
 	if (i == 0 && search_rgb(&data->map->ceilling_color, fd, "C", &i))
-		i = ft_fprintf(2, "Error : RGB Ceilling color not found\n");
+		i = ft_fprintf(2, "Error\nRGB Ceilling color not found\n");
 	if (i == 0 && parsing_map(data, fd, 0))
 		i = 1;
 	if (i)
