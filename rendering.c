@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:49:44 by hugo              #+#    #+#             */
-/*   Updated: 2024/10/15 16:27:28 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/10/20 23:31:18 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"cub3d.h"
+#include "cub3d.h"
 
 void	render(t_data *data, int cast)
 {
@@ -21,35 +21,74 @@ void	render(t_data *data, int cast)
 
 	i = 0;
 	data->ray->cast = cast;
+	data->ray->wall_dist *= cos(modulo_pi(data->ray->ray_angle
+				- data->player->angle));
+	wall_size = (TILE_SIZE / data->ray->wall_dist) * ((WIDTH / 2)
+			/ tan(data->player->fov_rad / 2));
 
-
-	data->ray->wall_dist *= cos(modulo_pi(data->ray->ray_angle - data->player->angle)); // fix the fisheye
-	wall_size = (TILE_SIZE / data->ray->wall_dist) * ((1900 / 2) / tan(data->player->fov_rad / 2));
-
-	wall_bottom = (1080 / 2) + (wall_size / 2);
-	wall_top = (1080 / 2) - (wall_size / 2);
-
-	if (wall_bottom > 1080)
-			wall_bottom = 1080;
+	wall_bottom = (HEIGHT / 2) + (wall_size / 2);	// le + grand
+	wall_top = (HEIGHT / 2) - (wall_size / 2);		// le plus petit
+	if (wall_bottom > HEIGHT)
+		wall_bottom = HEIGHT;
 	if (wall_top < 0)
-			wall_top = 0;
+		wall_top = 0;
 
+	texture_to_wall(data, wall_bottom, wall_top);
 
-	while (i < wall_size / 2)
+	put_ceiling(data, cast, HEIGHT / 2 - wall_size / 2,
+		data->map->ceilling_color);
+	put_floor(data, cast, HEIGHT / 2 + wall_size / 2, data->map->floor_color);
+
+}
+
+int calcul_x_offset(t_data *data)
+{
+	int x_offset;
+
+	if (data->ray->is_horizontal)
 	{
-		put_pixel(data, cast, 1080 / 2 - i, 0xB24512);
-		put_pixel(data, cast, 1080 / 2 + i, 0xB24512);
-		i++;
+		x_offset = (int)data->ray->h_x % 30;
 	}
-
-	put_ceiling(data, cast, 1080 / 2 - wall_size / 2, 0xB0D3F3); // Yellow
-	put_floor(data, cast, 1080 / 2 + wall_size / 2, 0xDEA063); // blanc
-
-	i = 0;
-	while (i++ < 1080)
+	else
 	{
-		put_pixel(data, 1485, i, 0xFFFFFF);
-		put_pixel(data, 1490, i, 0xFFFFFF);
+		x_offset = (int)data->ray->v_y % 30;
+	}
+	return (x_offset);
+	//y_offset = 0;
+
+//	int test = (wall_top - (HEIGHT / 2) + ((wall_bottom - wall_top) / 2)) ;
+
+	// facteur_y = 64 / (wall_bottom - wall_top);
+	// x_offset = calcul_x_offset(data);
+	// y_offset += facteur_y;
+}
+
+
+
+void	texture_to_wall(t_data *data, int wall_bottom, int wall_top) //$ recup la texture
+{
+	//$stocker chaque image dans une structure dans laquelle il y aura leur get_data_addr
+	// int		x_offset;
+	// int		y_offset;
+	// float	facteur_y;
+	int color;
+	int pixel_pos;
+	uint32_t		*arr;
+	//pixel_pos = wall_top_int * data->map->img_NO->width + data->ray->cast * (data->map->img_NO->bpp / 8);
+	arr = (uint32_t *)data->map->img_NO->txtr_ptr;
+
+	color = 16685312;
+	int i = 0;
+	while (arr[i])
+		i++;
+	printf("I : %d\n",i);
+	while (wall_top <= wall_bottom)
+	{
+		color = arr[wall_top * data->map->img_NO->size_line + (data->ray->cast * (data->map->img_NO->bpp / 8))];
+		//color = *(int*)(data->map->img_NO->txtr_ptr + pixel_pos);
+		printf("wall top : %d\n", data->map->img_NO->bpp / 8);
+		put_pixel(data, data->ray->cast, wall_top, color);
+		wall_top++;
 	}
 }
 
@@ -64,7 +103,7 @@ void	put_ceiling(t_data *data, int x, int y, int color)
 
 void	put_floor(t_data *data, int x, int y, int color)
 {
-	while (y < 1080)
+	while (y < HEIGHT)
 	{
 		put_pixel(data, x, y, color);
 		y++;
@@ -74,21 +113,13 @@ void	put_floor(t_data *data, int x, int y, int color)
 void	put_pixel(t_data *data, int x, int y, int color)
 {
 	if (x < 0)
-		return;
+		return ;
 	if (y < 0)
-		return;
-	if (x > 1900)
-		return;
-	if (y > 1080)
-		return;
-
-	data->buffer[y * 1900 + x] = color;
+		return ;
+	if (x > WIDTH)
+		return ;
+	if (y > HEIGHT)
+		return ;
+	data->buffer[y * WIDTH + x] = color;
 }
-
-// render walls, floor and ceiling
-
-// use this to get faster rendering ?
-//		mlx_new_image | void	*mlx_new_image(void *mlx_ptr,int width,int height);
-//		mlx_get_data_addr
-//		mlx_put_image_to_window | int mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr, int x, int y);
 

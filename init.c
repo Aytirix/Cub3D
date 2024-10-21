@@ -3,48 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:12:22 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/15 16:25:58 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:11:33 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"cub3d.h"
 #include<math.h>
-
-void	get_ply_pos(t_data *data)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	i = 0;
-
-
-	while (data->map->map[i])
-	{
-		j = 0;
-		while(data->map->map[i][j])
-		{
-			if(data->map->map[i][j] != '0' && data->map->map[i][j] != '1' && data->map->map[i][j] != '\n')
-			{
-				data->map->p_x_location = j + 1;
-				data->map->p_y_location = i + 1;
-				printf("\n\nx:y location =    %d:%d\n", data->map->p_x_location, data->map->p_y_location)	;
-				data->player->p_x = (j) * TILE_SIZE + TILE_SIZE / 2;
-				data->player->p_y = (i) * TILE_SIZE + TILE_SIZE / 2;
-				printf("p_x:p_y pixel = %d:%d\n", data->player->p_x, data->player->p_y)	;
-				get_start_angle(data, data->map->map[i][j]);
-				printf("Pole 			%f \n", data->player->angle);
-			}
-			j++;
-		}
-		i++;
-	}
-	data->map->map_h = i;
-	data->map->map_w = j - 1;
-}
 
 void	get_start_angle(t_data *data, char c)
 {
@@ -57,11 +24,19 @@ void	get_start_angle(t_data *data, char c)
 	else if (c == 'E')
 		data->player->angle = 0;
 
-	data->player->angle = 3 * M_PI / 2;
-	data->player->p_y += 5;
+		data->player->angle = 0;
 
 
 	data->player->fov_rad = (FOV * M_PI) / 180;
-	printf("FOV en rad : 	%f \n", data->player->fov_rad); // rad = cercle trigo
-
 }
+
+
+// 111111111111111111111
+// 110000000000000000111
+// 11N000000000000000011
+// 100000100000000000001
+// 100000000000000000001
+// 100000000000000000001
+// 100000000000000000001
+// 100000000000000000001
+// 111111111111111111111

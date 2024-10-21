@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 16:51:03 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/04 15:34:20 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/10/20 15:10:30 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,55 @@
 
 int main(int argc, char** argv)
 {
-	t_data *data;
+	t_data data;
 
 	if (argc != 2)
 		return 0;
 
-	data = calloc(1, sizeof(t_data));
+	init_data(&data, argv[1]);
 
-	init_data(data, argv[1]);
-
-	game_launch(data);
-
-	return 0;
+	game_launch(&data);
+	free_all_stop(&data, 0);
+	return (0);
 }
 
-t_data*	init_data(t_data *data, char *map_name)
+t_data*	init_data(t_data *data, char *file_name)
 {
 	data->ray = calloc(1, sizeof(t_ray));
 	data->map = calloc(1, sizeof(t_map));
+	data->map->img_EA = calloc(1,sizeof(t_texture));
+	data->map->img_NO = calloc(1,sizeof(t_texture));
+	data->map->img_WE = calloc(1,sizeof(t_texture));
+	data->map->img_SO = calloc(1,sizeof(t_texture));
 	data->player = calloc(1, sizeof(t_player));
-	data->map->map = get_map(map_name);
-	get_ply_pos(data);
-
+	data->img_ptr = NULL;
+	data->map->img_SO->name = NULL;
+	data->map->img_WE->name = NULL;
+	data->map->img_EA->name = NULL;
+	data->map->map = NULL;
+	data->map->map_h = 0;
+	data->map->map_w = 0;
+	data->map->floor_color = 0;
+	data->map->ceilling_color = 0;
+	data->keys[0] = 0;
+	data->keys[1] = 0;
+	data->keys[2] = 0;
+	data->keys[3] = 0;
+	parsing(data, file_name);
 	return (data);
+}
+
+int	load_textures(t_data *data)
+{
+	printf("dir : %s\n", data->map->img_NO->name);
+	data->map->img_NO->img_ptr = mlx_xpm_file_to_image(data->mlx, \
+		data->map->img_NO->name, &data->map->img_NO->width, \
+		&data->map->img_NO->height);
+
+	data->map->img_NO->txtr_ptr = mlx_get_data_addr(data->map->img_NO->img_ptr, &data->map->img_NO->bpp, &data->map->img_NO->size_line, &data->map->img_NO->endian);
+
+
+
 }
 
 void	game_launch(t_data *data)
