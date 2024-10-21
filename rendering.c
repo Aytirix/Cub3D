@@ -21,6 +21,8 @@ void	render(t_data *data, int cast)
 	data->ray->cast = cast;
 	data->ray->wall_dist *= cos(modulo_pi(data->ray->ray_angle
 				- data->player->angle));
+	if (data->ray->wall_dist <= COL_WALL)
+		data->ray->wall_dist = COL_WALL;
 	wall_size = (TILE_SIZE / data->ray->wall_dist) * ((WIDTH / 2)
 			/ tan(data->player->fov_rad / 2));
 	while (i < wall_size / 2)

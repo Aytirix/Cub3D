@@ -19,13 +19,16 @@ void	draw_square(t_data *data, double x, int y, int color)
 	int	j;
 
 	i = 0;
-	while (i < 5)
+	while (i < data->map->mini_map_size)
 	{
 		j = 0;
-		while (j < 5)
+		while (j < data->map->mini_map_size)
 		{
-			data->buffer[((int)y * 5 + i + 10) * WIDTH + (int)x * 5 + j
-				+ 10] = color;
+			if ((int)x * data->map->mini_map_size + j < WIDTH && (int)y
+				* data->map->mini_map_size + i < HEIGHT)
+				data->buffer[((int)y * data->map->mini_map_size + i + 10)
+					* WIDTH + (int)x * data->map->mini_map_size + j
+					+ 10] = color;
 			j++;
 		}
 		i++;
@@ -102,8 +105,8 @@ int	walled(float x, float y, t_data *data)
 
 	x_pos = floor(x / TILE_SIZE);
 	y_pos = floor(y / TILE_SIZE);
-	if (x < 0 || y < 0)
-		return (0);
+	if (x_pos < 0 || y_pos < 0 || y_pos >= data->map->map_h || x_pos >= data->map->map_w)
+    	return (0);
 	if (y_pos >= data->map->map_h || x_pos >= data->map->map_w)
 		return (0);
 	if (data->map->map[y_pos] && x_pos <= ft_strlen(data->map->map[y_pos]))

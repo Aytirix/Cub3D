@@ -59,6 +59,7 @@ t_data	*init_data(t_data *data, char *file_name)
 	data->keys[1] = 0;
 	data->keys[2] = 0;
 	data->keys[3] = 0;
+	data->map->mini_map_size = 5;
 	parsing(data, file_name);
 	return (data);
 }

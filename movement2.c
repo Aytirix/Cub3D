@@ -35,7 +35,13 @@ int	key_press(int key, t_data *data)
 		data->keys[2] = 1;
 	else if (key == 100 || key == 65363)
 		data->keys[3] = 1;
-	if (key == 65307 || key == 65307)
+	else if (key == 65289)
+		data->map->mini_map_size += 10;
+	else if (key == 61 && data->map->mini_map_size + 2 < 25)
+		data->map->mini_map_size += 2;
+	else if (key == 45 && data->map->mini_map_size - 2 > 0)
+		data->map->mini_map_size -= 2;
+	else if (key == 65307 || key == 65307)
 		free_all_stop(data, 0);
 	return (0);
 }
@@ -50,7 +56,9 @@ int	key_release(int key, t_data *data)
 		data->keys[2] = 0;
 	else if (key == 100 || key == 65363)
 		data->keys[3] = 0;
-	if (key == 65307 || key == 65307)
+	else if (key == 65289 && data->map->mini_map_size - 10 > 0)
+		data->map->mini_map_size -= 10;
+	else if (key == 65307 || key == 65307)
 		free_all_stop(data, 0);
 	return (0);
 }

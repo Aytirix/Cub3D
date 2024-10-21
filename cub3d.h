@@ -26,7 +26,7 @@
 # define PLAYER_SPEED 1
 # define MOVE_SPEED 0.0010
 # define FOV 60
-# define TILE_SIZE 30
+# define TILE_SIZE 300
 # define EPSILON 0.000001
 # define WIDTH 1900
 # define HEIGHT 1080
@@ -80,7 +80,7 @@ typedef struct s_map
 	int				p_y_location;
 	int				map_h;
 	int				map_w;
-
+	int				mini_map_size;
 }					t_map;
 
 typedef struct s_data
@@ -92,7 +92,7 @@ typedef struct s_data
 	int				size_l;
 	int				bpp;
 	int				endian;
-	int				keys[4];
+	int				keys[5];
 	t_map			*map;
 	t_ray			*ray;
 	t_player		*player;

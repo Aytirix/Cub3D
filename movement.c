@@ -16,7 +16,6 @@ void	move_player(t_data *data, double move_angle, double wall_dist_check)
 {
 	double	new_x;
 	double	new_y;
-	double	slide_angle;
 
 	calcul_rayon_hv(data, data->player->angle, &data->ray->wall_dist);
 	calcul_rayon_hv(data, data->player->angle + M_PI, &data->ray->wall_dist_b);
@@ -28,30 +27,14 @@ void	move_player(t_data *data, double move_angle, double wall_dist_check)
 	new_y = data->player->p_y + sin(move_angle) * P_SPEED;
 	if (wall_dist_check > COL_WALL)
 	{
-		data->player->p_x = new_x;
-		data->player->p_y = new_y;
+		if (walled(new_x, data->player->p_y, data))
+			data->player->p_x = new_x;
+		if (walled(data->player->p_x, new_y, data))
+			data->player->p_y = new_y;
 	}
-	// else
-	// {
-	// 	slide_angle = move_angle + M_PI / 2;
-	// 	double wall_dist_slide;
-	// 	calcul_rayon_hv(data, slide_angle, &wall_dist_slide);
-	// 	if (wall_dist_slide > COL_WALL)
-	// 	{
-	// 		data->player->p_x += cos(slide_angle) * P_SPEED / 2;
-	// 		data->player->p_y += sin(slide_angle) * P_SPEED / 2;
-	// 	}
-	// 	else
-	// 	{
-	// 		slide_angle -= M_PI; // On inverse la direction de glissement
-	// 		calcul_rayon_hv(data, slide_angle, &wall_dist_slide);
-	// 		if (wall_dist_slide > COL_WALL)
-	// 		{
-	// 			data->player->p_x += cos(slide_angle) * P_SPEED / 2;
-	// 			data->player->p_y += sin(slide_angle) * P_SPEED / 2;
-	// 		}
-	// 	}
-	// }
+	else
+	{
+	}
 }
 
 void	forward(t_data *data)
