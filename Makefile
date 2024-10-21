@@ -11,6 +11,7 @@ SRC = 	main.c \
 		parsing/parsing.c \
 		parsing/parsing_map.c \
 		parsing/parsing_rgb.c \
+		menu/menu.c
 
 OBJ = $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 LIBFT = Libft

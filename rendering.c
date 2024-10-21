@@ -25,6 +25,8 @@ void	render(t_data *data, int cast)
 		data->ray->wall_dist = COL_WALL;
 	wall_size = (TILE_SIZE / data->ray->wall_dist) * ((WIDTH / 2)
 			/ tan(data->player->fov_rad / 2));
+	if (wall_size > HEIGHT)
+		wall_size = HEIGHT;
 	while (i < wall_size / 2)
 	{
 		put_pixel(data, cast, HEIGHT / 2 - i, 0xB24512);

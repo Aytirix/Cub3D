@@ -56,8 +56,11 @@ int	game_loop(t_data *data)
 	data->buffer = (int *)mlx_get_data_addr(data->img_ptr, &data->bpp,
 			&data->size_l, &data->endian);
 	ray_casting(data);
-	mini_map(data);
+	if (data->keys[4][1] == 0)
+		mini_map(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_ptr, 0, 0);
+	if (data->keys[4][1])
+		draw_menu(data);
 	key_hook(data);
 	mouse_move_hook(data);
 	return (0);
@@ -72,7 +75,7 @@ void	ray_casting(t_data *data)
 	while (cast < WIDTH)
 	{
 		data->ray->color_flag = 0;
-		calcul_rayon_hv(data, data->ray->ray_angle, &data->ray->wall_dist);
+		calcul_rayon_hv(data, data->ray->ray_angle, &data->ray->wall_dist, 1);
 		render(data, cast);
 		data->ray->ray_angle += (data->player->fov_rad / WIDTH);
 		cast++;

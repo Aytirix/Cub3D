@@ -19,33 +19,41 @@ void	draw_square(t_data *data, double x, int y, int color)
 	int	j;
 
 	i = 0;
-	while (i < data->map->mini_map_size)
+	while (i < data->keys[7][1])
 	{
 		j = 0;
-		while (j < data->map->mini_map_size)
+		while (j < data->keys[7][1])
 		{
-			if ((int)x * data->map->mini_map_size + j < WIDTH && (int)y
-				* data->map->mini_map_size + i < HEIGHT)
-				data->buffer[((int)y * data->map->mini_map_size + i + 10)
-					* WIDTH + (int)x * data->map->mini_map_size + j
+			if ((int)x * data->keys[7][1] + j < WIDTH && (int)y
+				* data->keys[7][1] + i < HEIGHT)
+				data->buffer[((int)y * data->keys[7][1] + i + 10)
+					* WIDTH + (int)x * data->keys[7][1] + j
 					+ 10] = color;
 			j++;
 		}
 		i++;
 	}
 }
-
-void	calcul_rayon_hv(t_data *data, float modulo, double *var)
+void	calcul_rayon_hv(t_data *data, float modulo, double *var, int iteration)
 {
 	float	horizontal_wall;
 	float	vertical_wall;
+	int i;
 
-	vertical_wall = vertical(data, modulo_pi(modulo));
-	horizontal_wall = horizontal(data, modulo_pi(modulo));
-	if (vertical_wall < horizontal_wall)
-		*var = vertical_wall;
-	else
-		*var = horizontal_wall;
+	i = 0;
+	while (i < iteration)
+	{
+		vertical_wall = vertical(data, modulo_pi(modulo));
+		horizontal_wall = horizontal(data, modulo_pi(modulo));
+		if (vertical_wall < horizontal_wall)
+			*var = vertical_wall;
+		else
+			*var = horizontal_wall;
+		if (*var < COL_WALL)
+			break ;
+		modulo += 0.10;
+		i++;
+	}
 }
 
 float	horizontal(t_data *temp, float angle)

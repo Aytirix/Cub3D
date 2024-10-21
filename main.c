@@ -39,6 +39,23 @@ void	get_start_angle(t_data *data, char c)
 		data->player->angle = 0;
 	data->player->fov_rad = (FOV * M_PI) / 180;
 }
+void init_tab(t_data *data)
+{
+	data->keys[0][0] = 65362;
+	data->keys[0][1] = 0;
+	data->keys[1][0] = 65364;
+	data->keys[1][1] = 0;
+	data->keys[2][0] = 65361;
+	data->keys[2][1] = 0;
+	data->keys[3][0] = 65363;
+	data->keys[3][1] = 0;
+	data->keys[5][0] = 61;
+	data->keys[5][1] = 0;
+	data->keys[6][0] = 45;
+	data->keys[6][1] = 0;
+	data->keys[7][0] = 65289;
+	data->keys[7][1] = 5;
+}
 
 t_data	*init_data(t_data *data, char *file_name)
 {
@@ -55,11 +72,7 @@ t_data	*init_data(t_data *data, char *file_name)
 	data->map->map_w = 0;
 	data->map->floor_color = 0;
 	data->map->ceilling_color = 0;
-	data->keys[0] = 0;
-	data->keys[1] = 0;
-	data->keys[2] = 0;
-	data->keys[3] = 0;
-	data->map->mini_map_size = 5;
+	init_tab(data);
 	parsing(data, file_name);
 	return (data);
 }
