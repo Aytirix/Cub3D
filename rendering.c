@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:49:44 by hugo              #+#    #+#             */
-/*   Updated: 2024/10/20 23:31:18 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/21 18:53:34 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	render(t_data *data, int cast)
 	wall_size = (TILE_SIZE / data->ray->wall_dist) * ((WIDTH / 2)
 			/ tan(data->player->fov_rad / 2));
 
-	wall_bottom = (HEIGHT / 2) + (wall_size / 2);	// le + grand
-	wall_top = (HEIGHT / 2) - (wall_size / 2);		// le plus petit
+	wall_bottom = (HEIGHT / 2) + (wall_size / 2);
+	wall_top = (HEIGHT / 2) - (wall_size / 2);
 	if (wall_bottom > HEIGHT)
 		wall_bottom = HEIGHT;
 	if (wall_top < 0)
@@ -41,26 +41,25 @@ void	render(t_data *data, int cast)
 
 }
 
-int calcul_x_offset(t_data *data)
+float calcul_x_offset(t_data *data)
 {
-	int x_offset;
+	float x_offset;
+
+	printf("v_y : %f\n", data->ray->v_y);
+	printf("h_x : %f\n", data->ray->h_x);
+
 
 	if (data->ray->is_horizontal)
 	{
-		x_offset = (int)data->ray->h_x % 30;
+		x_offset = (int)fmodf(data->ray->h_x * (data->map->img_NO->width / TILE_SIZE), data->map->img_NO->width);
+		printf("horiz\n");
 	}
 	else
 	{
-		x_offset = (int)data->ray->v_y % 30;
+		x_offset = (int)fmodf(data->ray->v_y * (data->map->img_NO->width / TILE_SIZE), data->map->img_NO->width);
+		printf("verti\n");
 	}
 	return (x_offset);
-	//y_offset = 0;
-
-//	int test = (wall_top - (HEIGHT / 2) + ((wall_bottom - wall_top) / 2)) ;
-
-	// facteur_y = 64 / (wall_bottom - wall_top);
-	// x_offset = calcul_x_offset(data);
-	// y_offset += facteur_y;
 }
 
 
@@ -68,27 +67,28 @@ int calcul_x_offset(t_data *data)
 void	texture_to_wall(t_data *data, int wall_bottom, int wall_top) //$ recup la texture
 {
 	//$stocker chaque image dans une structure dans laquelle il y aura leur get_data_addr
-	// int		x_offset;
-	// int		y_offset;
-	// float	facteur_y;
-	int color;
-	int pixel_pos;
+	float		x_offset;
+	float		y_offset;
+	float		facteur_y;
+	int			color;
+	int			pixel_pos;
 	uint32_t		*arr;
-	//pixel_pos = wall_top_int * data->map->img_NO->width + data->ray->cast * (data->map->img_NO->bpp / 8);
-	arr = (uint32_t *)data->map->img_NO->txtr_ptr;
 
-	color = 16685312;
-	int i = 0;
-	while (arr[i])
-		i++;
-	printf("I : %d\n",i);
+	y_offset = 0;
+	x_offset = calcul_x_offset(data);
+	arr = (uint32_t *)data->map->img_NO->txtr_ptr;
+	facteur_y = (float)data->map->img_NO->height / (wall_bottom - wall_top);
+
+	printf("CAST : %d\n", data->ray->cast);
+	printf("x_offset : %f\n\n", x_offset);
+
 	while (wall_top <= wall_bottom)
 	{
-		color = arr[wall_top * data->map->img_NO->size_line + (data->ray->cast * (data->map->img_NO->bpp / 8))];
-		//color = *(int*)(data->map->img_NO->txtr_ptr + pixel_pos);
-		printf("wall top : %d\n", data->map->img_NO->bpp / 8);
+		pixel_pos = (int)y_offset * data->map->img_NO->width + (int)x_offset;
+		color = arr[pixel_pos];
 		put_pixel(data, data->ray->cast, wall_top, color);
-		wall_top++;
+		y_offset += facteur_y;
+		wall_top ++;
 	}
 }
 
@@ -122,4 +122,5 @@ void	put_pixel(t_data *data, int x, int y, int color)
 		return ;
 	data->buffer[y * WIDTH + x] = color;
 }
+
 

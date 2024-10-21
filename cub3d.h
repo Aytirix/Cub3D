@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:56:08 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/20 23:26:04 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/21 17:10:25 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,8 @@ int				walled(float x, float y, t_data *data, int i);
 
 int				check_direction(float incr_x, float angle, int i);
 void			free_all_stop(t_data *data, int code);
+int	reverse_bytes(int c);
+
 
 // ------------------ MOVEMENT -------------------------
 
@@ -167,10 +169,10 @@ void			render(t_data *data, int cast);
 void			put_ceiling(t_data *data, int x, int y, int color);
 void			put_floor(t_data *data, int x, int y, int color);
 void			put_pixel(t_data *data, int x, int y, int color);
-void		texture_to_wall(t_data *data, int wall_bottom, int wall_top);
-int			calcul_x_offset(t_data *data);
+void			texture_to_wall(t_data *data, int wall_bottom, int wall_top);
+float				calcul_x_offset(t_data *data);
 void			create_window(t_data *data);
-int	load_textures(t_data *data);
+void			load_textures(t_data *data);
 
 
 // ------------------ PARSING -------------------------

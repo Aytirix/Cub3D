@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:43:41 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/19 23:48:02 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/21 17:56:19 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 //* TEXTURES		TODO <<--
 //* MOUVEMENTS		OK
 
-int	game_loop(void *temp) 
+int	game_loop(void *temp)
 {
 	t_data *data;
 	data = temp;
@@ -80,7 +80,6 @@ void	ray_casting(t_data *data)
 	while (cast < WIDTH)
 	{
 		data->ray->color_flag = 0;
-		calcul_rayon_hv(data, data->ray->ray_angle, &data->ray->wall_dist);
 		calcul_rayon_hv(data, data->ray->ray_angle + M_PI,
 			&data->ray->wall_dist_b);
 		calcul_rayon_hv(data, data->ray->ray_angle - M_PI / 2,
@@ -88,6 +87,7 @@ void	ray_casting(t_data *data)
 		calcul_rayon_hv(data, data->ray->ray_angle + M_PI / 2,
 			&data->ray->wall_dist_r);
 		check_collision(data);
+		calcul_rayon_hv(data, data->ray->ray_angle, &data->ray->wall_dist);
 		render(data, cast);
 		data->ray->ray_angle += (data->player->fov_rad / WIDTH);
 		cast++;

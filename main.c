@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 16:51:03 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/20 15:10:30 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/21 14:43:28 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_data*	init_data(t_data *data, char *file_name)
 	return (data);
 }
 
-int	load_textures(t_data *data)
+void	load_textures(t_data *data)
 {
 	printf("dir : %s\n", data->map->img_NO->name);
 	data->map->img_NO->img_ptr = mlx_xpm_file_to_image(data->mlx, \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:04:20 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/20 14:27:29 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/21 18:54:26 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ float	modulo_pi(float x)
 void free_all_stop(t_data *data, int code)
 {
 	int	i;
+	mlx_destroy_image(data->mlx, data->map->img_NO->img_ptr);
+
 	free(data->map->img_NO->name);
 	free(data->map->img_SO->name);
 	free(data->map->img_WE->name);
