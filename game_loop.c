@@ -56,10 +56,10 @@ int	game_loop(t_data *data)
 	data->buffer = (int *)mlx_get_data_addr(data->img_ptr, &data->bpp,
 			&data->size_l, &data->endian);
 	ray_casting(data);
-	if (data->keys[4][1] == 0)
+	if (data->settings->menu->press == 0)
 		mini_map(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_ptr, 0, 0);
-	if (data->keys[4][1])
+	if (data->settings->menu->press)
 		draw_menu(data);
 	key_hook(data);
 	mouse_move_hook(data);

@@ -73,6 +73,8 @@
 	"numeric": "c",
 	"streambuf": "c",
 	"cmath": "c",
-	"utility": "c"
+	"utility": "c",
+	"system_error": "c",
+	"type_traits": "c"
 }
 }

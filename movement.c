@@ -60,7 +60,7 @@ int	mouse_move_hook(t_data *data)
 	int	x;
 	int	y;
 
-	if (data->keys[4][1] == 1)
+	if (data->settings->menu->press)
 		return (0);
 	mlx_mouse_get_pos(data->mlx, data->mlx_win, &x, &y);
 	data->player->angle += (x - WIDTH / 2) * MOVE_SPEED;

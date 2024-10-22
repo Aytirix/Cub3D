@@ -19,15 +19,15 @@ void	draw_square(t_data *data, double x, int y, int color)
 	int	j;
 
 	i = 0;
-	while (i < data->keys[7][1])
+	while (i < data->settings->big_zoom->press)
 	{
 		j = 0;
-		while (j < data->keys[7][1])
+		while (j < data->settings->big_zoom->press)
 		{
-			if ((int)x * data->keys[7][1] + j < WIDTH && (int)y
-				* data->keys[7][1] + i < HEIGHT)
-				data->buffer[((int)y * data->keys[7][1] + i + 10)
-					* WIDTH + (int)x * data->keys[7][1] + j
+			if ((int)x * data->settings->big_zoom->press + j < WIDTH && (int)y
+				* data->settings->big_zoom->press + i < HEIGHT)
+				data->buffer[((int)y * data->settings->big_zoom->press + i + 10)
+					* WIDTH + (int)x * data->settings->big_zoom->press + j
 					+ 10] = color;
 			j++;
 		}
@@ -38,7 +38,7 @@ void	calcul_rayon_hv(t_data *data, float modulo, double *var, int iteration)
 {
 	float	horizontal_wall;
 	float	vertical_wall;
-	int i;
+	int		i;
 
 	i = 0;
 	while (i < iteration)
@@ -113,11 +113,12 @@ int	walled(float x, float y, t_data *data)
 
 	x_pos = floor(x / TILE_SIZE);
 	y_pos = floor(y / TILE_SIZE);
-	if (x_pos < 0 || y_pos < 0 || y_pos >= data->map->map_h || x_pos >= data->map->map_w)
-    	return (0);
+	if (x_pos < 0 || y_pos < 0 || y_pos >= data->map->map_h
+		|| x_pos >= data->map->map_w)
+		return (0);
 	if (y_pos >= data->map->map_h || x_pos >= data->map->map_w)
 		return (0);
-	if (data->map->map[y_pos] && x_pos <= ft_strlen(data->map->map[y_pos]))
+	if (data->map->map[y_pos] && x_pos <= (int)ft_strlen(data->map->map[y_pos]))
 	{
 		if (data->map->map[y_pos][x_pos] == '1')
 			return (0);

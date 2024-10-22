@@ -83,6 +83,28 @@ typedef struct s_map
 	int			map_w;
 }				t_map;
 
+
+typedef struct s_settings
+{
+	int			key;
+	int			press;
+	int			x;
+	int			y;
+	struct s_settings	*next;
+}				t_settings;
+
+typedef struct s_lsettings
+{
+	t_settings	*forward;
+	t_settings	*backward;
+	t_settings	*left;
+	t_settings	*right;
+	t_settings	*menu;
+	t_settings	*zoom_in;
+	t_settings	*zoom_out;
+	t_settings	*big_zoom;
+}				t_lsettings;
+
 typedef struct s_data
 {
 	void		*mlx;
@@ -96,12 +118,13 @@ typedef struct s_data
 	t_map		*map;
 	t_ray		*ray;
 	t_player	*player;
+	struct s_lsettings	*settings;
 }				t_data;
 
 // ------------------ INITIALISATION -------------------------
 
 void			game_launch(t_data *data);
-t_data			*init_data(t_data *data, char *map_name);
+t_data			*init_data(t_data *data, char *file_name);
 void			get_start_angle(t_data *data, char c);
 void			create_window(t_data *data);
 
@@ -118,9 +141,15 @@ void			calcul_rayon_hv(t_data *data, float modulo, double *var,
 					int iteration);
 void			draw_square(t_data *data, double x, int y, int color);
 
+// ------------------ SETTINGS -------------------------
+
+t_lsettings		*init_lsettings(void);
+t_lsettings		*free_settings(t_lsettings *settings);
+
 // ------------------ MENU -------------------------
 
 void			draw_menu(t_data *data);
+void			check_update_lisent(t_data *data, int new);
 
 // ------------------ UTILS -------------------------
 

@@ -51,8 +51,8 @@ static void	check_flood_fill(t_data *data, int y, int x, char replace)
 	if (data->map->map[y] && data->map->map[y][x]
 		&& (data->map->map[y][x] == '1' || data->map->map[y][x] == replace))
 		return ;
-	if (data->map->map[y] && data->map->map[y][x] && ft_strchr("NSEW0",
-			data->map->map[y][x]) || replace == '0')
+	if ((data->map->map[y] && data->map->map[y][x] && ft_strchr("NSEW0",
+			data->map->map[y][x])) || replace == '0')
 	{
 		if (!ft_strchr("NSEW", data->map->map[y][x]))
 			data->map->map[y][x] = replace;

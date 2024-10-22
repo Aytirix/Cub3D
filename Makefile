@@ -11,12 +11,13 @@ SRC = 	main.c \
 		parsing/parsing.c \
 		parsing/parsing_map.c \
 		parsing/parsing_rgb.c \
-		menu/menu.c
+		menu/menu.c \
+		settings/settings.c \
 
 OBJ = $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 LIBFT = Libft
 LIBFT_A = $(LIBFT)/libft.a
-FLAGS = -g3 -fsanitize=address #-Wall -Wextra -Werror
+FLAGS = -g3 -fsanitize=address -Wall -Wextra -Werror
 LIBS = -L$(MLX) -lmlx -L$(LIBFT) -lft -lXext -lX11 -lm
 
 # Colors

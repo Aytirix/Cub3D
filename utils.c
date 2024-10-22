@@ -29,6 +29,7 @@ void	free_all_stop(t_data *data, int code)
 	int	i;
 
 	i = -1;
+	data->settings = free_settings(data->settings);
 	while (data->map->map && data->map->map[++i])
 		free(data->map->map[i]);
 	free(data->ray);
