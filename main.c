@@ -6,7 +6,7 @@
 /*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 16:51:03 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/21 14:43:28 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:48:01 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,22 @@ t_data*	init_data(t_data *data, char *file_name)
 
 void	load_textures(t_data *data)
 {
-	printf("dir : %s\n", data->map->img_NO->name);
 	data->map->img_NO->img_ptr = mlx_xpm_file_to_image(data->mlx, \
 		data->map->img_NO->name, &data->map->img_NO->width, \
 		&data->map->img_NO->height);
-
+	data->map->img_SO->img_ptr = mlx_xpm_file_to_image(data->mlx, \
+		data->map->img_SO->name, &data->map->img_SO->width, \
+		&data->map->img_SO->height);
+	data->map->img_WE->img_ptr = mlx_xpm_file_to_image(data->mlx, \
+		data->map->img_WE->name, &data->map->img_WE->width, \
+		&data->map->img_WE->height);
+	data->map->img_EA->img_ptr = mlx_xpm_file_to_image(data->mlx, \
+		data->map->img_EA->name, &data->map->img_EA->width, \
+		&data->map->img_EA->height);
 	data->map->img_NO->txtr_ptr = mlx_get_data_addr(data->map->img_NO->img_ptr, &data->map->img_NO->bpp, &data->map->img_NO->size_line, &data->map->img_NO->endian);
-
-
-
+	data->map->img_SO->txtr_ptr = mlx_get_data_addr(data->map->img_SO->img_ptr, &data->map->img_SO->bpp, &data->map->img_SO->size_line, &data->map->img_SO->endian);
+	data->map->img_WE->txtr_ptr = mlx_get_data_addr(data->map->img_WE->img_ptr, &data->map->img_WE->bpp, &data->map->img_WE->size_line, &data->map->img_WE->endian);
+	data->map->img_EA->txtr_ptr = mlx_get_data_addr(data->map->img_EA->img_ptr, &data->map->img_EA->bpp, &data->map->img_EA->size_line, &data->map->img_EA->endian);
 }
 
 void	game_launch(t_data *data)

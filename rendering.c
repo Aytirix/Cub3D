@@ -6,7 +6,7 @@
 /*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:49:44 by hugo              #+#    #+#             */
-/*   Updated: 2024/10/21 18:53:34 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/10/22 18:45:15 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	render(t_data *data, int cast)
 	if (wall_top < 0)
 		wall_top = 0;
 
-	texture_to_wall(data, wall_bottom, wall_top);
+	texture_to_wall(data, wall_bottom, wall_top, wall_size);
 
 	put_ceiling(data, cast, HEIGHT / 2 - wall_size / 2,
 		data->map->ceilling_color);
@@ -41,50 +41,60 @@ void	render(t_data *data, int cast)
 
 }
 
-float calcul_x_offset(t_data *data)
+float calcul_x_offset(t_data *data, t_texture* txtr)
 {
 	float x_offset;
 
-	printf("v_y : %f\n", data->ray->v_y);
-	printf("h_x : %f\n", data->ray->h_x);
-
+	float temp;
 
 	if (data->ray->is_horizontal)
-	{
-		x_offset = (int)fmodf(data->ray->h_x * (data->map->img_NO->width / TILE_SIZE), data->map->img_NO->width);
-		printf("horiz\n");
-	}
+		x_offset = fmodf((data->ray->h_x * ((float)txtr->width / (float)TILE_SIZE)), (float)txtr->width);
 	else
-	{
-		x_offset = (int)fmodf(data->ray->v_y * (data->map->img_NO->width / TILE_SIZE), data->map->img_NO->width);
-		printf("verti\n");
-	}
+		x_offset = fmodf(data->ray->v_y * ((float)txtr->width / (float)TILE_SIZE), (float)txtr->width);
 	return (x_offset);
 }
 
-
-
-void	texture_to_wall(t_data *data, int wall_bottom, int wall_top) //$ recup la texture
+t_texture*	get_side_texture(t_data *data)
 {
-	//$stocker chaque image dans une structure dans laquelle il y aura leur get_data_addr
+	if (data->ray->is_horizontal)
+	{
+		if (0 < data->ray->ray_angle && data->ray->ray_angle < M_PI)
+			return data->map->img_SO;
+		else
+			return data->map->img_NO;
+	}
+	else
+	{
+		if (M_PI / 2 < data->ray->ray_angle && data->ray->ray_angle < 3 * M_PI / 2)
+			return data->map->img_EA;
+		else
+			return data->map->img_WE;
+	}
+}
+
+void	texture_to_wall(t_data *data, int wall_bottom, int wall_top, int wall_size)
+{
 	float		x_offset;
 	float		y_offset;
 	float		facteur_y;
 	int			color;
 	int			pixel_pos;
-	uint32_t		*arr;
+	uint32_t	*arr;
+	t_texture	*txtr;
 
 	y_offset = 0;
-	x_offset = calcul_x_offset(data);
-	arr = (uint32_t *)data->map->img_NO->txtr_ptr;
-	facteur_y = (float)data->map->img_NO->height / (wall_bottom - wall_top);
+	txtr = get_side_texture(data);
+	x_offset = calcul_x_offset(data, txtr);
+	arr = (uint32_t *)txtr->txtr_ptr;
+	facteur_y = (float)txtr->height / (float)(wall_size);
 
-	printf("CAST : %d\n", data->ray->cast);
-	printf("x_offset : %f\n\n", x_offset);
+	y_offset = (wall_top - (HEIGHT / 2) + ((float)(wall_size) / 2)) * facteur_y;
+	if (y_offset < 0)
+		y_offset = 0;
 
 	while (wall_top <= wall_bottom)
 	{
-		pixel_pos = (int)y_offset * data->map->img_NO->width + (int)x_offset;
+		pixel_pos = (int)y_offset * txtr->width + (int)x_offset;
 		color = arr[pixel_pos];
 		put_pixel(data, data->ray->cast, wall_top, color);
 		y_offset += facteur_y;

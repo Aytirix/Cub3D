@@ -6,7 +6,7 @@
 /*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:04:20 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/21 18:54:26 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:28:00 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ void free_all_stop(t_data *data, int code)
 {
 	int	i;
 	mlx_destroy_image(data->mlx, data->map->img_NO->img_ptr);
+	mlx_destroy_image(data->mlx, data->map->img_SO->img_ptr);
+	mlx_destroy_image(data->mlx, data->map->img_WE->img_ptr);
+	mlx_destroy_image(data->mlx, data->map->img_EA->img_ptr);
 
 	free(data->map->img_NO->name);
 	free(data->map->img_SO->name);

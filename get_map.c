@@ -6,7 +6,7 @@
 /*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 09:13:49 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/09/03 17:05:53 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:47:54 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ char	**get_map(char *map_name)
 	while (1)
 	{
 		map[i] = get_next_line(fd);
-		ft_printf("%s",map[i]);
 		if (map[i] == NULL)
 			break ;
 		i++;

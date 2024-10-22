@@ -6,7 +6,7 @@
 /*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:43:41 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/21 17:56:19 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:59:40 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ void	ray_casting(t_data *data)
 			&data->ray->wall_dist_l);
 		calcul_rayon_hv(data, data->ray->ray_angle + M_PI / 2,
 			&data->ray->wall_dist_r);
-		check_collision(data);
 		calcul_rayon_hv(data, data->ray->ray_angle, &data->ray->wall_dist);
+		check_collision(data);
 		render(data, cast);
 		data->ray->ray_angle += (data->player->fov_rad / WIDTH);
 		cast++;

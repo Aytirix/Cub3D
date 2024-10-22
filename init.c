@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:12:22 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/16 17:11:33 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/22 16:42:23 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	get_start_angle(t_data *data, char c)
 	else if (c == 'E')
 		data->player->angle = 0;
 
-		data->player->angle = 0;
+		//data->player->angle = 0;
 
 
 	data->player->fov_rad = (FOV * M_PI) / 180;

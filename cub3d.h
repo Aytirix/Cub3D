@@ -6,7 +6,7 @@
 /*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:56:08 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/21 17:10:25 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/10/22 18:19:51 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ typedef struct s_ray
 	int			cast;
 	int			is_horizontal;
 
-	float		h_x;
-	float		h_y;
-	float		v_x;
-	float		v_y;
+	double		h_x;
+	double		h_y;
+	double		v_x;
+	double		v_y;
 }				t_ray;
 
 typedef struct s_player
@@ -149,7 +149,7 @@ int				walled(float x, float y, t_data *data, int i);
 
 int				check_direction(float incr_x, float angle, int i);
 void			free_all_stop(t_data *data, int code);
-int	reverse_bytes(int c);
+int				reverse_bytes(int c);
 
 
 // ------------------ MOVEMENT -------------------------
@@ -169,10 +169,11 @@ void			render(t_data *data, int cast);
 void			put_ceiling(t_data *data, int x, int y, int color);
 void			put_floor(t_data *data, int x, int y, int color);
 void			put_pixel(t_data *data, int x, int y, int color);
-void			texture_to_wall(t_data *data, int wall_bottom, int wall_top);
-float				calcul_x_offset(t_data *data);
+void			texture_to_wall(t_data *data, int wall_top, int wall_bottom, int wall_size);
+float			calcul_x_offset(t_data *data, t_texture* txtr);
 void			create_window(t_data *data);
 void			load_textures(t_data *data);
+t_texture*		get_side_texture(t_data *data);
 
 
 // ------------------ PARSING -------------------------

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:04:20 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/19 23:58:41 by hugo             ###   ########.fr       */
+/*   Updated: 2024/10/22 16:49:52 by hle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,12 @@ void	parsing(t_data *data, char *file)
 	if (i)
 		free_all_stop(data, 1);
 	close(fd);
-	printf("Map w: %d\n", data->map->map_w);
-	printf("Map h: %d\n\n", data->map->map_h);
-	printf("NO : '%s'\n", data->map->img_NO->name);
-	printf("SO : '%s'\n", data->map->img_SO->name);
-	printf("WE : '%s'\n", data->map->img_WE->name);
-	printf("EA : '%s'\n", data->map->img_EA->name);
+	// printf("Map w: %d\n", data->map->map_w);
+	// printf("Map h: %d\n\n", data->map->map_h);
+	// printf("NO : '%s'\n", data->map->img_NO->name);
+	// printf("SO : '%s'\n", data->map->img_SO->name);
+	// printf("WE : '%s'\n", data->map->img_WE->name);
+	// printf("EA : '%s'\n", data->map->img_EA->name);
 	// printf("F : (%d) %d %d %d\n", data->map->floor_color,
 	// 	data->map->floor_color >> 16, (data->map->floor_color >> 8) & 0xFF,
 	// 	data->map->floor_color & 0xFF);
