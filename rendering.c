@@ -87,14 +87,14 @@ void	texture_to_wall(t_data *data, int wall_bottom, int wall_top, int wall_size)
 	float		y_offset;
 	float		increment;
 	int			pixel_pos;
-	uint32_t	*arr;
+	int		*arr;
 	t_texture	*txtr;
 
 	txtr = get_side_texture(data);
 	increment = (float)txtr->height / (float)(wall_size);
 	x_offset = calcul_x_offset(data, txtr);
 	y_offset = calcul_y_offset(wall_top, wall_size, increment);
-	arr = (uint32_t *)txtr->txtr_ptr;
+	arr = (int *)txtr->txtr_ptr;
 
 	while (wall_top <= wall_bottom)
 	{
