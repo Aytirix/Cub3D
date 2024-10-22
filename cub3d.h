@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:56:08 by hle-roux          #+#    #+#             */
-/*   Updated: 2024/10/22 18:19:51 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/10/22 20:11:19 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ void			put_floor(t_data *data, int x, int y, int color);
 void			put_pixel(t_data *data, int x, int y, int color);
 void			texture_to_wall(t_data *data, int wall_top, int wall_bottom, int wall_size);
 float			calcul_x_offset(t_data *data, t_texture* txtr);
+float			calcul_y_offset(int wall_top, int wall_size, float increment);
 void			create_window(t_data *data);
 void			load_textures(t_data *data);
 t_texture*		get_side_texture(t_data *data);

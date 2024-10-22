@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hle-roux <hle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hugo <hugo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:49:44 by hugo              #+#    #+#             */
-/*   Updated: 2024/10/22 18:45:15 by hle-roux         ###   ########.fr       */
+/*   Updated: 2024/10/22 20:15:49 by hugo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,22 @@ float calcul_x_offset(t_data *data, t_texture* txtr)
 {
 	float x_offset;
 
-	float temp;
-
 	if (data->ray->is_horizontal)
 		x_offset = fmodf((data->ray->h_x * ((float)txtr->width / (float)TILE_SIZE)), (float)txtr->width);
 	else
 		x_offset = fmodf(data->ray->v_y * ((float)txtr->width / (float)TILE_SIZE), (float)txtr->width);
 	return (x_offset);
+}
+
+float calcul_y_offset(int wall_top, int wall_size, float increment)
+{
+	float y_offset;
+
+	y_offset = ((float)wall_top - (HEIGHT / 2) + ((float)(wall_size) / 2)) * increment;
+	if (y_offset < 0)
+		y_offset = 0;
+
+	return y_offset;
 }
 
 t_texture*	get_side_texture(t_data *data)
@@ -76,28 +85,22 @@ void	texture_to_wall(t_data *data, int wall_bottom, int wall_top, int wall_size)
 {
 	float		x_offset;
 	float		y_offset;
-	float		facteur_y;
-	int			color;
+	float		increment;
 	int			pixel_pos;
 	uint32_t	*arr;
 	t_texture	*txtr;
 
-	y_offset = 0;
 	txtr = get_side_texture(data);
+	increment = (float)txtr->height / (float)(wall_size);
 	x_offset = calcul_x_offset(data, txtr);
+	y_offset = calcul_y_offset(wall_top, wall_size, increment);
 	arr = (uint32_t *)txtr->txtr_ptr;
-	facteur_y = (float)txtr->height / (float)(wall_size);
-
-	y_offset = (wall_top - (HEIGHT / 2) + ((float)(wall_size) / 2)) * facteur_y;
-	if (y_offset < 0)
-		y_offset = 0;
 
 	while (wall_top <= wall_bottom)
 	{
 		pixel_pos = (int)y_offset * txtr->width + (int)x_offset;
-		color = arr[pixel_pos];
-		put_pixel(data, data->ray->cast, wall_top, color);
-		y_offset += facteur_y;
+		put_pixel(data, data->ray->cast, wall_top, arr[pixel_pos]);
+		y_offset += increment;
 		wall_top ++;
 	}
 }
