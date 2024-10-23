@@ -15,9 +15,9 @@
 void	render(t_data *data, int cast)
 {
 	float	wall_size;
-	int		i;
+	float	wall_top;
+	float	wall_bottom;
 
-	i = 0;
 	data->ray->cast = cast;
 	data->ray->wall_dist *= cos(modulo_pi(data->ray->ray_angle
 				- data->player->angle));
@@ -27,12 +27,13 @@ void	render(t_data *data, int cast)
 			/ tan(data->player->fov_rad / 2));
 	if (wall_size > HEIGHT)
 		wall_size = HEIGHT;
-	while (i < wall_size / 2)
-	{
-		put_pixel(data, cast, HEIGHT / 2 - i, 0xB24512);
-		put_pixel(data, cast, HEIGHT / 2 + i, 0xB24512);
-		i++;
-	}
+	wall_bottom = (HEIGHT / 2) + (wall_size / 2);
+	wall_top = (HEIGHT / 2) - (wall_size / 2);
+	if (wall_bottom > HEIGHT)
+		wall_bottom = HEIGHT;
+	if (wall_top < 0)
+		wall_top = 0;
+	texture_to_wall(data, wall_bottom, wall_top, wall_size);
 	put_ceiling(data, cast, HEIGHT / 2 - wall_size / 2,
 		data->map->ceilling_color);
 	put_floor(data, cast, HEIGHT / 2 + wall_size / 2, data->map->floor_color);

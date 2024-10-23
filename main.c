@@ -46,11 +46,15 @@ t_data	*init_data(t_data *data, char *file_name)
 	data->ray = ft_calloc(1, sizeof(t_ray));
 	data->map = ft_calloc(1, sizeof(t_map));
 	data->player = ft_calloc(1, sizeof(t_player));
+	data->map->img_no = calloc(1,sizeof(t_texture));
+	data->map->img_so = calloc(1,sizeof(t_texture));
+	data->map->img_ea = calloc(1,sizeof(t_texture));
+	data->map->img_we = calloc(1,sizeof(t_texture));
+	data->map->img_no->name = NULL;
+	data->map->img_so->name = NULL;
+	data->map->img_we->name = NULL;
+	data->map->img_ea->name = NULL;
 	data->img_ptr = NULL;
-	data->map->img_no = NULL;
-	data->map->img_so = NULL;
-	data->map->img_we = NULL;
-	data->map->img_ea = NULL;
 	data->map->map = NULL;
 	data->map->map_h = 0;
 	data->map->map_w = 0;
@@ -75,6 +79,7 @@ void	create_window(t_data *data)
 		printf("ended\n");
 		return ;
 	}
+	load_textures(data);
 	printf("map_h %d \n\n\n", data->map->map_h);
 	mlx_mouse_move(data->mlx, data->mlx_win, WIDTH / 2, HEIGHT / 2);
 	mlx_loop_hook(data->mlx, &game_loop, data);

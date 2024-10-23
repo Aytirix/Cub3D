@@ -51,7 +51,10 @@ static void	mini_map(t_data *data)
 int	game_loop(t_data *data)
 {
 	if (data->img_ptr)
+	{
 		mlx_destroy_image(data->mlx, data->img_ptr);
+		data->img_ptr = NULL;
+	}
 	data->img_ptr = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	data->buffer = (int *)mlx_get_data_addr(data->img_ptr, &data->bpp,
 			&data->size_l, &data->endian);

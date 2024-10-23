@@ -37,6 +37,19 @@
 
 // ------------------ STRUCTURE -------------------------
 
+typedef struct s_texture
+{
+	char				*name;
+	void				*img_ptr;
+	char				*txtr_ptr;
+	int					width;
+	int					height;
+	int					bpp;
+	int					size_line;
+	int					endian;
+
+}						t_texture;
+
 typedef struct s_ray
 {
 	double				wall_dist;
@@ -52,6 +65,11 @@ typedef struct s_ray
 	int					x_ray;
 	float				ray_angle;
 	int					cast;
+	int					is_horizontal;
+	double				h_x;
+	double				h_y;
+	double				v_x;
+	double				v_y;
 }						t_ray;
 
 typedef struct s_player
@@ -70,10 +88,10 @@ typedef struct s_map
 	char				**map;
 	int					mapx;
 	int					mapy;
-	char				*img_no;
-	char				*img_so;
-	char				*img_we;
-	char				*img_ea;
+	t_texture			*img_no;
+	t_texture			*img_so;
+	t_texture			*img_we;
+	t_texture			*img_ea;
 	int					floor_color;
 	int					ceilling_color;
 	int					p_x_location;
@@ -112,7 +130,6 @@ typedef struct s_data
 	int					size_l;
 	int					bpp;
 	int					endian;
-	int					keys[8][2];
 	t_map				*map;
 	t_ray				*ray;
 	t_player			*player;
@@ -167,6 +184,16 @@ void					forward(t_data *data);
 void					backward(t_data *data);
 void					right(t_data *data);
 void					left(t_data *data);
+
+// ------------------ TEXTURE -------------------------
+
+void					load_textures(t_data *data);
+t_texture				*get_side_texture(t_data *data);
+void					texture_to_wall(t_data *data, int wall_bottom,
+							int wall_top, int wall_size);
+float					calcul_x_offset(t_data *data, t_texture *txtr);
+float					calcul_y_offset(int wall_top, int wall_size,
+							float increment);
 
 // ------------------ RENDERING -------------------------
 

@@ -1,10 +1,10 @@
-NO./map/texture/north.xpm
+NO ./map/texture/north.xpm
 
-SO ./map/texture/south.xpm
+SO ./map/texture/north.xpm
 
-WE ./map/texture/west.xpm
+WE ./map/texture/north.xpm
 
-EA ./map/texture/east.xpm
+EA ./map/texture/north.xpm
 
 F 17, 103, 0
 

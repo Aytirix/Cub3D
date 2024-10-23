@@ -34,24 +34,24 @@ static int	size_map(char *file, int *error)
 	return (i);
 }
 
-static void	test_access_file(t_data *data, char **file)
+static void	test_access_file(t_data *data, t_texture *tx)
 {
 	int	fd;
 
-	fd = ft_strlen(*file) - 1;
-	while (fd >= 0 && ft_strchr(" 	", (*file)[fd]))
-		(*file)[fd--] = 0;
-	fd = open(*file, O_RDONLY);
+	fd = ft_strlen(tx->name) - 1;
+	while (fd >= 0 && ft_strchr(" 	", tx->name[fd]))
+		tx->name[fd--] = 0;
+	fd = open(tx->name, O_RDONLY);
 	if (fd == -1)
 	{
 		ft_fprintf(2, "Error\nImage '%s%s%s' not found or not accessible\n",
-			BOLD_RED, *file, RESET);
+			BOLD_RED, tx->name, RESET);
 		free_all_stop(data, 1);
 	}
 	close(fd);
 }
 
-static int	search_image(t_data *data, char **img, int fd, char *direction)
+static int	search_image(t_data *data, t_texture *tx, int fd, char *direction)
 {
 	char	*line;
 	int		pass;
@@ -66,9 +66,9 @@ static int	search_image(t_data *data, char **img, int fd, char *direction)
 		{
 			while (ft_strchr(" 	", line[pass + 2]))
 				pass++;
-			*img = ft_strndup(line + pass + 2, ft_strlen(line + pass + 2));
+			tx->name = ft_strndup(line + pass + 2, ft_strlen(line + pass + 2));
 			free(line);
-			test_access_file(data, img);
+			test_access_file(data, tx);
 			return (0);
 		}
 		free(line);
@@ -88,13 +88,13 @@ void	parsing(t_data *data, char *file)
 	fd = open(file, O_RDONLY);
 	if (fd == -1 && i == 0)
 		i = ft_fprintf(2, "Error\nMap impossible to read\n");
-	if (i == 0 && search_image(data, &data->map->img_no, fd, "NO"))
+	if (i == 0 && search_image(data, data->map->img_no, fd, "NO"))
 		i = ft_fprintf(2, "Error\nImage NO texture not found\n");
-	if (i == 0 && search_image(data, &data->map->img_so, fd, "SO"))
+	if (i == 0 && search_image(data, data->map->img_so, fd, "SO"))
 		i = ft_fprintf(2, "Error\nImage SO texture not found\n");
-	if (i == 0 && search_image(data, &data->map->img_we, fd, "WE"))
+	if (i == 0 && search_image(data, data->map->img_we, fd, "WE"))
 		i = ft_fprintf(2, "Error\nImage WE texture not found\n");
-	if (i == 0 && search_image(data, &data->map->img_ea, fd, "EA"))
+	if (i == 0 && search_image(data, data->map->img_ea, fd, "EA"))
 		i = ft_fprintf(2, "Error\nImage EA texture not found\n");
 	if (i == 0 && search_rgb(&data->map->floor_color, fd, "F", &i))
 		i = ft_fprintf(2, "Error\nRGB Floor color not found\n");

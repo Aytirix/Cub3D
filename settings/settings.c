@@ -54,6 +54,7 @@ t_lsettings	*init_lsettings_2(t_lsettings *settings)
 	settings->big_zoom->key = 65289;
 	settings->big_zoom->press = 5;
 	settings->big_zoom->next = NULL;
+	return (settings);
 }
 
 t_lsettings	*free_settings(t_lsettings *settings)
