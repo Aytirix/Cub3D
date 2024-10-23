@@ -25,8 +25,6 @@ void	render(t_data *data, int cast)
 		data->ray->wall_dist = COL_WALL;
 	wall_size = (TILE_SIZE / data->ray->wall_dist) * ((WIDTH / 2)
 			/ tan(data->player->fov_rad / 2));
-	if (wall_size > HEIGHT)
-		wall_size = HEIGHT;
 	wall_bottom = (HEIGHT / 2) + (wall_size / 2);
 	wall_top = (HEIGHT / 2) - (wall_size / 2);
 	if (wall_bottom > HEIGHT)
