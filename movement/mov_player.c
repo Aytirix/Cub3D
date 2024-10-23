@@ -19,11 +19,11 @@ void	move_player(t_data *data, double move_angle, double wall_dist_check)
 
 	new_x = data->player->p_x + cos(move_angle) * data->player->p_speed;
 	new_y = data->player->p_y + sin(move_angle) * data->player->p_speed;
-	if (wall_dist_check > COL_WALL)
+	if (wall_dist_check > COL_WALL || !BONUS)
 	{
-		if (walled(new_x, data->player->p_y, data))
+		if (walled(new_x, data->player->p_y, data) || !BONUS)
 			data->player->p_x = new_x;
-		if (walled(data->player->p_x, new_y, data))
+		if (walled(data->player->p_x, new_y, data) || !BONUS)
 			data->player->p_y = new_y;
 	}
 }
@@ -44,12 +44,20 @@ void	right(t_data *data)
 {
 	calcul_rayon_hv(data, data->player->angle + M_PI / 2,
 		&data->ray->wall_dist_r);
-	move_player(data, data->player->angle + M_PI / 2, data->ray->wall_dist_r);
+	if (BONUS)
+		move_player(data, data->player->angle + M_PI / 2,
+			data->ray->wall_dist_r);
+	else
+		mouse_move_hook(data, WIDTH / 2 + 50);
 }
 
 void	left(t_data *data)
 {
 	calcul_rayon_hv(data, data->player->angle - M_PI / 2,
 		&data->ray->wall_dist_l);
-	move_player(data, data->player->angle - M_PI / 2, data->ray->wall_dist_l);
+	if (BONUS)
+		move_player(data, data->player->angle - M_PI / 2,
+			data->ray->wall_dist_l);
+	else
+		mouse_move_hook(data, WIDTH / 2 - 50);
 }

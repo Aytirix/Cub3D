@@ -85,6 +85,7 @@ int	check_name_cub(t_data *data, char *name)
 	{
 		ft_fprintf(2, "Error\nFile '%s%s%s' file type is not valid\n",
 			BOLD_RED, name, RESET);
+		free(tmp);
 		free_all_stop(data, 1);
 	}
 	free(tmp);

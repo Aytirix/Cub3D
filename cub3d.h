@@ -23,6 +23,9 @@
 # include <sys/types.h>
 # include <unistd.h>
 
+# ifndef BONUS
+#  define BONUS 0
+# endif
 # define PLAYER_SPEED 1
 # define MOVE_SPEED 0.0010
 # define FOV 60
@@ -167,7 +170,7 @@ void					free_all_stop(t_data *data, int code);
 
 // ------------------ MOVEMENT -------------------------
 
-int						mouse_move_hook(t_data *data);
+int						mouse_move_hook(t_data *data, int direction);
 int						key_press(int key, t_data *data);
 int						key_press_2(int key, t_data *data);
 int						key_release(int key, t_data *data);

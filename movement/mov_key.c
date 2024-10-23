@@ -12,20 +12,24 @@
 
 #include "../cub3d.h"
 
-int	mouse_move_hook(t_data *data)
+int	mouse_move_hook(t_data *data, int direction)
 {
 	int	x;
 	int	y;
 
 	if (data->settings->menu->press)
 		return (0);
-	mlx_mouse_get_pos(data->mlx, data->mlx_win, &x, &y);
+	if (BONUS)
+		mlx_mouse_get_pos(data->mlx, data->mlx_win, &x, &y);
+	else
+	{
+		x = direction;
+	}
 	data->player->angle += (x - WIDTH / 2) * MOVE_SPEED;
 	if (data->player->angle < 0)
 		data->player->angle += 2 * M_PI;
 	else if (data->player->angle >= 2 * M_PI)
 		data->player->angle -= 2 * M_PI;
-	mlx_mouse_move(data->mlx, data->mlx_win, WIDTH / 2, HEIGHT / 2);
 	return (0);
 }
 
