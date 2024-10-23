@@ -1,3 +1,5 @@
 **.o
 **.a
 cub3D
+.vscode/*
+objets
