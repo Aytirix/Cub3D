@@ -10,15 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	move_player(t_data *data, double move_angle, double wall_dist_check)
 {
 	double	new_x;
 	double	new_y;
 
-	new_x = data->player->p_x + cos(move_angle) * P_SPEED;
-	new_y = data->player->p_y + sin(move_angle) * P_SPEED;
+	new_x = data->player->p_x + cos(move_angle) * data->player->p_speed;
+	new_y = data->player->p_y + sin(move_angle) * data->player->p_speed;
 	if (wall_dist_check > COL_WALL)
 	{
 		if (walled(new_x, data->player->p_y, data))
@@ -53,21 +53,4 @@ void	left(t_data *data)
 	calcul_rayon_hv(data, data->player->angle - M_PI / 2,
 		&data->ray->wall_dist_l, 20);
 	move_player(data, data->player->angle - M_PI / 2, data->ray->wall_dist_l);
-}
-
-int	mouse_move_hook(t_data *data)
-{
-	int	x;
-	int	y;
-
-	if (data->settings->menu->press)
-		return (0);
-	mlx_mouse_get_pos(data->mlx, data->mlx_win, &x, &y);
-	data->player->angle += (x - WIDTH / 2) * MOVE_SPEED;
-	if (data->player->angle < 0)
-		data->player->angle += 2 * M_PI;
-	else if (data->player->angle >= 2 * M_PI)
-		data->player->angle -= 2 * M_PI;
-	mlx_mouse_move(data->mlx, data->mlx_win, WIDTH / 2, HEIGHT / 2);
-	return (0);
 }

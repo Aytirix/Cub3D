@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   menu.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: thmouty <thmouty@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/04 15:43:41 by thmouty           #+#    #+#             */
+/*   Updated: 2024/10/11 20:22:42 by thmouty          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 t_lsettings	*init_lsettings(void)
@@ -25,6 +37,11 @@ t_lsettings	*init_lsettings(void)
 	settings->right->key = 65363;
 	settings->right->press = 0;
 	settings->right->next = settings->menu;
+	return (init_lsettings_2(settings));
+}
+
+t_lsettings	*init_lsettings_2(t_lsettings *settings)
+{
 	settings->menu->key = 65307;
 	settings->menu->press = 0;
 	settings->menu->next = settings->zoom_in;
@@ -37,10 +54,9 @@ t_lsettings	*init_lsettings(void)
 	settings->big_zoom->key = 65289;
 	settings->big_zoom->press = 5;
 	settings->big_zoom->next = NULL;
-	return (settings);
 }
 
-t_lsettings *free_settings(t_lsettings *settings)
+t_lsettings	*free_settings(t_lsettings *settings)
 {
 	t_settings	*tmp;
 

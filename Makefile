@@ -3,8 +3,8 @@ OBJDIR = objets
 MLX = .mlx
 SRC = 	main.c \
 		utils.c \
-		movement.c \
-		movement2.c \
+		movement/mov_key.c \
+		movement/mov_player.c \
 		game_loop.c \
 		game_loop2.c \
 		rendering.c \

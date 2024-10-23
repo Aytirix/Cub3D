@@ -10,7 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
+
+int	mouse_move_hook(t_data *data)
+{
+	int	x;
+	int	y;
+
+	if (data->settings->menu->press)
+		return (0);
+	mlx_mouse_get_pos(data->mlx, data->mlx_win, &x, &y);
+	data->player->angle += (x - WIDTH / 2) * MOVE_SPEED;
+	if (data->player->angle < 0)
+		data->player->angle += 2 * M_PI;
+	else if (data->player->angle >= 2 * M_PI)
+		data->player->angle -= 2 * M_PI;
+	mlx_mouse_move(data->mlx, data->mlx_win, WIDTH / 2, HEIGHT / 2);
+	return (0);
+}
 
 int	key_hook(t_data *data)
 {
@@ -42,25 +59,29 @@ int	key_press(int key, t_data *data)
 		}
 	}
 	if (data->settings->menu->press)
-	{
 		check_update_lisent(data, key);
-		return (0);
-	}
-	if (key == data->settings->forward->key)
+	else if (key == data->settings->forward->key)
 		data->settings->forward->press = 1;
 	else if (key == data->settings->backward->key)
 		data->settings->backward->press = 1;
 	else if (key == data->settings->left->key)
 		data->settings->left->press = 1;
-	else if (key == data->settings->right->key)
+	else
+		return (key_press_2(key, data));
+	return (0);
+}
+
+int	key_press_2(int key, t_data *data)
+{
+	if (key == data->settings->right->key)
 		data->settings->right->press = 1;
 	else if (key == data->settings->big_zoom->key)
 		data->settings->big_zoom->press += 10;
-	else if (key == data->settings->zoom_in->key && data->settings->big_zoom->press
-		+ 2 < 25)
+	else if (key == data->settings->zoom_in->key
+		&& data->settings->big_zoom->press + 2 < 25)
 		data->settings->big_zoom->press += 2;
-	else if (key == data->settings->zoom_out->key && data->settings->big_zoom->press
-		- 2 > 0)
+	else if (key == data->settings->zoom_out->key
+		&& data->settings->big_zoom->press - 2 > 0)
 		data->settings->big_zoom->press -= 2;
 	return (0);
 }

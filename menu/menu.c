@@ -32,7 +32,7 @@ static char	*convert_key_to_string(int key)
 		return (ft_strdup("-"));
 	if (key == 65289)
 		return (ft_strdup("TAB"));
-	return (ft_strdup((char[]){key, 0}));
+	return (ft_strdup((char []){key, 0}));
 }
 
 static void	background_black(t_data *data)
@@ -48,57 +48,50 @@ static void	background_black(t_data *data)
 		while (j < WIDTH)
 		{
 			color = data->buffer[i * WIDTH + j];
-			data->buffer[i * WIDTH
-				+ j] = (((color >> 18) & 0x3F) << 16) | (((color >> 10) & 0x3F) << 8) | ((color >> 2) & 0x3F);
+			data->buffer[i * WIDTH + j] = (((color >> 18) & 0x3F) << 16)
+				| (((color >> 10) & 0x3F) << 8) | ((color >> 2) & 0x3F);
 			j++;
 		}
 		i++;
 	}
 }
 
-static void check_keys_already_assigned(t_data *data, int new)
-{
-	t_settings	*tmp;
-
-	tmp = data->settings->forward;
-	while (tmp)
-	{
-		if (tmp->key == new)
-			tmp->key = 0;
-		tmp = tmp->next;
-	}
-}
-
 void	check_update_lisent(t_data *data, int new)
 {
-	int	x;
-	int	y;
+	int			x;
+	int			y;
 	t_settings	*tmp;
+	t_settings	*tmp2;
 
+	tmp2 = data->settings->forward;
 	tmp = data->settings->forward;
 	mlx_mouse_get_pos(data->mlx, data->mlx_win, &x, &y);
 	while (tmp)
 	{
 		if (x > tmp->x && x < tmp->x + 135 && y > tmp->y && y < tmp->y + 25)
 		{
-			check_keys_already_assigned(data, new);
+			while (tmp2)
+			{
+				if (tmp2->key == new)
+					tmp2->key = 0;
+				tmp2 = tmp2->next;
+			}
 			tmp->key = new;
 			return ;
 		}
 		tmp = tmp->next;
 	}
-
 }
 
 static void	add_settings(t_data *data, char *key, t_settings *setting)
 {
 	char		*tmp;
-	static int	i = WIDTH / 2.25;
+	static int	i = WIDTH / 2.14;
 	static int	j = HEIGHT / 10;
 
 	if (!key)
 	{
-		i = WIDTH / 2.25;
+		i = WIDTH / 2.14;
 		j = HEIGHT / 10;
 		return ;
 	}

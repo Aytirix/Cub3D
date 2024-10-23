@@ -37,6 +37,7 @@ void	get_start_angle(t_data *data, char c)
 		data->player->angle = (M_PI) / 2;
 	else if (c == 'E')
 		data->player->angle = 0;
+	data->player->p_speed = PLAYER_SPEED * TILE_SIZE / 6;
 	data->player->fov_rad = (FOV * M_PI) / 180;
 }
 
@@ -83,65 +84,3 @@ void	create_window(t_data *data)
 	mlx_loop(data->mlx);
 	printf("-- END -- \n");
 }
-
-// --------------	Cub3d	--------------------------
-
-// -> 4 parties
-//		- Map + Window 		= mlx + parsing
-//		- Raycasting 		= Maths, calculation
-//		- Rendering 		= Image + scaling
-//		- Player Mov		= mlx
-
-//	Diviser en rayon vertical puis placer le wall puis le floor ceilling
-
-//	---------------- PROCESS -------------------
-
-// 	- Init Struct		--> Some may ne missing but will see
-//	- Init Data 		--> almost done
-//	- Create game loop	--> ok for now
-//	- Init window		--> OK ?
-//	- Start raycasting
-//	- Render Wall
-//	- Handle mvt
-
-//	----------------RAYCASTING -------------------
-
-// 1/ Find 1st ray = (FOV)
-// 2/ Loop and increment
-// 3/ Horizontal crossing
-// 4/ Vertical crossing
-// 5/ Get Wall Dist
-// 6/ Rendering mlx
-
-// STEPS =
-//		- get FOV and pos
-//		- Cut in rays
-//		- For each rays,
-// calculate the dist to wall(with horiz and vertical inter)
-//		- Render walls, w/ thales and mlx
-
-// 1 FOV = x rays
-// 1 rays = 1 Wall distance
-// 1 wall distance = 1 wall height
-// 1 wall height = render wall + floor + ceilling
-
-//	----------------RENDERING -------------------
-
-//	Boucler pour chaque rayon (tranches)
-//	Fix fisheye + get Wall Height
-//	Calculate bottom and top pixel
-//	Draw colors
-
-//	----------------OTHER -------------------
-
-// Mov handeling + rendering = get_keys and adjust pos + cam_plan +	rotation
-
-// 			---		RESSOURCES	---
-//
-//	https://medium.com/@afatir.ahmedfatir/cub3d-tutorial-af5dd31d2fcf#:~:text=some%20walls%20now.-,Part%203%3A%20Rendering%3A,-so%20now%20we
-//	https://github.com/AhmedFatir/cub3D
-
-//	https://reactive.so/post/42-a-comprehensive-guide-to-cub3d/
-//	https://medium.com/@rtailidounia/raycasting-in-cub3d-42-network-project-a-practical-tutorial-using-vectors-68eeb16b3de2
-
-//	https://github.com/iciamyplant/Cub3d-Linux

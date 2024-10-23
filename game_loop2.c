@@ -34,6 +34,7 @@ void	draw_square(t_data *data, double x, int y, int color)
 		i++;
 	}
 }
+
 void	calcul_rayon_hv(t_data *data, float modulo, double *var, int iteration)
 {
 	float	horizontal_wall;
