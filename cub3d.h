@@ -59,16 +59,11 @@ typedef struct s_ray
 	double				wall_dist_r;
 	int					color_flag;
 	int					side;
-	int					lineheight;
-	int					drawstart;
-	int					drawend;
 	int					x_ray;
 	float				ray_angle;
 	int					cast;
 	int					is_horizontal;
 	double				h_x;
-	double				h_y;
-	double				v_x;
 	double				v_y;
 }						t_ray;
 
@@ -86,8 +81,6 @@ typedef struct s_player
 typedef struct s_map
 {
 	char				**map;
-	int					mapx;
-	int					mapy;
 	t_texture			*img_no;
 	t_texture			*img_so;
 	t_texture			*img_we;
@@ -153,8 +146,8 @@ float					modulo_pi(float x);
 int						inter_wall_check(float angle, float *inter, float *incr,
 							int i);
 int						walled(float x, float y, t_data *data);
-void					calcul_rayon_hv(t_data *data, float modulo, double *var,
-							int iteration);
+void					calcul_rayon_hv(t_data *data, float modulo,
+							double *var);
 void					draw_square(t_data *data, double x, int y, int color);
 
 // ------------------ SETTINGS -------------------------

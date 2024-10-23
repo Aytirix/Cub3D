@@ -78,7 +78,7 @@ void	ray_casting(t_data *data)
 	while (cast < WIDTH)
 	{
 		data->ray->color_flag = 0;
-		calcul_rayon_hv(data, data->ray->ray_angle, &data->ray->wall_dist, 1);
+		calcul_rayon_hv(data, data->ray->ray_angle, &data->ray->wall_dist);
 		render(data, cast);
 		data->ray->ray_angle += (data->player->fov_rad / WIDTH);
 		cast++;

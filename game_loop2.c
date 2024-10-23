@@ -35,31 +35,22 @@ void	draw_square(t_data *data, double x, int y, int color)
 	}
 }
 
-void	calcul_rayon_hv(t_data *data, float modulo, double *var, int iteration)
+void	calcul_rayon_hv(t_data *data, float modulo, double *var)
 {
 	float	horizontal_wall;
 	float	vertical_wall;
-	int		i;
 
-	i = 0;
-	while (i < iteration)
+	vertical_wall = vertical(data, modulo_pi(modulo));
+	horizontal_wall = horizontal(data, modulo_pi(modulo));
+	if (vertical_wall < horizontal_wall)
 	{
-		vertical_wall = vertical(data, modulo_pi(modulo));
-		horizontal_wall = horizontal(data, modulo_pi(modulo));
-		if (vertical_wall < horizontal_wall)
-		{
-			*var = vertical_wall;
-			data->ray->is_horizontal = 0;
-		}
-		else
-		{
-			*var = horizontal_wall;
-			data->ray->is_horizontal = 1;
-		}
-		if (*var < COL_WALL)
-			break ;
-		modulo += 0.10;
-		i++;
+		*var = vertical_wall;
+		data->ray->is_horizontal = 0;
+	}
+	else
+	{
+		*var = horizontal_wall;
+		data->ray->is_horizontal = 1;
 	}
 }
 
@@ -85,7 +76,6 @@ float	horizontal(t_data *temp, float angle)
 		y_inter_coord += incr_y;
 	}
 	temp->ray->h_x = x_inter_coord;
-	temp->ray->h_y = y_inter_coord;
 	return (sqrt(pow(x_inter_coord - temp->player->p_x, 2) + pow(y_inter_coord
 				- temp->player->p_y, 2)));
 }
@@ -111,7 +101,6 @@ float	vertical(t_data *temp, float angle)
 		x_inter_coord += incr_x;
 		y_inter_coord += incr_y;
 	}
-	temp->ray->v_x = x_inter_coord;
 	temp->ray->v_y = y_inter_coord;
 	return (sqrt(pow(x_inter_coord - temp->player->p_x, 2) + pow(y_inter_coord
 				- temp->player->p_y, 2)));

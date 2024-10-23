@@ -26,6 +26,9 @@ float	modulo_pi(float x)
 
 void	free_all_stop2(t_data *data)
 {
+	free(data->map->map);
+	free(data->map);
+	free(data->player);
 	if (data->img_ptr)
 		mlx_destroy_image(data->mlx, data->img_ptr);
 	if (data->mlx_win)
@@ -33,6 +36,7 @@ void	free_all_stop2(t_data *data)
 	if (data->mlx)
 		free(data->mlx);
 }
+
 void	free_all_stop(t_data *data, int code)
 {
 	int	i;
@@ -42,10 +46,13 @@ void	free_all_stop(t_data *data, int code)
 	while (data->map->map && data->map->map[++i])
 		free(data->map->map[i]);
 	free(data->ray);
-	mlx_destroy_image(data->mlx, data->map->img_no->img_ptr);
-	mlx_destroy_image(data->mlx, data->map->img_so->img_ptr);
-	mlx_destroy_image(data->mlx, data->map->img_we->img_ptr);
-	mlx_destroy_image(data->mlx, data->map->img_ea->img_ptr);
+	if (data->map->img_no->img_ptr)
+	{
+		mlx_destroy_image(data->mlx, data->map->img_no->img_ptr);
+		mlx_destroy_image(data->mlx, data->map->img_so->img_ptr);
+		mlx_destroy_image(data->mlx, data->map->img_we->img_ptr);
+		mlx_destroy_image(data->mlx, data->map->img_ea->img_ptr);
+	}
 	free(data->map->img_no->name);
 	free(data->map->img_so->name);
 	free(data->map->img_we->name);
@@ -54,9 +61,6 @@ void	free_all_stop(t_data *data, int code)
 	free(data->map->img_so);
 	free(data->map->img_we);
 	free(data->map->img_ea);
-	free(data->map->map);
-	free(data->map);
-	free(data->player);
 	free_all_stop2(data);
 	exit(code);
 }

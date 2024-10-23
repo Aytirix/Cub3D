@@ -34,13 +34,14 @@ static int	size_map(char *file, int *error)
 	return (i);
 }
 
-static void	test_access_file(t_data *data, t_texture *tx)
+static void	test_access_file(t_data *data, t_texture *tx, int len)
 {
-	int	fd;
+	int		fd;
+	int		i;
+	char	*tmp;
 
-	fd = ft_strlen(tx->name) - 1;
-	while (fd >= 0 && ft_strchr(" 	", tx->name[fd]))
-		tx->name[fd--] = 0;
+	while (len >= 0 && ft_strchr(" 	", tx->name[len]))
+		tx->name[len--] = 0;
 	fd = open(tx->name, O_RDONLY);
 	if (fd == -1)
 	{
@@ -48,7 +49,18 @@ static void	test_access_file(t_data *data, t_texture *tx)
 			BOLD_RED, tx->name, RESET);
 		free_all_stop(data, 1);
 	}
-	close(fd);
+	tmp = ft_calloc(sizeof(char), 10);
+	i = read(fd, tmp, 9);
+	if (ft_strncmp("/* XPM */", tmp, 9) != 0 || tx->name[len] != 'm'
+		|| tx->name[len - 1] != 'p' || tx->name[len - 2] != 'x' || tx->name[len
+			- 3] != '.')
+	{
+		ft_fprintf(2, "Error\nImage '%s%s%s' file type is not valid\n",
+			BOLD_RED, tx->name, RESET);
+		free_all_stop(data, 1);
+	}
+	free(tmp);
+	fd = close(fd);
 }
 
 static int	search_image(t_data *data, t_texture *tx, int fd, char *direction)
@@ -68,7 +80,7 @@ static int	search_image(t_data *data, t_texture *tx, int fd, char *direction)
 				pass++;
 			tx->name = ft_strndup(line + pass + 2, ft_strlen(line + pass + 2));
 			free(line);
-			test_access_file(data, tx);
+			test_access_file(data, tx, ft_strlen(tx->name) - 1);
 			return (0);
 		}
 		free(line);

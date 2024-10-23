@@ -65,7 +65,6 @@ void	texture_to_wall(t_data *data, int wall_bottom, int wall_top,
 	float		x_offset;
 	float		y_offset;
 	float		increment;
-	int			pixel_pos;
 	int			*arr;
 	t_texture	*txtr;
 
@@ -76,8 +75,8 @@ void	texture_to_wall(t_data *data, int wall_bottom, int wall_top,
 	arr = (int *)txtr->txtr_ptr;
 	while (wall_top <= wall_bottom)
 	{
-		pixel_pos = (int)y_offset * txtr->width + (int)x_offset;
-		put_pixel(data, data->ray->cast, wall_top, arr[pixel_pos]);
+		put_pixel(data, data->ray->cast, wall_top, arr[(int)y_offset
+			* txtr->width + (int)x_offset]);
 		y_offset += increment;
 		wall_top++;
 	}
@@ -98,12 +97,11 @@ float	calcul_x_offset(t_data *data, t_texture *txtr)
 
 float	calcul_y_offset(int wall_top, int wall_size, float increment)
 {
-	float y_offset;
+	float	y_offset;
 
 	y_offset = ((float)wall_top - (HEIGHT / 2) + ((float)(wall_size) / 2))
 		* increment;
 	if (y_offset < 0)
 		y_offset = 0;
-
 	return (y_offset);
 }

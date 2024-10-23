@@ -30,27 +30,26 @@ void	move_player(t_data *data, double move_angle, double wall_dist_check)
 
 void	forward(t_data *data)
 {
-	calcul_rayon_hv(data, data->player->angle, &data->ray->wall_dist_f, 20);
+	calcul_rayon_hv(data, data->player->angle, &data->ray->wall_dist_f);
 	move_player(data, data->player->angle, data->ray->wall_dist_f);
 }
 
 void	backward(t_data *data)
 {
-	calcul_rayon_hv(data, data->player->angle + M_PI, &data->ray->wall_dist_b,
-		20);
+	calcul_rayon_hv(data, data->player->angle + M_PI, &data->ray->wall_dist_b);
 	move_player(data, data->player->angle + M_PI, data->ray->wall_dist_b);
 }
 
 void	right(t_data *data)
 {
 	calcul_rayon_hv(data, data->player->angle + M_PI / 2,
-		&data->ray->wall_dist_r, 20);
+		&data->ray->wall_dist_r);
 	move_player(data, data->player->angle + M_PI / 2, data->ray->wall_dist_r);
 }
 
 void	left(t_data *data)
 {
 	calcul_rayon_hv(data, data->player->angle - M_PI / 2,
-		&data->ray->wall_dist_l, 20);
+		&data->ray->wall_dist_l);
 	move_player(data, data->player->angle - M_PI / 2, data->ray->wall_dist_l);
 }
