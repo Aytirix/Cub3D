@@ -131,7 +131,6 @@ typedef struct s_data
 
 // ------------------ INITIALISATION -------------------------
 
-void					game_launch(t_data *data);
 t_data					*init_data(t_data *data, char *file_name);
 void					get_start_angle(t_data *data, char c);
 void					create_window(t_data *data);
@@ -199,6 +198,7 @@ void					put_pixel(t_data *data, int x, int y, int color);
 void					parsing(t_data *data, char *file);
 int						parsing_map(t_data *data, int fd, int i);
 int						search_rgb(int *rgb, int fd, char *direction, int *err);
+int						check_name_cub(t_data *data, char *name);
 
 // ------------------  -------------------------
 

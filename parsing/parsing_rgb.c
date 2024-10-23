@@ -63,3 +63,31 @@ int	search_rgb(int *rgb, int fd, char *direction, int *err)
 	}
 	return (1);
 }
+
+int	check_name_cub(t_data *data, char *name)
+{
+	int		fd;
+	int		len;
+	char	*tmp;
+
+	fd = open(name, O_RDONLY);
+	len = ft_strlen(name) - 1;
+	if (fd == -1)
+	{
+		ft_fprintf(2, "Error\nFile '%s%s%s' not found or not accessible\n",
+			BOLD_RED, name, RESET);
+		free_all_stop(data, 1);
+	}
+	tmp = ft_calloc(sizeof(char), 2);
+	if (read(fd, tmp, 1) != 1 || name[len] != 'b'
+		|| name[len - 1] != 'u' || name[len - 2] != 'c' || name[len
+			- 3] != '.')
+	{
+		ft_fprintf(2, "Error\nFile '%s%s%s' file type is not valid\n",
+			BOLD_RED, name, RESET);
+		free_all_stop(data, 1);
+	}
+	free(tmp);
+	fd = close(fd);
+	return (0);
+}

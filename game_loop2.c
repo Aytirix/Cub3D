@@ -26,7 +26,7 @@ void	draw_square(t_data *data, double x, int y, int color)
 		{
 			if ((int)x * data->settings->big_zoom->press + j < WIDTH && (int)y
 				* data->settings->big_zoom->press + i < HEIGHT)
-				data->buffer[((int)y * data->settings->big_zoom->press + i + 10)
+				data->buffer[((int)y * data->settings->big_zoom->press + i)
 					* WIDTH + (int)x * data->settings->big_zoom->press + j
 					+ 10] = color;
 			j++;

@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	init_data(&data, argv[1]);
-	game_launch(&data);
+	create_window(&data);
 	free_all_stop(&data, 0);
 	return (0);
 }
@@ -68,9 +68,10 @@ t_data	*init_data(t_data *data, char *file_name)
 	return (data);
 }
 
-void	game_launch(t_data *data)
+static int	close_window(t_data *data)
 {
-	create_window(data);
+	free_all_stop(data, 0);
+	return (0);
 }
 
 void	create_window(t_data *data)
@@ -81,6 +82,7 @@ void	create_window(t_data *data)
 		return ;
 	load_textures(data);
 	mlx_mouse_move(data->mlx, data->mlx_win, WIDTH / 2, HEIGHT / 2);
+	mlx_hook(data->mlx_win, 17, 0, close_window, data);
 	mlx_loop_hook(data->mlx, &game_loop, data);
 	mlx_hook(data->mlx_win, 2, 1L << 0, &key_press, data);
 	mlx_hook(data->mlx_win, 3, 1L << 1, &key_release, data);

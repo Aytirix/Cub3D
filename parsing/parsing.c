@@ -63,6 +63,15 @@ static void	test_access_file(t_data *data, t_texture *tx, int len)
 	fd = close(fd);
 }
 
+static int	search_image2(t_texture *tx, char *line, int pass)
+{
+	while (ft_strchr(" 	", line[pass + 2]))
+		pass++;
+	tx->name = ft_strndup(line + pass + 2, ft_strlen(line + pass + 2));
+	free(line);
+	return (0);
+}
+
 static int	search_image(t_data *data, t_texture *tx, int fd, char *direction)
 {
 	char	*line;
@@ -76,13 +85,13 @@ static int	search_image(t_data *data, t_texture *tx, int fd, char *direction)
 			continue ;
 		if (ft_strncmp(direction, line + pass, 2) == 0)
 		{
-			while (ft_strchr(" 	", line[pass + 2]))
-				pass++;
-			tx->name = ft_strndup(line + pass + 2, ft_strlen(line + pass + 2));
-			free(line);
+			search_image2(tx, line, pass);
 			test_access_file(data, tx, ft_strlen(tx->name) - 1);
 			return (0);
 		}
+		else
+			if (ft_strlen(line + pass) > 0)
+				return (1);
 		free(line);
 		line = get_next_line(fd);
 		pass = 0;
@@ -98,7 +107,7 @@ void	parsing(t_data *data, char *file)
 	data->map->map_h = size_map(file, &i);
 	data->map->map = ft_calloc(sizeof(char *), data->map->map_h + 1);
 	fd = open(file, O_RDONLY);
-	if (fd == -1 && i == 0)
+	if (check_name_cub(data, file) || (fd == -1 && i == 0))
 		i = ft_fprintf(2, "Error\nMap impossible to read\n");
 	if (i == 0 && search_image(data, data->map->img_no, fd, "NO"))
 		i = ft_fprintf(2, "Error\nImage NO texture not found\n");
