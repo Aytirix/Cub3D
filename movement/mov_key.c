@@ -44,6 +44,8 @@ int	key_hook(t_data *data)
 
 int	key_press(int key, t_data *data)
 {
+	if (key == 65307)
+		free_all_stop(data, 0);
 	if (key == data->settings->menu->key)
 	{
 		if (data->settings->menu->press)
@@ -64,8 +66,6 @@ int	key_press(int key, t_data *data)
 		data->settings->forward->press = 1;
 	else if (key == data->settings->backward->key)
 		data->settings->backward->press = 1;
-	else if (key == data->settings->left->key)
-		data->settings->left->press = 1;
 	else
 		return (key_press_2(key, data));
 	return (0);
@@ -73,7 +73,9 @@ int	key_press(int key, t_data *data)
 
 int	key_press_2(int key, t_data *data)
 {
-	if (key == data->settings->right->key)
+	if (key == data->settings->left->key)
+		data->settings->left->press = 1;
+	else if (key == data->settings->right->key)
 		data->settings->right->press = 1;
 	else if (key == data->settings->big_zoom->key)
 		data->settings->big_zoom->press += 10;
@@ -88,8 +90,6 @@ int	key_press_2(int key, t_data *data)
 
 int	key_release(int key, t_data *data)
 {
-	if (key == 65470)
-		free_all_stop(data, 0);
 	if (data->settings->menu->press)
 		return (0);
 	if (key == data->settings->forward->key)

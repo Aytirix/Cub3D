@@ -42,7 +42,7 @@ t_lsettings	*init_lsettings(void)
 
 t_lsettings	*init_lsettings_2(t_lsettings *settings)
 {
-	settings->menu->key = 65307;
+	settings->menu->key = 65470;
 	settings->menu->press = 0;
 	settings->menu->next = settings->zoom_in;
 	settings->zoom_in->key = 61;
