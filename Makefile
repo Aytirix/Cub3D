@@ -18,7 +18,7 @@ SRC = 	main.c \
 OBJ = $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 LIBFT = Libft
 LIBFT_A = $(LIBFT)/libft.a
-FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+FLAGS = -Wall -Wextra -Werror
 LIBS = -L$(MLX) -lmlx -L$(LIBFT) -lft -lXext -lX11 -lm
 
 # Colors
