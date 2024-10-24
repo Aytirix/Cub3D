@@ -115,6 +115,8 @@ typedef struct s_lsettings
 	t_settings			*zoom_in;
 	t_settings			*zoom_out;
 	t_settings			*big_zoom;
+	t_settings			*rot_left;
+	t_settings			*rot_right;
 }						t_lsettings;
 
 typedef struct s_data

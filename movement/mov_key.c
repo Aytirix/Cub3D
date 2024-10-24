@@ -43,6 +43,10 @@ int	key_hook(t_data *data)
 		left(data);
 	else if (data->settings->right->press)
 		right(data);
+	else if (data->settings->rot_left->press && !BONUS)
+		mouse_move_hook(data, WIDTH / 2 - 50);
+	else if (data->settings->rot_right->press && !BONUS)
+		mouse_move_hook(data, WIDTH / 2 + 50);
 	return (0);
 }
 
@@ -89,6 +93,10 @@ int	key_press_2(int key, t_data *data)
 	else if (key == data->settings->zoom_out->key
 		&& data->settings->big_zoom->press - 2 > 0)
 		data->settings->big_zoom->press -= 2;
+	else if (key == data->settings->rot_left->key && !BONUS)
+		data->settings->rot_left->press = 1;
+	else if (key == data->settings->rot_right->key && !BONUS)
+		data->settings->rot_right->press = 1;
 	return (0);
 }
 
@@ -107,5 +115,9 @@ int	key_release(int key, t_data *data)
 	else if (key == data->settings->big_zoom->key
 		&& data->settings->big_zoom->press - 10 > 0)
 		data->settings->big_zoom->press -= 10;
+	else if (key == data->settings->rot_left->key && !BONUS)
+		data->settings->rot_left->press = 0;
+	else if (key == data->settings->rot_right->key && !BONUS)
+		data->settings->rot_right->press = 0;
 	return (0);
 }

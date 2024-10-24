@@ -44,20 +44,14 @@ void	right(t_data *data)
 {
 	calcul_rayon_hv(data, data->player->angle + M_PI / 2,
 		&data->ray->wall_dist_r);
-	if (BONUS)
-		move_player(data, data->player->angle + M_PI / 2,
-			data->ray->wall_dist_r);
-	else
-		mouse_move_hook(data, WIDTH / 2 + 50);
+	move_player(data, data->player->angle + M_PI / 2,
+		data->ray->wall_dist_r);
 }
 
 void	left(t_data *data)
 {
 	calcul_rayon_hv(data, data->player->angle - M_PI / 2,
 		&data->ray->wall_dist_l);
-	if (BONUS)
-		move_player(data, data->player->angle - M_PI / 2,
-			data->ray->wall_dist_l);
-	else
-		mouse_move_hook(data, WIDTH / 2 - 50);
+	move_player(data, data->player->angle - M_PI / 2,
+		data->ray->wall_dist_l);
 }

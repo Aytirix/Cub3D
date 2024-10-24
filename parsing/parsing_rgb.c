@@ -57,6 +57,9 @@ int	search_rgb(int *rgb, int fd, char *direction, int *err)
 			free(line);
 			return (0);
 		}
+		else
+			if (ft_strlen(line + pass) > 0)
+				return (1);
 		free(line);
 		line = get_next_line(fd);
 		pass = 0;

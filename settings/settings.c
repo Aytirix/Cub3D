@@ -25,6 +25,8 @@ t_lsettings	*init_lsettings(void)
 	settings->zoom_in = ft_calloc(1, sizeof(t_settings));
 	settings->zoom_out = ft_calloc(1, sizeof(t_settings));
 	settings->big_zoom = ft_calloc(1, sizeof(t_settings));
+	settings->rot_left = ft_calloc(1, sizeof(t_settings));
+	settings->rot_right = ft_calloc(1, sizeof(t_settings));
 	settings->forward->key = 119;
 	settings->forward->press = 0;
 	settings->forward->next = settings->backward;
@@ -34,14 +36,14 @@ t_lsettings	*init_lsettings(void)
 	settings->left->key = 97;
 	settings->left->press = 0;
 	settings->left->next = settings->right;
-	settings->right->key = 100;
-	settings->right->press = 0;
-	settings->right->next = settings->menu;
 	return (init_lsettings_2(settings));
 }
 
 t_lsettings	*init_lsettings_2(t_lsettings *settings)
 {
+	settings->right->key = 100;
+	settings->right->press = 0;
+	settings->right->next = settings->menu;
 	settings->menu->key = 65470;
 	settings->menu->press = 0;
 	settings->menu->next = settings->zoom_in;
@@ -53,7 +55,13 @@ t_lsettings	*init_lsettings_2(t_lsettings *settings)
 	settings->zoom_out->next = settings->big_zoom;
 	settings->big_zoom->key = 65289;
 	settings->big_zoom->press = 5;
-	settings->big_zoom->next = NULL;
+	settings->big_zoom->next = settings->rot_left;
+	settings->rot_left->key = 65361;
+	settings->rot_left->press = 0;
+	settings->rot_left->next = settings->rot_right;
+	settings->rot_right->key = 65363;
+	settings->rot_right->press = 0;
+	settings->rot_right->next = NULL;
 	return (settings);
 }
 
